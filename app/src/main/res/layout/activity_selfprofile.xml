@@ -57,7 +57,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/selfprofile_edit_course"
+            android:id="@+id/selfprofile_text_course_value"
             android:text="xxxxx course1\nxxxxx course2\nxxxxx course3\nxxxxx course4"
             android:textSize="15dp"
             android:layout_below="@+id/selfprofile_layout_course"
