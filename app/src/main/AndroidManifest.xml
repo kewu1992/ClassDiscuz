@@ -13,15 +13,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name=".ui.LoginActivity"
-            android:label="@string/title_activity_login" >
-        </activity>
         <activity android:name=".ui.SignUpActivity" >
         </activity>
         <activity android:name=".ui.SelfprofileActivity" >
         </activity>
         <activity android:name=".ui.CourseInfoActivity" >
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login" >
         </activity>
     </application>
 
