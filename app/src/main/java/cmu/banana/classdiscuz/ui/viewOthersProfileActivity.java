@@ -20,8 +20,13 @@ public class viewOthersProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_view_others_profile);
 
+        avatarImageView = (ImageView) findViewById(R.id.view_profile_avatar_imageView);
+        nameTextView = (TextView) findViewById(R.id.view_profile_name_textView);
+        univeristyTextView = (TextView) findViewById(R.id.view_profile_university_textView);
+        majorTextView = (TextView) findViewById(R.id.view_profile_major_textView);
+        focusTextView = (TextView) findViewById(R.id.view_profile_focus_textView);
 
     }
 
