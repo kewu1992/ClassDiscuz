@@ -8,8 +8,6 @@ import cmu.banana.classdiscuz.R;
 
 public class SelfprofileActivity extends AppCompatActivity {
 
-    EditText
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
