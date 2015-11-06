@@ -16,7 +16,6 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText lastNameEditText;
     private Button signUpBtn;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +33,6 @@ public class SignUpActivity extends AppCompatActivity {
         String repeatPwd = emailEditText.getText().toString();
         String firstName = emailEditText.getText().toString();
         String lastName = emailEditText.getText().toString();
-        
+
     }
 }

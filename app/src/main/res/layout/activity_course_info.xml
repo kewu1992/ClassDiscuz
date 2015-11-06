@@ -6,7 +6,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Course Info"
+        android:text="courseinfo_title"
         android:id="@+id/textView11"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -109,12 +109,11 @@
                 android:text="Place: "
                 android:id="@+id/textView18" />
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="place"
-                android:id="@+id/textView19" />
+                android:id="@+id/editText" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -133,12 +132,11 @@
                 android:text="Instructor: "
                 android:id="@+id/textView20" />
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="name"
-                android:id="@+id/textView21" />
+                android:id="@+id/editText2" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -157,12 +155,11 @@
                 android:text="Office hour: "
                 android:id="@+id/textView22" />
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="time"
-                android:id="@+id/textView23" />
+                android:id="@+id/editText3" />
+
         </LinearLayout>
     </LinearLayout>
 
