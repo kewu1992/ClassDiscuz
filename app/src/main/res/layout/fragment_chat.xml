@@ -7,8 +7,7 @@ android:layout_width="match_parent" android:layout_height="match_parent">
     <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/homepage_bottom_bar">
+        android:layout_height="match_parent">
 
 
         <RelativeLayout
@@ -106,19 +105,8 @@ android:layout_width="match_parent" android:layout_height="match_parent">
 
             </RelativeLayout>
 
-
-
         </RelativeLayout>
+
     </RelativeLayout>
-
-    <fragment
-        android:id="@+id/homepage_bottom_bar"
-        android:layout_width="fill_parent"
-        android:layout_height="45dp"
-        android:layout_alignParentBottom="true"
-        android:name="cmu.banana.classdiscuz.BottomBarFragment"
-        tools:layout="@layout/fragment_bottom_bar" />
-
-
 
 </RelativeLayout>

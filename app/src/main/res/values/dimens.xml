@@ -5,7 +5,10 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
 
-    <!-- Strings related to chat page values -->
+    <!-- Dimen related to home page values -->
+    <dimen name="bottom_bar_hright">45dp</dimen>
+
+    <!-- Dimen related to chat page values -->
     <dimen name="course_list_width">240dp</dimen>
     <dimen name="member_list_width">240dp</dimen>
     <dimen name="line_width">2dp</dimen>>

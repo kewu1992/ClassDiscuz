@@ -12,7 +12,7 @@
     <fragment
         android:id="@+id/homepage_bottom_bar"
         android:layout_width="fill_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/bottom_bar_hright"
         android:layout_alignParentBottom="true"
         android:name="cmu.banana.classdiscuz.BottomBarFragment"
         tools:layout="@layout/fragment_bottom_bar" />
