@@ -17,6 +17,10 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
+        <activity android:name=".ui.SignUpActivity" >
+        </activity>
+        <activity android:name=".ui.SelfprofileActivity" >
+        </activity>
     </application>
 
 </manifest>
