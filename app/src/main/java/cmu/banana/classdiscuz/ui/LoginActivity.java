@@ -1,4 +1,4 @@
-package cmu.banana.classdiscuz;
+package cmu.banana.classdiscuz.ui;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
