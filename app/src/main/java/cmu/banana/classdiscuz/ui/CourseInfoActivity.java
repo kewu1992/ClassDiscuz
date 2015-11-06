@@ -28,6 +28,5 @@ public class CourseInfoActivity extends AppCompatActivity {
         instructorEditText =(EditText)findViewById(R.id.courseinfo_edit_instructor);
         officehourEditText = (EditText)findViewById(R.id.courseinfo_edit_officehour);
 
-
     }
 }

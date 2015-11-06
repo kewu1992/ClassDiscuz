@@ -3,12 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/homepage_content"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/homepage_bottom_bar"/>
-
     <fragment
         android:id="@+id/homepage_bottom_bar"
         android:layout_width="fill_parent"
@@ -17,4 +11,10 @@
         android:name="cmu.banana.classdiscuz.BottomBarFragment"
         tools:layout="@layout/fragment_bottom_bar" />
 
+    <FrameLayout
+        android:id="@+id/homepage_content"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/homepage_bottom_bar"/>
+    
 </RelativeLayout>
