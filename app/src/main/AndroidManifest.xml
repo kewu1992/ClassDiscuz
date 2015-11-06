@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".ui.SelfprofileActivity" >
         </activity>
+        <activity android:name=".ui.CourseInfoActivity" >
+        </activity>
     </application>
 
 </manifest>
