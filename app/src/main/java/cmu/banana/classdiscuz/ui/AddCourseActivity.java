@@ -1,6 +1,7 @@
 package cmu.banana.classdiscuz.ui;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -23,6 +24,10 @@ public class AddCourseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
 
         searchIDRadioButton = (RadioButton) findViewById(R.id.search_by_course_id_radioButton);
         searchCourseRadioButton = (RadioButton) findViewById(R.id.search_by_course_name_radioButton);
