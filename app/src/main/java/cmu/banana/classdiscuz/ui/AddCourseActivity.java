@@ -39,7 +39,6 @@ public class AddCourseActivity extends AppCompatActivity {
         String departmentID = departmentIDEditText.getText().toString();
         String courseID = courseIDEditText.getText().toString();
         String courseName = courseNameEditText.getText().toString();
-
     }
 
     @Override
