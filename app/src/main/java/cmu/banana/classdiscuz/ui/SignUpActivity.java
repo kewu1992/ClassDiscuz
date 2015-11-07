@@ -1,7 +1,11 @@
 package cmu.banana.classdiscuz.ui;
 
+import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -20,6 +24,8 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         emailEditText = (EditText)findViewById(R.id.signup_email);
         passwordEditText = (EditText)findViewById(R.id.signup_password);
@@ -34,5 +40,25 @@ public class SignUpActivity extends AppCompatActivity {
         String firstName = emailEditText.getText().toString();
         String lastName = emailEditText.getText().toString();
 
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goHomepage = new Intent(SignUpActivity.this, HomePageActivity.class);
+                startActivity(goHomepage);
+            }
+        });
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
