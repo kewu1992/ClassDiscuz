@@ -1,8 +1,10 @@
 package cmu.banana.classdiscuz.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -28,7 +30,6 @@ public class AddCourseActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-
         searchIDRadioButton = (RadioButton) findViewById(R.id.search_by_course_id_radioButton);
         searchCourseRadioButton = (RadioButton) findViewById(R.id.search_by_course_name_radioButton);
         departmentIDEditText = (EditText) findViewById(R.id.department_id_editText);
@@ -38,6 +39,18 @@ public class AddCourseActivity extends AppCompatActivity {
         String departmentID = departmentIDEditText.getText().toString();
         String courseID = courseIDEditText.getText().toString();
         String courseName = courseNameEditText.getText().toString();
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
 
     }
 }
