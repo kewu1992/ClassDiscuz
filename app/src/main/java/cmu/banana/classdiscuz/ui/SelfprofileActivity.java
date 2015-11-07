@@ -47,7 +47,7 @@ public class SelfprofileActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                return true;
+                break;
         }
 
         return super.onOptionsItemSelected(item);

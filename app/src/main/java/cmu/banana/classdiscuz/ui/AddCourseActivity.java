@@ -2,11 +2,13 @@ package cmu.banana.classdiscuz.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -31,6 +33,15 @@ public class AddCourseActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(AddCourseActivity.this, AddCourseListActivity.class);
+                startActivityForResult(myIntent, 0);
+            }
+        });
 
         searchIDRadioButton = (RadioButton) findViewById(R.id.search_by_course_id_radioButton);
         searchCourseRadioButton = (RadioButton) findViewById(R.id.search_by_course_name_radioButton);
@@ -58,9 +69,15 @@ public class AddCourseActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                break;
             case R.id.action_settings:
                 Intent myIntent = new Intent(this, SelfprofileActivity.class);
                 startActivityForResult(myIntent, 0);
+                break;
+            case R.id.action_focus:
+                Intent myIntent2 = new Intent(this, FocusActivity.class);
+                startActivityForResult(myIntent2, 0);
+                break;
         }
 
         return super.onOptionsItemSelected(item);

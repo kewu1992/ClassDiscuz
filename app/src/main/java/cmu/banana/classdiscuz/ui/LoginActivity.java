@@ -303,7 +303,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                return true;
+                break;
         }
 
         return super.onOptionsItemSelected(item);
