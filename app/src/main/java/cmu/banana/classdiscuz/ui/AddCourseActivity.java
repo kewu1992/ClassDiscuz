@@ -34,15 +34,6 @@ public class AddCourseActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(AddCourseActivity.this, AddCourseListActivity.class);
-                startActivityForResult(myIntent, 0);
-            }
-        });
-
         searchIDRadioButton = (RadioButton) findViewById(R.id.search_by_course_id_radioButton);
         searchCourseRadioButton = (RadioButton) findViewById(R.id.search_by_course_name_radioButton);
         departmentIDEditText = (EditText) findViewById(R.id.department_id_editText);

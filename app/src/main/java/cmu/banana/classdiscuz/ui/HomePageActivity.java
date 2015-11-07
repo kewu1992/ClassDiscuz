@@ -3,8 +3,14 @@ package cmu.banana.classdiscuz.ui;
 import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -18,7 +24,7 @@ import cmu.banana.classdiscuz.SchedulePageFragment;
 /**
  * Created by WK on 11/6/15.
  */
-public class HomePageActivity extends AppCompatActivity {
+public class HomePageActivity extends AppCompatActivity implements ChatPageFragment.OnFragmentInteractionListener, SchedulePageFragment.OnFragmentInteractionListener{
     private TextView courseNameTextView;
     private ListView courseListView;
     private ListView memberListView;
@@ -39,6 +45,15 @@ public class HomePageActivity extends AppCompatActivity {
  //       requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_homepage);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(HomePageActivity.this, AddCourseActivity.class);
+                startActivityForResult(myIntent, 0);
+            }
+        });
 
         courseNameTextView = (TextView) findViewById(R.id.chat_course_name_text_view);
         courseListView = (ListView) findViewById(R.id.courseListView);
@@ -89,13 +104,41 @@ public class HomePageActivity extends AppCompatActivity {
                 break;
         }
         // transaction.addToBackStack();
-        // 事务提交
         transaction.commit();
     }
-    public void onNavFragmentInteraction(String string) {
-        // Do stuff
+    public void onFragmentInteraction(Uri uri){
+        //you can leave it empty
     }
 
+    // create the Activity's menu from a menu resource XML file
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    } // end method onCreateOptionsMenu
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.action_settings:
+                Intent myIntent = new Intent(this, SelfprofileActivity.class);
+                startActivityForResult(myIntent, 0);
+                break;
+            case R.id.action_focus:
+                Intent myIntent2 = new Intent(this, FocusActivity.class);
+                startActivityForResult(myIntent2, 0);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+
+    }
 
 
 }
