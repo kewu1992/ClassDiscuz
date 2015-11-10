@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Schedule"
-        android:id="@+id/textView8"
+        android:id="@+id/bottom_switch_schedule"
         android:clickable="true"
         android:layout_marginStart="120dp"
-        android:layout_alignTop="@+id/textView9"
+        android:layout_alignTop="@+id/bottom_switch_chat"
         android:layout_alignParentStart="true"
         android:onClick="onClick"/>
 
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Chat"
-        android:id="@+id/textView9"
+        android:id="@+id/bottom_switch_chat"
         android:clickable="true"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"

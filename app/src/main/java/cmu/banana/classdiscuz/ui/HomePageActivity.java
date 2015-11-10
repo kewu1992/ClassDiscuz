@@ -1,6 +1,5 @@
 package cmu.banana.classdiscuz.ui;
 
-import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -63,7 +61,7 @@ public class HomePageActivity extends AppCompatActivity implements ChatPageFragm
         textEditText = (EditText) findViewById(R.id.chat_edit_text);
 
         scheduleClick = (TextView) findViewById(R.id.textView8);
-        chatClick = (TextView) findViewById(R.id.textView9);
+        chatClick = (TextView) findViewById(R.id.bottom_switch_chat);
 
 //        String text = textEditText.getText().toString();
 
@@ -87,7 +85,7 @@ public class HomePageActivity extends AppCompatActivity implements ChatPageFragm
         switch (v.getId())
         {
             //click the schecule
-            case R.id.textView8:
+            case R.id.bottom_switch_schedule:
                 if (schedule == null)
                 {
                     schedule = new SchedulePageFragment();
@@ -95,7 +93,7 @@ public class HomePageActivity extends AppCompatActivity implements ChatPageFragm
                 //
                 transaction.replace(R.id.homepage_content, schedule);
                 break;
-            case R.id.textView9:
+            case R.id.bottom_switch_chat:
                 if (chat == null)
                 {
                     chat = new ChatPageFragment();
