@@ -33,6 +33,7 @@ public class HomePageActivity extends AppCompatActivity implements ChatPageFragm
     private SchedulePageFragment schedule;
     private ChatPageFragment chat;
 
+    private int userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +86,7 @@ public class HomePageActivity extends AppCompatActivity implements ChatPageFragm
             case R.id.bottom_switch_chat:
                 if (chat == null)
                 {
-                    chat = ChatPageFragment.newInstance("0");
+                    chat = ChatPageFragment.newInstance(0, userID);
                 }
                 transaction.replace(R.id.homepage_content, chat);
                 break;
@@ -127,6 +128,9 @@ public class HomePageActivity extends AppCompatActivity implements ChatPageFragm
 
     }
 
+    public int getUserID(){
+        return userID;
+    }
 
 }
 

@@ -37,8 +37,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="University"
-        android:id="@+id/view_profile_university_textView"
+        android:text="College"
+        android:id="@+id/view_profile_college_textView"
         android:textColor="#000000"
         android:textSize="18dp"
         android:layout_alignTop="@+id/view_profile_university_icon_imageView"

@@ -49,7 +49,7 @@
         <activity android:name=".ui.SignUpActivity" >
         </activity>
 
-        <activity android:name=".ui.viewOthersProfileActivity" >
+        <activity android:name=".ui.ViewOthersProfileActivity" >
         </activity>
 
 

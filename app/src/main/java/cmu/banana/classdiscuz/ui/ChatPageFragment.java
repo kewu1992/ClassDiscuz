@@ -1,6 +1,6 @@
 package cmu.banana.classdiscuz.ui;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -11,18 +11,19 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import cmu.banana.classdiscuz.R;
 import cmu.banana.classdiscuz.model.ChatMember;
 import cmu.banana.classdiscuz.model.ChatMessage;
+import cmu.banana.classdiscuz.model.Course;
+import cmu.banana.classdiscuz.util.BackendConnector;
 
 
 /**
@@ -36,17 +37,22 @@ import cmu.banana.classdiscuz.model.ChatMessage;
 public class ChatPageFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "currentSelectCourse";
+    private static final String ARG_PARAM2 = "userID";
+    public static final String USR_ID = "usr_id"; // Intent extra key
 
-    private int curCourse;
+    private int curCoursePosition;
+    private int userID;
 
     private OnFragmentInteractionListener mListener;
 
     private ListView memberListView;
+    private ListView courseListView;
 
-    public static ChatPageFragment newInstance(String param1) {
+    public static ChatPageFragment newInstance(int param1, int param2) {
         ChatPageFragment fragment = new ChatPageFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putInt(ARG_PARAM1, param1);
+        args.putInt(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -59,8 +65,12 @@ public class ChatPageFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            curCourse = Integer.parseInt(getArguments().getString(ARG_PARAM1));
+            curCoursePosition = getArguments().getInt(ARG_PARAM1);
+            userID = getArguments().getInt(ARG_PARAM2);
         }
+
+        new RefreshCourses().execute(userID);
+        new RefreshChatMembers().execute(userID, ((Course)courseListView.getAdapter().getItem(curCoursePosition)).getCourseID());
     }
 
     @Override
@@ -70,6 +80,10 @@ public class ChatPageFragment extends Fragment {
         View v =  inflater.inflate(R.layout.fragment_chat_page, container, false);
 
         memberListView = (ListView) v.findViewById(R.id.memberListView);
+        memberListView.setOnItemClickListener(memberListListener);
+
+        courseListView = (ListView) v.findViewById(R.id.courseListView);
+        courseListView.setOnItemClickListener(courseListListener);
 
         return v;
     }
@@ -79,10 +93,22 @@ public class ChatPageFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+    private class RefreshCourses extends AsyncTask<Integer, Object, ArrayList<Course>>{
+        @Override
+        protected ArrayList<Course> doInBackground(Integer... arg){
+            return BackendConnector.getCourses(arg[0]);
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Course> courses){
+            courseListView.setAdapter(new ArrayAdapter<Course>(getActivity(), android.R.layout.simple_list_item_1, courses));
+        }
+    }
+
     private class RefreshChatMembers extends AsyncTask<Integer, Object, ArrayList<ChatMember>>{
         @Override
         protected ArrayList<ChatMember> doInBackground(Integer... arg){
-            return ChatMember.getMembers(curCourse);
+            return BackendConnector.getMembersByCourse(arg[0], arg[1]);
         }
 
         @Override
@@ -106,7 +132,7 @@ public class ChatPageFragment extends Fragment {
 
             ChatMember chatMember = getItem(position);
 
-            byte[] imageBytes = null;//Base64.decode(song.getImageBytes(), Base64.DEFAULT);
+            byte[] imageBytes = Base64.decode(chatMember.getAvatar(), Base64.DEFAULT);
             Bitmap pic = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
             ((ImageView)convertView.findViewById(R.id.member_list_avatar)).setImageBitmap(pic);
 
@@ -133,5 +159,28 @@ public class ChatPageFragment extends Fragment {
             return convertView;
         }
     }
+
+    AdapterView.OnItemClickListener courseListListener = new AdapterView.OnItemClickListener()
+    {
+        @Override
+        public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id)
+        {
+            curCoursePosition = position;
+            new RefreshChatMembers().execute(userID, ((Course)courseListView.getAdapter().getItem(curCoursePosition)).getCourseID());
+        }
+
+    };
+
+    AdapterView.OnItemClickListener memberListListener = new AdapterView.OnItemClickListener()
+    {
+        @Override
+        public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id)
+        {
+            Intent viewContact = new Intent(getActivity(), ViewOthersProfileActivity.class);
+            viewContact.putExtra(USR_ID, ((ChatMember)memberListView.getAdapter().getItem(position)).getUserID());
+            startActivity(viewContact); // start the ViewContact Activity
+        }
+
+    };
 
 }
