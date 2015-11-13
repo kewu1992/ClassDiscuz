@@ -66,6 +66,7 @@
             android:layout_below="@+id/search_by_course_name_radioButton"
             android:layout_toEndOf="@+id/course_name_textView"
             android:layout_marginLeft="10dp" />
+
     </RelativeLayout>
 
     <RelativeLayout
