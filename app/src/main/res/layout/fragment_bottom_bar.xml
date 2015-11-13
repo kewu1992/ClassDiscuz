@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="45dp"
     android:background="@drawable/tab_color"
-    tools:context="cmu.banana.classdiscuz.BottomBarFragment">
+    tools:context="cmu.banana.classdiscuz.ui.BottomBarFragment">
 
 
     <TextView

@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="@dimen/bottom_bar_hright"
         android:layout_alignParentBottom="true"
-        android:name="cmu.banana.classdiscuz.BottomBarFragment"
+        android:name="cmu.banana.classdiscuz.ui.BottomBarFragment"
         tools:layout="@layout/fragment_bottom_bar" />
 
     <FrameLayout
@@ -18,16 +18,6 @@
         android:layout_height="match_parent"
         android:layout_above="@id/homepage_bottom_bar">
 
-        <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:src="@android:drawable/ic_input_add"
-            android:tint="#ffffff"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            app:backgroundTint="#72cfeb"
-            android:layout_marginRight="@dimen/fab_margin"
-            android:layout_marginBottom="@dimen/fab_margin" />
     </FrameLayout>
 
 

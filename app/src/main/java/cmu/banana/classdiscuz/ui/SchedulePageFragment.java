@@ -1,12 +1,16 @@
-package cmu.banana.classdiscuz;
+package cmu.banana.classdiscuz.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import cmu.banana.classdiscuz.R;
 
 
 /**
@@ -64,7 +68,18 @@ public class SchedulePageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_schedule_page, container, false);
+        View v =  inflater.inflate(R.layout.fragment_schedule_page, container, false);
+
+        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getActivity(), AddCourseActivity.class);
+                startActivityForResult(myIntent, 0);
+            }
+        });
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

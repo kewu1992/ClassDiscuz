@@ -15,9 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import cmu.banana.classdiscuz.ChatPageFragment;
 import cmu.banana.classdiscuz.R;
-import cmu.banana.classdiscuz.SchedulePageFragment;
 
 /**
  * Created by WK on 11/6/15.
@@ -44,15 +42,6 @@ public class HomePageActivity extends AppCompatActivity implements ChatPageFragm
 
         setContentView(R.layout.activity_homepage);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(HomePageActivity.this, AddCourseActivity.class);
-                startActivityForResult(myIntent, 0);
-            }
-        });
-
         courseNameTextView = (TextView) findViewById(R.id.chat_course_name_text_view);
         courseListView = (ListView) findViewById(R.id.courseListView);
         memberListView = (ListView) findViewById(R.id.memberListView);
@@ -60,7 +49,7 @@ public class HomePageActivity extends AppCompatActivity implements ChatPageFragm
         chatHistoryListView = (ListView) findViewById(R.id.chat_list_view);
         textEditText = (EditText) findViewById(R.id.chat_edit_text);
 
-        scheduleClick = (TextView) findViewById(R.id.textView8);
+        scheduleClick = (TextView) findViewById(R.id.bottom_switch_schedule);
         chatClick = (TextView) findViewById(R.id.bottom_switch_chat);
 
 //        String text = textEditText.getText().toString();
@@ -96,7 +85,7 @@ public class HomePageActivity extends AppCompatActivity implements ChatPageFragm
             case R.id.bottom_switch_chat:
                 if (chat == null)
                 {
-                    chat = new ChatPageFragment();
+                    chat = ChatPageFragment.newInstance("0");
                 }
                 transaction.replace(R.id.homepage_content, chat);
                 break;
