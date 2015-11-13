@@ -19,9 +19,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import cmu.banana.classdiscuz.R;
-import cmu.banana.classdiscuz.model.ChatMember;
-import cmu.banana.classdiscuz.model.Course;
-import cmu.banana.classdiscuz.util.BackendConnector;
+import cmu.banana.classdiscuz.entities.User;
+import cmu.banana.classdiscuz.entities.Course;
+import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 import cmu.banana.classdiscuz.util.FocusTranslate;
 
 /**
@@ -90,14 +90,14 @@ public class ViewOthersProfileActivity extends AppCompatActivity {
 
     }
 
-    private class GetUserInfo extends AsyncTask<Integer, Object, ChatMember> {
+    private class GetUserInfo extends AsyncTask<Integer, Object, User> {
         @Override
-        protected ChatMember doInBackground(Integer... arg){
+        protected User doInBackground(Integer... arg){
             return BackendConnector.getMemberByID(arg[0]);
         }
 
         @Override
-        protected void onPostExecute(ChatMember user){
+        protected void onPostExecute(User user){
             nameTextView.setText(user.getName());
             collegeTextView.setText(user.getCollege());
             majorTextView.setText(user.getMajor());

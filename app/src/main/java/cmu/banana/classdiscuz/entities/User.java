@@ -1,6 +1,6 @@
-package cmu.banana.classdiscuz.model;
+package cmu.banana.classdiscuz.entities;
 
-public class ChatMember {
+public class User {
     private int id;
     private String email;
     private String password;

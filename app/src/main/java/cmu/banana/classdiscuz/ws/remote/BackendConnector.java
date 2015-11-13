@@ -1,4 +1,4 @@
-package cmu.banana.classdiscuz.util;
+package cmu.banana.classdiscuz.ws.remote;
 
 import android.util.Log;
 
@@ -11,10 +11,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
@@ -23,15 +21,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cmu.banana.classdiscuz.model.ChatMember;
-import cmu.banana.classdiscuz.model.Course;
+import cmu.banana.classdiscuz.entities.User;
+import cmu.banana.classdiscuz.entities.Course;
 
 public class BackendConnector {
 
     private static final String BACKEND = "http://localhost:8080/ClassDiscuzBackend";
 
-    public static ArrayList<ChatMember> getMembersByCourse(int courseId){
-        ChatMember[] response = null;
+    public static ArrayList<User> getMembersByCourse(int courseId){
+        User[] response = null;
         try {
             HttpClient client = HttpClients.createDefault();
             String postURL = BACKEND+"/usersincourse";
@@ -46,7 +44,7 @@ public class BackendConnector {
             if (resEntity != null) {
                 String json = EntityUtils.toString(resEntity);
                 Gson gson = new Gson();
-                response = gson.fromJson(json,ChatMember[].class);
+                response = gson.fromJson(json,User[].class);
                 Log.d("Info","*******"+json);
             }
 
@@ -58,7 +56,7 @@ public class BackendConnector {
             e.printStackTrace();
         }
 
-        ArrayList<ChatMember> result = (ArrayList)Arrays.asList(response);
+        ArrayList<User> result = (ArrayList)Arrays.asList(response);
         return result;
     }
 
@@ -93,8 +91,8 @@ public class BackendConnector {
         return result;
     }
 
-    public static ChatMember getMemberByID(int userID){
-        ChatMember response = null;
+    public static User getMemberByID(int userID){
+        User response = null;
         try {
             HttpClient client = HttpClients.createDefault();
             String postURL = BACKEND+"/id";
@@ -109,7 +107,7 @@ public class BackendConnector {
             if (resEntity != null) {
                 String json = EntityUtils.toString(resEntity);
                 Gson gson = new Gson();
-                response = gson.fromJson(json,ChatMember.class);
+                response = gson.fromJson(json,User.class);
                 Log.d("Info","*******"+json);
             }
         } catch (UnsupportedEncodingException e) {
@@ -173,8 +171,8 @@ public class BackendConnector {
         }
     }
 
-    public static ChatMember signUp(String email,String password, String name) {
-        ChatMember response = null;
+    public static User signUp(String email,String password, String name) {
+        User response = null;
         try {
             HttpClient client = HttpClients.createDefault();
             String postURL = BACKEND+"/signup";
@@ -191,7 +189,7 @@ public class BackendConnector {
             if (resEntity != null) {
                 String json = EntityUtils.toString(resEntity);
                 Gson gson = new Gson();
-                response = gson.fromJson(json,ChatMember.class);
+                response = gson.fromJson(json,User.class);
                 Log.d("Info","*******"+json);
             }
         } catch (UnsupportedEncodingException e) {
@@ -204,8 +202,8 @@ public class BackendConnector {
         return response;
     }
 
-    public static ChatMember logIn(String email, String password) {
-        ChatMember response = null;
+    public static User logIn(String email, String password) {
+        User response = null;
         try {
             HttpClient client = HttpClients.createDefault();
             String postURL = BACKEND+"/login";
@@ -221,7 +219,7 @@ public class BackendConnector {
             if (resEntity != null) {
                 String json = EntityUtils.toString(resEntity);
                 Gson gson = new Gson();
-                response = gson.fromJson(json,ChatMember.class);
+                response = gson.fromJson(json,User.class);
                 Log.d("Info","*******"+json);
             }
         } catch (UnsupportedEncodingException e) {

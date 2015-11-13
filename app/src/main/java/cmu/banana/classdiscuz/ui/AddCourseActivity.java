@@ -3,7 +3,6 @@ package cmu.banana.classdiscuz.ui;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -13,18 +12,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import cmu.banana.classdiscuz.R;
-import cmu.banana.classdiscuz.model.Course;
-import cmu.banana.classdiscuz.util.BackendConnector;
+import cmu.banana.classdiscuz.entities.Course;
 
 /**
  * Created by WK on 11/6/15.

@@ -1,4 +1,4 @@
-package cmu.banana.classdiscuz.model;
+package cmu.banana.classdiscuz.entities;
 
 public class Course {
     private int id;

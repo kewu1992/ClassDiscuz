@@ -20,10 +20,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import cmu.banana.classdiscuz.R;
-import cmu.banana.classdiscuz.model.ChatMember;
-import cmu.banana.classdiscuz.model.ChatMessage;
-import cmu.banana.classdiscuz.model.Course;
-import cmu.banana.classdiscuz.util.BackendConnector;
+import cmu.banana.classdiscuz.entities.User;
+import cmu.banana.classdiscuz.entities.ChatMessage;
+import cmu.banana.classdiscuz.entities.Course;
+import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
 
 /**
@@ -105,21 +105,21 @@ public class ChatPageFragment extends Fragment {
         }
     }
 
-    private class RefreshChatMembers extends AsyncTask<Integer, Object, ArrayList<ChatMember>>{
+    private class RefreshChatMembers extends AsyncTask<Integer, Object, ArrayList<User>>{
         @Override
-        protected ArrayList<ChatMember> doInBackground(Integer... arg){
+        protected ArrayList<User> doInBackground(Integer... arg){
             return BackendConnector.getMembersByCourse(arg[0], arg[1]);
         }
 
         @Override
-        protected void onPostExecute(ArrayList<ChatMember> members){
+        protected void onPostExecute(ArrayList<User> members){
             ChatMemberAdapter chatMemberAdapter = new ChatMemberAdapter(members);
             memberListView.setAdapter(chatMemberAdapter);
         }
     }
 
-    private class ChatMemberAdapter extends ArrayAdapter<ChatMember> {
-        public ChatMemberAdapter(ArrayList<ChatMember> members){
+    private class ChatMemberAdapter extends ArrayAdapter<User> {
+        public ChatMemberAdapter(ArrayList<User> members){
             super(getActivity(), android.R.layout.simple_list_item_1, members);
         }
 
@@ -130,7 +130,7 @@ public class ChatPageFragment extends Fragment {
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_chat_member, null);
             }
 
-            ChatMember chatMember = getItem(position);
+            User chatMember = getItem(position);
 
             byte[] imageBytes = Base64.decode(chatMember.getAvatar(), Base64.DEFAULT);
             Bitmap pic = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
@@ -177,7 +177,7 @@ public class ChatPageFragment extends Fragment {
         public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id)
         {
             Intent viewContact = new Intent(getActivity(), ViewOthersProfileActivity.class);
-            viewContact.putExtra(USR_ID, ((ChatMember)memberListView.getAdapter().getItem(position)).getUserID());
+            viewContact.putExtra(USR_ID, ((User)memberListView.getAdapter().getItem(position)).getUserID());
             startActivity(viewContact); // start the ViewContact Activity
         }
 

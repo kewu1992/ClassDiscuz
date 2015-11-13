@@ -1,4 +1,4 @@
-package cmu.banana.classdiscuz.model;
+package cmu.banana.classdiscuz.entities;
 
 /**
  * Created by WK on 11/13/15.
