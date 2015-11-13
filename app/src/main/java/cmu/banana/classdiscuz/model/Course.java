@@ -1,61 +1,39 @@
 package cmu.banana.classdiscuz.model;
 
-import java.util.ArrayList;
-
-/**
- * Created by WK on 11/13/15.
- */
 public class Course {
-    private int courseID;
-    private String courseNum;
-    private String courseName;
-    private String courseInstructor;
+    private int id;
+    private String num;
+    private String instructor;
+    private String name;
     private String time;
 
-    public Course(int courseID, String courseNum, String courseName, String courseInstructor, String time) {
-        this.courseID = courseID;
-        this.courseNum = courseNum;
-        this.courseName = courseName;
-        this.courseInstructor = courseInstructor;
-        this.time = time;
+    public int getId() {
+        return id;
     }
-
-    public int getCourseID() {
-        return courseID;
+    public void setId(int id) {
+        this.id = id;
     }
-
-    public void setCourseID(int courseID) {
-        this.courseID = courseID;
+    public String getNum() {
+        return num;
     }
-
-    public String getCourseNum() {
-        return courseNum;
+    public void setNum(String num) {
+        this.num = num;
     }
-
-    public void setCourseNum(String courseNum) {
-        this.courseNum = courseNum;
+    public String getInstructor() {
+        return instructor;
     }
-
-    public String getCourseName() {
-        return courseName;
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
     }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public String getName() {
+        return name;
     }
-
-    public String getCourseInstructor() {
-        return courseInstructor;
+    public void setName(String name) {
+        this.name = name;
     }
-
-    public void setCourseInstructor(String courseInstructor) {
-        this.courseInstructor = courseInstructor;
-    }
-
     public String getTime() {
         return time;
     }
-
     public void setTime(String time) {
         this.time = time;
     }
