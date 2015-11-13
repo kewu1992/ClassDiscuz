@@ -22,7 +22,6 @@ import cmu.banana.classdiscuz.R;
 public class AddCourseActivity extends AppCompatActivity {
     private RadioButton searchIDRadioButton;
     private RadioButton searchCourseRadioButton;
-    private EditText departmentIDEditText;
     private EditText courseIDEditText;
     private EditText courseNameEditText;
 
@@ -36,11 +35,9 @@ public class AddCourseActivity extends AppCompatActivity {
 
         searchIDRadioButton = (RadioButton) findViewById(R.id.search_by_course_id_radioButton);
         searchCourseRadioButton = (RadioButton) findViewById(R.id.search_by_course_name_radioButton);
-        departmentIDEditText = (EditText) findViewById(R.id.department_id_editText);
         courseIDEditText = (EditText) findViewById(R.id.course_id_editText);
         courseNameEditText = (EditText) findViewById(R.id.course_name_editText);
 
-        String departmentID = departmentIDEditText.getText().toString();
         String courseID = courseIDEditText.getText().toString();
         String courseName = courseNameEditText.getText().toString();
     }

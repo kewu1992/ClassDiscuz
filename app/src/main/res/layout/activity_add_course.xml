@@ -22,41 +22,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Department ID:"
-            android:id="@+id/department_id_textView"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="100dp" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:ems="10"
-            android:id="@+id/department_id_editText"
-            android:layout_below="@+id/search_by_course_id_radioButton"
-            android:layout_toEndOf="@+id/department_id_textView"
-            android:layout_marginLeft="10dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Course ID:"
             android:id="@+id/course_id_textView"
             android:layout_marginLeft="100dp"
             android:layout_alignBottom="@+id/course_id_editText"
-            android:layout_alignEnd="@+id/department_id_textView"
             android:layout_marginBottom="5dp" />
 
-        <EditText
+        <AutoCompleteTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/course_id_editText"
             android:layout_marginLeft="10dp"
-            android:layout_below="@+id/department_id_editText"
-            android:layout_toEndOf="@+id/department_id_textView"
-            android:layout_marginTop="5dp" />
+            android:layout_below="@+id/search_by_course_id_radioButton"
+            android:layout_toEndOf="@+id/course_name_textView" />
 
         <RadioButton
             android:layout_width="match_parent"
@@ -77,7 +57,7 @@
             android:layout_marginLeft="100dp"
             android:layout_marginTop="250dp" />
 
-        <EditText
+        <AutoCompleteTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -88,10 +68,69 @@
             android:layout_marginLeft="10dp" />
     </RelativeLayout>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-    </FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Couese ID:"
+            android:id="@+id/add_course_course_id_label_text_view"
+            android:layout_gravity="left|top"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="45dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_course_course_id_text_view"
+            android:layout_below="@+id/add_course_course_id_label_text_view"
+            android:layout_toEndOf="@+id/add_course_course_id_label_text_view" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Course Name: "
+            android:id="@+id/add_course_course_name_label_text_view"
+            android:layout_below="@+id/add_course_course_id_text_view"
+            android:layout_alignStart="@+id/add_course_course_id_label_text_view"
+            android:layout_marginTop="50dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_course_course_name_text_view"
+            android:layout_below="@+id/add_course_course_name_label_text_view"
+            android:layout_toEndOf="@+id/add_course_course_name_label_text_view" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Course Instructor:"
+            android:id="@+id/add_course_instructor_label_text_view"
+            android:layout_below="@+id/add_course_course_name_text_view"
+            android:layout_alignStart="@+id/add_course_course_name_label_text_view"
+            android:layout_marginTop="50dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_course_instructor_text_view"
+            android:layout_below="@+id/add_course_instructor_label_text_view"
+            android:layout_toEndOf="@+id/add_course_instructor_label_text_view" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:src="@android:drawable/ic_input_add"
+            android:backgroundTint="#00ffffff" />
+
+    </RelativeLayout>
 </LinearLayout>

@@ -51,7 +51,7 @@ public class ViewOthersProfileActivity extends AppCompatActivity {
 
         avatarImageView = (ImageView) findViewById(R.id.view_profile_avatar_imageView);
         nameTextView = (TextView) findViewById(R.id.view_profile_name_textView);
-        collegeTextView = (TextView) findViewById(R.id.view_profile_university_textView);
+        collegeTextView = (TextView) findViewById(R.id.view_profile_college_textView);
         majorTextView = (TextView) findViewById(R.id.view_profile_major_textView);
         focusTextView = (TextView) findViewById(R.id.view_profile_focus_textView);
         courseListView = (ListView) findViewById(R.id.view_profile_register_course_listView);
