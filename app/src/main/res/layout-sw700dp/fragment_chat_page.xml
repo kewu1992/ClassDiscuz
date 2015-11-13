@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/chat_title"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+
+            <View
+                android:id="@+id/chat_title_left_line"
+                android:layout_width="@dimen/course_list_width"
+                android:layout_height="match_parent"
+                android:background="#FF909090"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Course Name"
+                android:id="@+id/chat_course_name_text_view"
+                android:textColor="#000000"
+                android:layout_toStartOf="@+id/chat_title_right_line"
+                android:layout_toEndOf="@+id/chat_title_left_line" />
+
+            <View
+                android:id="@+id/chat_title_right_line"
+                android:layout_width="@dimen/member_list_width"
+                android:layout_height="match_parent"
+                android:background="#FF909090"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/chat_title_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_width"
+            android:background="#FF909090"
+            android:layout_below="@id/chat_title"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/chat_title_line">
+
+            <ListView
+                android:layout_width="@dimen/course_list_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/courseListView" />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/chat_height"
+                android:id="@+id/chat_list_view"
+                android:layout_toStartOf="@+id/chat_member_list"
+                android:layout_toEndOf="@+id/courseListView"/>
+
+            <View
+                android:id="@+id/chat_text_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_width"
+                android:background="#FF909090"
+                android:layout_below="@id/chat_list_view"
+                android:layout_toStartOf="@+id/chat_member_list"
+                android:layout_toEndOf="@+id/courseListView"/>
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/chat_edit_text"
+                android:layout_below="@id/chat_list_view"
+                android:layout_toStartOf="@+id/chat_member_list"
+                android:layout_toEndOf="@+id/courseListView"/>
+
+            <RelativeLayout
+                android:id="@+id/chat_member_list"
+                android:layout_width="@dimen/member_list_width"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/members_text_view_height"
+                    android:text="Members N"
+                    android:id="@+id/memberNumTextView"
+                    android:textColor="#000000" />
+
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/memberListView"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/memberNumTextView"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

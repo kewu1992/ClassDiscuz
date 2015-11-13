@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <fragment
+        android:id="@+id/homepage_bottom_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/bottom_bar_hright"
+        android:layout_alignParentBottom="true"
+        android:name="cmu.banana.classdiscuz.ui.BottomBarFragment"
+        tools:layout="@layout/fragment_bottom_bar" />
+
+    <FrameLayout
+        android:id="@+id/homepage_content"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/homepage_bottom_bar">
+
+    </FrameLayout>
+
+
+</RelativeLayout>
