@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/view_profile_avatar_imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/default_avatar"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:id="@+id/view_profile_name_textView"
+        android:layout_alignTop="@+id/view_profile_avatar_imageView"
+        android:layout_toEndOf="@+id/view_profile_avatar_imageView"
+        android:layout_marginStart="40dp"
+        android:textColor="#000000"
+        android:textSize="18dp"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/view_profile_university_icon_imageView"
+        android:src="@drawable/default_avatar"
+        android:layout_marginLeft="0dp"
+        android:layout_below="@+id/view_profile_avatar_imageView"
+        android:layout_alignStart="@+id/view_profile_name_textView"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="College"
+        android:id="@+id/view_profile_college_textView"
+        android:textColor="#000000"
+        android:textSize="18dp"
+        android:layout_alignTop="@+id/view_profile_university_icon_imageView"
+        android:layout_toEndOf="@+id/view_profile_university_icon_imageView"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/view_profile_major_icon_imageView"
+        android:src="@drawable/default_avatar"
+        android:layout_marginLeft="0dp"
+        android:layout_below="@+id/view_profile_university_icon_imageView"
+        android:layout_alignStart="@+id/view_profile_university_icon_imageView"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Major"
+        android:id="@+id/view_profile_major_textView"
+        android:textColor="#000000"
+        android:textSize="18dp"
+        android:layout_marginLeft="20dp"
+        android:layout_alignTop="@+id/view_profile_major_icon_imageView"
+        android:layout_toEndOf="@+id/view_profile_major_icon_imageView"
+        android:layout_marginTop="15dp" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/view_profile_focus_icon_imageView"
+        android:src="@drawable/default_avatar"
+        android:layout_marginLeft="0dp"
+        android:layout_below="@+id/view_profile_major_icon_imageView"
+        android:layout_alignStart="@+id/view_profile_major_icon_imageView"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Focus Level"
+        android:id="@+id/view_profile_focus_textView"
+        android:textColor="#000000"
+        android:textSize="18dp"
+        android:layout_marginLeft="20dp"
+        android:layout_alignTop="@+id/view_profile_focus_icon_imageView"
+        android:layout_toEndOf="@+id/view_profile_focus_icon_imageView"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registered Course:"
+        android:id="@+id/view_profile_registered_course_textView"
+        android:textColor="#000000"
+        android:textSize="18dp"
+        android:layout_marginLeft="20dp"
+        android:layout_alignTop="@+id/view_profile_name_textView"
+        android:layout_toEndOf="@+id/view_profile_focus_textView"
+        android:layout_marginStart="245dp" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/view_profile_register_course_listView"
+        android:layout_alignTop="@+id/view_profile_avatar_imageView"
+        android:layout_toEndOf="@+id/view_profile_registered_course_textView"
+        android:choiceMode="none" />
+</RelativeLayout>
