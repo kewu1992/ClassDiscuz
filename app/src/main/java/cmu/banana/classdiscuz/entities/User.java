@@ -12,6 +12,17 @@ public class User {
     private String major;
     private int focus;
 
+    public User(int id, String email, String password, String name, byte[] avatar, String college, String major, int focus) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.avatar = avatar;
+        this.college = college;
+        this.major = major;
+        this.focus = focus;
+    }
+
     public int getId() {
         return id;
     }

@@ -9,6 +9,14 @@ public class Course {
     private String name;
     private String time;
 
+    public Course(int id, String num, String instructor, String name, String time) {
+        this.id = id;
+        this.num = num;
+        this.instructor = instructor;
+        this.name = name;
+        this.time = time;
+    }
+
     public int getId() {
         return id;
     }
@@ -43,4 +51,5 @@ public class Course {
     public void checkValid() throws InputInvalidException {
 
     }
+
 }
