@@ -14,9 +14,9 @@ public class NameOrPasswordInvalidException extends  Exception implements Prompt
         // create a new AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         // set dialog title & message, and provide Button to dismiss
-        builder.setTitle(R.string.errorTitle);
-        builder.setMessage(R.string.errorMessage);
-        builder.setPositiveButton(R.string.errorButton, null);
+        builder.setTitle(R.string.login_fail_title);
+        builder.setMessage(R.string.login_fail_msg);
+        builder.setPositiveButton(R.string.login_fail_button, null);
         builder.show(); // display the Dialog
     }
 }

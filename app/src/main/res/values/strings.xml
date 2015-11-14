@@ -15,6 +15,27 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+
+    <string name="invalid_input_title">Invalid input error</string>
+    <string name="invalid_input_msg">Your have invalid inputs</string>
+    <string name="invalid_input_button">Ok</string>
+
+    <string name="input_null_title">Empty input error</string>
+    <string name="input_null_msg">Your have empty inputs</string>
+    <string name="input_null_button">Ok</string>
+
+    <string name="input_long_title">Invalid input</string>
+    <string name="input_long_msg">Your input is too long</string>
+    <string name="input_long_button">Ok</string>
+
+    <string name="input_short_title">Invalid input</string>
+    <string name="input_short_msg">Your input is too short</string>
+    <string name="input_short_button">Ok</string>
+
+    <string name="login_fail_title">Log in failed</string>
+    <string name="login_fail_msg">Please check your email and password</string>
+    <string name="login_fail_button">Ok</string>
+
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>

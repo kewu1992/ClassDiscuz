@@ -14,9 +14,9 @@ public class InputInvalidException extends Exception implements PromptDialog{
         // create a new AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         // set dialog title & message, and provide Button to dismiss
-        builder.setTitle(R.string.errorTitle);
-        builder.setMessage(R.string.errorMessage);
-        builder.setPositiveButton(R.string.errorButton, null);
+        builder.setTitle(R.string.invalid_input_title);
+        builder.setMessage(R.string.invalid_input_msg);
+        builder.setPositiveButton(R.string.invalid_input_button, null);
         builder.show(); // display the Dialog
     }
 }

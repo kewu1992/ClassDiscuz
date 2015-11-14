@@ -14,9 +14,9 @@ public class InputTooLongException extends Exception implements PromptDialog {
         // create a new AlertDialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         // set dialog title & message, and provide Button to dismiss
-        builder.setTitle(R.string.errorTitle);
-        builder.setMessage(R.string.errorMessage);
-        builder.setPositiveButton(R.string.errorButton, null);
+        builder.setTitle(R.string.input_long_title);
+        builder.setMessage(R.string.input_long_msg);
+        builder.setPositiveButton(R.string.input_long_button, null);
         builder.show(); // display the Dialog
     }
 }
