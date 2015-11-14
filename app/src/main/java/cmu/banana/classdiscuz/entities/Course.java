@@ -1,5 +1,7 @@
 package cmu.banana.classdiscuz.entities;
 
+import cmu.banana.classdiscuz.exception.InputInvalidException;
+
 public class Course {
     private int id;
     private String num;
@@ -36,5 +38,9 @@ public class Course {
     }
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public void checkValid() throws InputInvalidException {
+
     }
 }

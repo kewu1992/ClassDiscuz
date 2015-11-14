@@ -69,8 +69,8 @@ public class ChatPageFragment extends Fragment {
             userID = getArguments().getInt(ARG_PARAM2);
         }
 
-        new RefreshCourses().execute(userID);
-        new RefreshChatMembers().execute(userID, ((Course)courseListView.getAdapter().getItem(curCoursePosition)).getCourseID());
+        //new RefreshCourses().execute(userID);
+        //new RefreshChatMembers().execute(((Course)courseListView.getAdapter().getItem(curCoursePosition)).getId());
     }
 
     @Override
@@ -108,7 +108,7 @@ public class ChatPageFragment extends Fragment {
     private class RefreshChatMembers extends AsyncTask<Integer, Object, ArrayList<User>>{
         @Override
         protected ArrayList<User> doInBackground(Integer... arg){
-            return BackendConnector.getMembersByCourse(arg[0], arg[1]);
+            return BackendConnector.getMembersByCourse(arg[0]);
         }
 
         @Override
@@ -166,7 +166,7 @@ public class ChatPageFragment extends Fragment {
         public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id)
         {
             curCoursePosition = position;
-            new RefreshChatMembers().execute(userID, ((Course)courseListView.getAdapter().getItem(curCoursePosition)).getCourseID());
+            new RefreshChatMembers().execute(userID, ((Course)courseListView.getAdapter().getItem(curCoursePosition)).getId());
         }
 
     };
@@ -177,7 +177,7 @@ public class ChatPageFragment extends Fragment {
         public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id)
         {
             Intent viewContact = new Intent(getActivity(), ViewOthersProfileActivity.class);
-            viewContact.putExtra(USR_ID, ((User)memberListView.getAdapter().getItem(position)).getUserID());
+            viewContact.putExtra(USR_ID, ((User)memberListView.getAdapter().getItem(position)).getId());
             startActivity(viewContact); // start the ViewContact Activity
         }
 

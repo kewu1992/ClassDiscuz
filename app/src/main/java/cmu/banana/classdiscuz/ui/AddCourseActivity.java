@@ -92,7 +92,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
         addCourseButton.setOnClickListener(addCourseButtonListener);
 
-        new GetCourses().execute((Object)null);
+        //new GetCourses().execute((Object)null);
     }
 
     // create the Activity's menu from a menu resource XML file
@@ -130,15 +130,15 @@ public class AddCourseActivity extends AppCompatActivity {
             int courseID;
             if (searchIDRadioButton.isChecked()){
                 for (Course course : courses){
-                    if (course.getCourseNum().equals(courseIDEditText.getText().toString())){
-                        courseID = course.getCourseID();
+                    if (course.getNum().equals(courseIDEditText.getText().toString())){
+                        courseID = course.getId();
                         break;
                     }
                 }
             } else {
                 for (Course course : courses){
-                    if (course.getCourseName().equals(courseNameEditText.getText().toString())){
-                        courseID = course.getCourseID();
+                    if (course.getName().equals(courseNameEditText.getText().toString())){
+                        courseID = course.getId();
                         break;
                     }
                 }
@@ -151,10 +151,10 @@ public class AddCourseActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View arg1, int pos, long id) {
             for (Course course : courses){
-                if (course.getCourseNum().equals(courseIDEditText.getText().toString())){
-                    courseNameTextView.setText(course.getCourseName());
-                    courseIDTextView.setText(course.getCourseNum());
-                    courseInstructorTextView.setText(course.getCourseInstructor());
+                if (course.getNum().equals(courseIDEditText.getText().toString())){
+                    courseNameTextView.setText(course.getName());
+                    courseIDTextView.setText(course.getNum());
+                    courseInstructorTextView.setText(course.getInstructor());
                     break;
                 }
             }
@@ -165,10 +165,10 @@ public class AddCourseActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View arg1, int pos, long id) {
             for (Course course : courses){
-                if (course.getCourseName().equals(courseNameEditText.getText().toString())){
-                    courseNameTextView.setText(course.getCourseName());
-                    courseIDTextView.setText(course.getCourseNum());
-                    courseInstructorTextView.setText(course.getCourseInstructor());
+                if (course.getName().equals(courseNameEditText.getText().toString())){
+                    courseNameTextView.setText(course.getName());
+                    courseIDTextView.setText(course.getNum());
+                    courseInstructorTextView.setText(course.getInstructor());
                     break;
                 }
             }
@@ -179,6 +179,7 @@ public class AddCourseActivity extends AppCompatActivity {
         @Override
         protected ArrayList<Course> doInBackground(Object... arg){
             // TODO: get all courses
+            return null;
         }
 
         @Override
@@ -187,8 +188,8 @@ public class AddCourseActivity extends AppCompatActivity {
             String IDs[] = new String[courses.size()];
             String names[] = new String[courses.size()];
             for (int i = 0; i < courses.size(); i++){
-                names[i] = courses.get(i).getCourseName();
-                IDs[i] = courses.get(i).getCourseNum();
+                names[i] = courses.get(i).getName();
+                IDs[i] = courses.get(i).getNum();
             }
 
             ArrayAdapter<String> idAdapter = new ArrayAdapter<String>(AddCourseActivity.this, android.R.layout.simple_dropdown_item_1line, IDs);

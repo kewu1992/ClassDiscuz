@@ -1,5 +1,7 @@
 package cmu.banana.classdiscuz.entities;
 
+import cmu.banana.classdiscuz.exception.InputInvalidException;
+
 public class User {
     private int id;
     private String email;
@@ -57,6 +59,10 @@ public class User {
     }
     public void setFocus(int focus) {
         this.focus = focus;
+    }
+
+    public void checkValid() throws InputInvalidException {
+
     }
 
 }
