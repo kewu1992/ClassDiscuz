@@ -20,9 +20,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import cmu.banana.classdiscuz.R;
+import cmu.banana.classdiscuz.entities.Session;
 import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.entities.ChatMessage;
 import cmu.banana.classdiscuz.entities.Course;
+import cmu.banana.classdiscuz.exception.DatabaseException;
 
 
 /**
@@ -95,25 +97,47 @@ public class ChatPageFragment extends Fragment {
     private class RefreshCourses extends AsyncTask<Object, Object, ArrayList<Course>>{
         @Override
         protected ArrayList<Course> doInBackground(Object... arg){
-            return BackendConnector.getCourses(arg[0]);
+            try{
+                return Session.get(getActivity()).getUser().getRegisteredCourses();
+            } catch (DatabaseException e){
+                cancel(true);
+            }
+            return null;
         }
 
         @Override
         protected void onPostExecute(ArrayList<Course> courses){
             courseListView.setAdapter(new ArrayAdapter<Course>(getActivity(), android.R.layout.simple_list_item_1, courses));
         }
+
+        @Override
+        protected void onCancelled(){
+            super.onCancelled();
+            new DatabaseException().promptDialog(getActivity());
+        }
     }
 
-    private class RefreshChatMembers extends AsyncTask<Integer, Object, ArrayList<User>>{
+    private class RefreshChatMembers extends AsyncTask<Course, Object, ArrayList<User>>{
         @Override
-        protected ArrayList<User> doInBackground(Integer... arg){
-            return BackendConnector.getMembersByCourse(arg[0]);
+        protected ArrayList<User> doInBackground(Course... arg){
+            try{
+                return arg[0].getStudents();
+            } catch (DatabaseException e){
+                cancel(true);
+            }
+            return null;
         }
 
         @Override
         protected void onPostExecute(ArrayList<User> members){
             ChatMemberAdapter chatMemberAdapter = new ChatMemberAdapter(members);
             memberListView.setAdapter(chatMemberAdapter);
+        }
+
+        @Override
+        protected void onCancelled(){
+            super.onCancelled();
+            new DatabaseException().promptDialog(getActivity());
         }
     }
 
@@ -165,7 +189,7 @@ public class ChatPageFragment extends Fragment {
         public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id)
         {
             curCoursePosition = position;
-            new RefreshChatMembers().execute(userID, ((Course)courseListView.getAdapter().getItem(curCoursePosition)).getId());
+            new RefreshChatMembers().execute((Course)courseListView.getAdapter().getItem(curCoursePosition));
         }
 
     };

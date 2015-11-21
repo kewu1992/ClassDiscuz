@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import cmu.banana.classdiscuz.R;
 import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.entities.Course;
-import cmu.banana.classdiscuz.ws.remote.BackendConnector;
+import cmu.banana.classdiscuz.exception.DatabaseException;
 import cmu.banana.classdiscuz.util.FocusTranslate;
 
 /**
@@ -57,7 +57,6 @@ public class ViewOthersProfileActivity extends AppCompatActivity {
         courseListView = (ListView) findViewById(R.id.view_profile_register_course_listView);
 
         new GetUserInfo().execute(userID);
-        new GetCourses().execute(userID);
     }
 
     // create the Activity's menu from a menu resource XML file
@@ -93,7 +92,12 @@ public class ViewOthersProfileActivity extends AppCompatActivity {
     private class GetUserInfo extends AsyncTask<Integer, Object, User> {
         @Override
         protected User doInBackground(Integer... arg){
-            return BackendConnector.getMemberByID(arg[0]);
+            try{
+                return User.getUserById(arg[0]);
+            } catch (DatabaseException e){
+                cancel(true);
+            }
+            return null;
         }
 
         @Override
@@ -106,18 +110,38 @@ public class ViewOthersProfileActivity extends AppCompatActivity {
             byte[] imageBytes = Base64.decode(user.getAvatar(), Base64.DEFAULT);
             Bitmap pic = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
             avatarImageView.setImageBitmap(pic);
+
+            new GetCourses().execute(user);
+        }
+
+        @Override
+        protected void onCancelled(){
+            super.onCancelled();
+            new DatabaseException().promptDialog(ViewOthersProfileActivity.this);
         }
     }
 
-    private class GetCourses extends AsyncTask<Integer, Object, ArrayList<Course>>{
+    private class GetCourses extends AsyncTask<User, Object, ArrayList<Course>>{
         @Override
-        protected ArrayList<Course> doInBackground(Integer... arg){
-            return BackendConnector.getCourses(arg[0]);
+        protected ArrayList<Course> doInBackground(User... arg){
+            try{
+                return arg[0].getRegisteredCourses();
+            } catch (DatabaseException e){
+                cancel(true);
+            }
+
+            return null;
         }
 
         @Override
         protected void onPostExecute(ArrayList<Course> courses){
             courseListView.setAdapter(new ArrayAdapter<Course>(ViewOthersProfileActivity.this, android.R.layout.simple_list_item_1, courses));
+        }
+
+        @Override
+        protected void onCancelled(){
+            super.onCancelled();
+            new DatabaseException().promptDialog(ViewOthersProfileActivity.this);
         }
     }
 

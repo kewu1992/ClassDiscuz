@@ -29,7 +29,7 @@ public class Session {
         return sSession;
     }
 
-    public static User getUser() {
+    public User getUser() {
         return currentUser;
     }
 }
