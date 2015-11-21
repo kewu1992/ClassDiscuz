@@ -26,7 +26,7 @@ import cmu.banana.classdiscuz.entities.Course;
 
 public class BackendConnector {
 
-    private static final String BACKEND = "http://localhost:8080/ClassDiscuzBackend";
+    private static final String BACKEND = "128.237.131.190:8080/ClassDiscuzBackend";
 
     public static ArrayList<User> getMembersByCourse(int courseId){
         User[] response = null;

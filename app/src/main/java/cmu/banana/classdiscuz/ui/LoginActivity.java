@@ -38,6 +38,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cmu.banana.classdiscuz.R;
+import cmu.banana.classdiscuz.entities.Session;
+import cmu.banana.classdiscuz.entities.User;
+import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -49,6 +52,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public static final String MyPREFERENCES = "MyPrefs";
     public static final String Email = "emailKey";
     public static final String Password = "passwordKey";
+    public static final String UserId = "idKey";
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -323,7 +327,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private final String mEmail;
         private final String mPassword;
         SharedPreferences sharedpreferences;
-
+        User user = null;
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
@@ -339,10 +343,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             } catch (InterruptedException e) {
                 return false;
             }
+
+            //get user from back end
+//            user = BackendConnector.logIn(mEmail, mPassword);
+
+            if (user == null) {
+                return false;
+            }
+
+            //save email, password, userid in session
             SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putString(Email, mEmail);
             editor.putString(Password, mPassword);
+            editor.putInt(UserId, user.getId());
             editor.commit();
 //            for (String credential : DUMMY_CREDENTIALS) {
 //                String[] pieces = credential.split(":");
@@ -351,8 +365,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //                    return pieces[1].equals(mPassword);
 //                }
 //            }
-
-            // TODO: register the new account here.
+//            Session session = Session.get(LoginActivity.this);
             return true;
         }
 
