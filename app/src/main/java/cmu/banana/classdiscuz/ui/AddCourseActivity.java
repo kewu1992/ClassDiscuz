@@ -190,7 +190,7 @@ public class AddCourseActivity extends AppCompatActivity {
             for (int i = 0; i < courses.size(); i++){
                 names[i] = courses.get(i).getName();
                 IDs[i] = courses.get(i).getNum();
-            }
+                }
 
             ArrayAdapter<String> idAdapter = new ArrayAdapter<String>(AddCourseActivity.this, android.R.layout.simple_dropdown_item_1line, IDs);
             courseIDEditText.setAdapter(idAdapter);
