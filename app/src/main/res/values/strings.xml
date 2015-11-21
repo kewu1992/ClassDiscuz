@@ -40,6 +40,10 @@
     <string name="database_fail_msg">Database operation failed, pelase try again</string>
     <string name="database_fail_button">Ok</string>
 
+    <string name="addCourse_success_title">Success</string>
+    <string name="addCourse_success_msg">You have registered the course successfully</string>
+    <string name="addCourse_success_button">Ok</string>
+
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>

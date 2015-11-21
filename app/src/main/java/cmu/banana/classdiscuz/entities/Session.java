@@ -17,7 +17,8 @@ public class Session {
 
         if (currentUser == null) {
             pref = appContext.getSharedPreferences(PREFNAME,Context.MODE_PRIVATE);
-            int uid = pref.getInt("UserId",-1);
+            //int uid = pref.getInt("UserId",-1);
+            int uid = 1;
             currentUser = BackendConnector.getMemberByID(uid);
         }
     }
