@@ -1,6 +1,11 @@
 package cmu.banana.classdiscuz.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cmu.banana.classdiscuz.exception.DatabaseException;
 import cmu.banana.classdiscuz.exception.InputInvalidException;
+import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
 public class Course {
     private int id;
@@ -50,6 +55,20 @@ public class Course {
 
     public void checkValid() throws InputInvalidException {
 
+    }
+
+    public ArrayList<User> getStudents() throws DatabaseException{
+        ArrayList<User> result =  BackendConnector.getMembersByCourse(id);
+        if (result == null)
+            throw new DatabaseException();
+        return result;
+    }
+
+    public static ArrayList<Course> getAllCourses() throws DatabaseException{
+        ArrayList<Course> result =  BackendConnector.getAllCourse();
+        if (result == null)
+            throw new DatabaseException();
+        return result;
     }
 
 }

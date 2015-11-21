@@ -120,13 +120,13 @@ public class BackendConnector {
         return response;
     }
 
-    public static List<Course> getAllCourse() {
+    public static ArrayList<Course> getAllCourse() {
         Course[] response = null;
         try {
             HttpClient client = HttpClients.createDefault();
             String postURL = BACKEND+"/allcourses";
             HttpPost post = new HttpPost(postURL);
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
             UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params);
             post.setEntity(ent);
 
@@ -150,7 +150,7 @@ public class BackendConnector {
         return result;
     }
 
-    public static void regOrDropCourse(int userId, int courseId) {
+    public static int regOrDropCourse(int userId, int courseId) {
         try {
             HttpClient client = HttpClients.createDefault();
             String postURL = BACKEND+"/regordrop";
@@ -162,6 +162,7 @@ public class BackendConnector {
             post.setEntity(ent);
 
             HttpResponse responsePOST = client.execute(post);
+            return 0;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
@@ -169,6 +170,8 @@ public class BackendConnector {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return -1;
     }
 
     public static User signUp(String email,String password, String name) {

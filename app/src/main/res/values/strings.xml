@@ -36,6 +36,10 @@
     <string name="login_fail_msg">Please check your email and password</string>
     <string name="login_fail_button">Ok</string>
 
+    <string name="database_fail_title">Database operation failed</string>
+    <string name="database_fail_msg">Database operation failed, pelase try again</string>
+    <string name="database_fail_button">Ok</string>
+
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>

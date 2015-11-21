@@ -23,7 +23,6 @@ import cmu.banana.classdiscuz.R;
 import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.entities.ChatMessage;
 import cmu.banana.classdiscuz.entities.Course;
-import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
 
 /**
@@ -93,9 +92,9 @@ public class ChatPageFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-    private class RefreshCourses extends AsyncTask<Integer, Object, ArrayList<Course>>{
+    private class RefreshCourses extends AsyncTask<Object, Object, ArrayList<Course>>{
         @Override
-        protected ArrayList<Course> doInBackground(Integer... arg){
+        protected ArrayList<Course> doInBackground(Object... arg){
             return BackendConnector.getCourses(arg[0]);
         }
 
