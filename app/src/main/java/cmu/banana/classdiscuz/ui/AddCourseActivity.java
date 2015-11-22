@@ -77,7 +77,7 @@ public class AddCourseActivity extends AppCompatActivity {
             }
         });
 
-        courseNameEditText.requestFocus();
+        courseIDEditText.requestFocus();
         courseNameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -238,6 +238,7 @@ public class AddCourseActivity extends AppCompatActivity {
             builder.setMessage(R.string.addCourse_success_msg);
             builder.setPositiveButton(R.string.addCourse_success_button, null);
             builder.show(); // display the Dialog
+            AddCourseActivity.this.finish();
         }
 
         @Override

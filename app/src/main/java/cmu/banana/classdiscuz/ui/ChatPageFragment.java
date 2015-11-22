@@ -70,8 +70,6 @@ public class ChatPageFragment extends Fragment {
             userID = getArguments().getInt(ARG_PARAM2);
         }
 
-        //new RefreshCourses().execute(userID);
-        //new RefreshChatMembers().execute(((Course)courseListView.getAdapter().getItem(curCoursePosition)).getId());
     }
 
     @Override
@@ -109,8 +107,8 @@ public class ChatPageFragment extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<Course> courses){
-            ChatMsgAdapter chatMsgAdapter = new ChatMsgAdapter(courses);
-            courseListView.setAdapter(chatMsgAdapter);
+            CourseAdapter courseAdapter = new CourseAdapter(courses);
+            courseListView.setAdapter(courseAdapter);
         }
 
         @Override
@@ -168,8 +166,8 @@ public class ChatPageFragment extends Fragment {
         }
     }
 
-    private class ChatMsgAdapter extends ArrayAdapter<Course> {
-        public ChatMsgAdapter(ArrayList<Course> courses){
+    private class CourseAdapter extends ArrayAdapter<Course> {
+        public CourseAdapter(ArrayList<Course> courses){
             super(getActivity(), android.R.layout.simple_list_item_1, courses);
         }
 
@@ -190,8 +188,8 @@ public class ChatPageFragment extends Fragment {
         }
     }
 
-    private class CourseAdapter extends ArrayAdapter<ChatMessage> {
-        public CourseAdapter(ArrayList<ChatMessage> messages){
+    private class ChatMsgAdapter extends ArrayAdapter<ChatMessage> {
+        public  ChatMsgAdapter(ArrayList<ChatMessage> messages){
             super(getActivity(), android.R.layout.simple_list_item_1, messages);
         }
 

@@ -46,6 +46,10 @@
     <string name="addCourse_success_msg">You have registered the course successfully</string>
     <string name="addCourse_success_button">Ok</string>
 
+    <string name="dropCourse_success_title">Success</string>
+    <string name="dropCourse_success_msg">You have dropped the course successfully</string>
+    <string name="dropCourse_success_button">Ok</string>
+
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
