@@ -3,6 +3,7 @@ package cmu.banana.classdiscuz.ui;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.entities.ChatMessage;
 import cmu.banana.classdiscuz.entities.Course;
 import cmu.banana.classdiscuz.exception.DatabaseException;
+import cmu.banana.classdiscuz.util.BitmapScale;
 
 
 /**
@@ -157,10 +159,15 @@ public class ChatPageFragment extends Fragment {
             User chatMember = getItem(position);
 
             if (chatMember.getAvatar() != null){
-                //byte[] imageBytes = Base64.decode(chatMember.getAvatar(), Base64.DEFAULT);
+                ImageView imageAvatar = (ImageView) convertView.findViewById(R.id.member_list_avatar);
                 byte[] imageBytes = chatMember.getAvatar();
                 Bitmap pic = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-                ((ImageView)convertView.findViewById(R.id.member_list_avatar)).setImageBitmap(pic);
+                //Bitmap scaledPic = BitmapScale.bitmapScale(getActivity(), pic, imageAvatar.getMaxHeight());
+                imageAvatar.setImageBitmap(pic);
+            } else {
+                Drawable d = getActivity().getResources().getDrawable(R.drawable.default_avatar);
+                ImageView imageAvatar = (ImageView) convertView.findViewById(R.id.member_list_avatar);
+                imageAvatar.setImageDrawable(d);
             }
 
 

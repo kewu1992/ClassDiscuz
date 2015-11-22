@@ -8,8 +8,10 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -56,9 +58,9 @@ public class SelfprofileActivity extends AppCompatActivity {
         universityEditText = (EditText)findViewById(R.id.selfprofile_edit_university_value);
         majorEditText = (EditText)findViewById(R.id.selfprofile_edit_major_value);
 
-        new RefreshUserInfo().execute((Object)null);
-
         avatarImage.setOnClickListener(buttonListen);
+
+        new RefreshUserInfo().execute((Object)null);
     }
 
     @Override
@@ -101,18 +103,16 @@ public class SelfprofileActivity extends AppCompatActivity {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath, options);
+
             avatarImage.setImageBitmap(bitmap);
 
-            // Do something with the bitmap
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             Session.get(SelfprofileActivity.this).getUser().setAvatar(stream.toByteArray());
 
-
-            // At the end remember to close the cursor or you will end with the RuntimeException!
             cursor.close();
 
-            new UpdateProfile().execute((Object)null);
+            new UpdateProfile().execute((Object) null);
         }
     }
 
@@ -125,15 +125,33 @@ public class SelfprofileActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Object arg){
-            nameEditText.setText(Session.get(SelfprofileActivity.this).getUser().getName());
-            universityEditText.setText(Session.get(SelfprofileActivity.this).getUser().getCollege());
-            majorEditText.setText(Session.get(SelfprofileActivity.this).getUser().getMajor());
+            User user = Session.get(SelfprofileActivity.this).getUser();
+
+            nameEditText.setText(user.getName());
+            universityEditText.setText(user.getCollege());
+            majorEditText.setText(user.getMajor());
+
+            if (user.getAvatar() != null){
+                byte[] imageBytes = user.getAvatar();
+                Bitmap pic = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+                avatarImage.setImageBitmap(pic);
+            }
         }
 
     }
 
     private class UpdateProfile extends AsyncTask<Object, Object, Object>{
         private int eNum;
+
+        @Override
+        protected void onPreExecute (){
+            User user = Session.get(SelfprofileActivity.this).getUser();
+
+            user.setName(nameEditText.getText().toString());
+            user.setCollege(universityEditText.getText().toString());
+            user.setMajor(majorEditText.getText().toString());
+        }
+
         @Override
         protected Object doInBackground(Object... arg){
             try{
@@ -150,7 +168,12 @@ public class SelfprofileActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Object obj){
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(SelfprofileActivity.this);
+            // set dialog title & message, and provide Button to dismiss
+            builder.setTitle(R.string.updateProfile_success_title);
+            builder.setMessage(R.string.updateProfile_success_msg);
+            builder.setPositiveButton(R.string.updateProfile_success_button, null);
+            builder.show(); // display the Dialog
         }
 
         @Override

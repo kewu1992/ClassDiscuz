@@ -15,4 +15,8 @@
     <dimen name="chat_height">250dp</dimen>
     <dimen name="members_text_view_height">20dp</dimen>
 
+    <!-- Dimen related to avatar values -->
+    <dimen name="self_avatar_size">120dp</dimen>
+    <dimen name="chat_avatar_size">25dp</dimen>
+
 </resources>

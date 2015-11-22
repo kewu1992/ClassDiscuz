@@ -76,6 +76,14 @@ public class BackendConnector {
 
         ArrayList<User> result = new ArrayList<User>();
         result.addAll(Arrays.asList(response));
+
+        for (User user : result){
+            /* transform image, decode Base64 */
+            if (user.getAvatar() != null){
+                String temp = new String(user.getAvatar()).replace(' ', '+');
+                user.setAvatar(Base64.decode(temp.getBytes(), Base64.DEFAULT));
+            }
+        }
         return result;
     }
 
@@ -162,9 +170,7 @@ public class BackendConnector {
         if (response.getAvatar() != null){
             String temp = new String(response.getAvatar()).replace(' ', '+');
             response.setAvatar(Base64.decode(temp.getBytes(), Base64.DEFAULT));
-            Log.d("log", temp);
         }
-
 
         return response;
     }
