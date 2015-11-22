@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
-import org.apache.commons.codec.binary.Base64;
+import android.util.Base64;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -38,7 +38,7 @@ import cmu.banana.classdiscuz.exception.SignUpException;
 
 public class BackendConnector {
 
-    private static final String BACKEND = "http://128.237.131.190:8080/ClassDiscuzBackend";
+    private static final String BACKEND = "http://10.0.0.5:8080/ClassDiscuzBackend";
 
     public static ArrayList<User> getMembersByCourse(int courseId){
         User[] response = null;
@@ -157,6 +157,15 @@ public class BackendConnector {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        /* transform image, decode Base64 */
+        if (response.getAvatar() != null){
+            String temp = new String(response.getAvatar()).replace(' ', '+');
+            response.setAvatar(Base64.decode(temp.getBytes(), Base64.DEFAULT));
+            Log.d("log", temp);
+        }
+
+
         return response;
     }
 
@@ -317,7 +326,7 @@ public class BackendConnector {
             URL url = new URL(BACKEND+"/editprofile");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             String params = "studentId="+id+"&name="+name+"&college="+
-                    college+"&major="+major+"&avatar="+new String(Base64.encodeBase64(image));
+                    college+"&major="+major+"&avatar="+new String(Base64.encode(image, Base64.DEFAULT));
 
             con.setDoOutput(true);
             con.setDoInput(true);
@@ -338,6 +347,7 @@ public class BackendConnector {
             }
             in.close();
             String result = sb.toString();
+
             if (result.equals("{\"result\":\"1\"}") || result.equals("{\"result\":\"2\"}")) {
                 return -1;
             }

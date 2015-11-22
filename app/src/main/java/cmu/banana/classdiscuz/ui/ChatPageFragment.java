@@ -156,9 +156,13 @@ public class ChatPageFragment extends Fragment {
 
             User chatMember = getItem(position);
 
-            //byte[] imageBytes = Base64.decode(chatMember.getAvatar(), Base64.DEFAULT);
-            //Bitmap pic = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-            //((ImageView)convertView.findViewById(R.id.member_list_avatar)).setImageBitmap(pic);
+            if (chatMember.getAvatar() != null){
+                //byte[] imageBytes = Base64.decode(chatMember.getAvatar(), Base64.DEFAULT);
+                byte[] imageBytes = chatMember.getAvatar();
+                Bitmap pic = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+                ((ImageView)convertView.findViewById(R.id.member_list_avatar)).setImageBitmap(pic);
+            }
+
 
             ((TextView)convertView.findViewById(R.id.member_list_name)).setText(chatMember.getName());
 

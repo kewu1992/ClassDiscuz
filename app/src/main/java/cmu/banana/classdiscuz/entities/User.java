@@ -109,12 +109,17 @@ public class User {
         throw new InputInvalidException();
     }
 
+    public void updateProfile() throws InputInvalidException, DatabaseException {
+        int ret = BackendConnector.updateProfile(id, name, college, major, avatar);
+        if (ret == -1)
+            throw new DatabaseException();
+    }
+
     public static User getUserById(int id) throws DatabaseException{
         User result =  BackendConnector.getMemberByID(id);
         if (result == null)
             throw new DatabaseException();
         return result;
     }
-
 
 }
