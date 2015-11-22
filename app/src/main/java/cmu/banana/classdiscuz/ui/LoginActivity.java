@@ -326,7 +326,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         private final String mEmail;
         private final String mPassword;
-        SharedPreferences sharedpreferences;
         User user = null;
         UserLoginTask(String email, String password) {
             mEmail = email;
@@ -335,17 +334,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
 
             //get user from back end
-//            user = BackendConnector.logIn(mEmail, mPassword);
+            user = BackendConnector.logIn(mEmail, mPassword);
 
             if (user == null) {
                 return false;
@@ -365,7 +356,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //                    return pieces[1].equals(mPassword);
 //                }
 //            }
-//            Session session = Session.get(LoginActivity.this);
             return true;
         }
 

@@ -1,6 +1,9 @@
 package cmu.banana.classdiscuz.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import cmu.banana.classdiscuz.R;
+import cmu.banana.classdiscuz.entities.User;
+import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -20,6 +25,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText firstNameEditText;
     private EditText lastNameEditText;
     private Button signUpBtn;
+    private UserSignupTask mAuthTask = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +65,9 @@ public class SignUpActivity extends AppCompatActivity {
      * errors are presented and no actual login attempt is made.
      */
     private void attemptSignUp() {
-//        if (mAuthTask != null) {
-//            return;
-//        }
+        if (mAuthTask != null) {
+            return;
+        }
 
         // Reset errors.
         emailEditText.setError(null);
@@ -71,7 +77,7 @@ public class SignUpActivity extends AppCompatActivity {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         String repeatPassword = repeatPwdEditText.getText().toString();
-        String name = emailEditText.getText().toString() + " " + emailEditText.getText().toString();
+        String name = firstNameEditText.getText().toString() + " " + lastNameEditText.getText().toString();
         boolean cancel = false;
         View focusView = null;
 
@@ -107,8 +113,8 @@ public class SignUpActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
 //            showProgress(true);
-//            mAuthTask = new UserLoginTask(email, password);
-//            mAuthTask.execute((Void) null);
+            mAuthTask = new UserSignupTask(email, password, name);
+            mAuthTask.execute((Void) null);
         }
     }
 
@@ -136,5 +142,50 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public class UserSignupTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String mEmail;
+        private final String mPassword;
+        private final String nName;
+        User user = null;
+        UserSignupTask(String email, String password, String name) {
+            mEmail = email;
+            mPassword = password;
+            nName = name;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+
+            //get user from back end
+            user = BackendConnector.signUp(mEmail, mPassword, nName);
+
+            if (user == null) {
+                return false;
+            }
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+
+            if (success) {
+//                finish();
+                Intent goHomePage = new Intent(SignUpActivity.this, HomePageActivity.class);
+                startActivity(goHomePage);
+            } else {
+                emailEditText.setError(getString(R.string.error_incorrect_password));
+                emailEditText.requestFocus();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+        }
     }
 }
