@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +21,9 @@ import java.util.ArrayList;
 
 import cmu.banana.classdiscuz.R;
 import cmu.banana.classdiscuz.entities.Course;
+import cmu.banana.classdiscuz.entities.Session;
+import cmu.banana.classdiscuz.exception.DatabaseException;
+import cmu.banana.classdiscuz.exception.InputInvalidException;
 
 /**
  * Created by WK on 11/6/15.
@@ -92,7 +96,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
         addCourseButton.setOnClickListener(addCourseButtonListener);
 
-        //new GetCourses().execute((Object)null);
+        new GetCourses().execute((Object) null);
     }
 
     // create the Activity's menu from a menu resource XML file
@@ -127,23 +131,23 @@ public class AddCourseActivity extends AppCompatActivity {
     private View.OnClickListener addCourseButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            int courseID;
+            Course theCourse = null;
             if (searchIDRadioButton.isChecked()){
                 for (Course course : courses){
                     if (course.getNum().equals(courseIDEditText.getText().toString())){
-                        courseID = course.getId();
+                        theCourse = course;
                         break;
                     }
                 }
             } else {
                 for (Course course : courses){
                     if (course.getName().equals(courseNameEditText.getText().toString())){
-                        courseID = course.getId();
+                        theCourse = course;
                         break;
                     }
                 }
             }
-            // TODO: add course to database
+            new RegisterCourse().execute(theCourse);
         }
     };
 
@@ -178,7 +182,11 @@ public class AddCourseActivity extends AppCompatActivity {
     private class GetCourses extends AsyncTask<Object, Object, ArrayList<Course>> {
         @Override
         protected ArrayList<Course> doInBackground(Object... arg){
-            // TODO: get all courses
+            try{
+                return Course.getAllCourses();
+            } catch (DatabaseException e){
+                cancel(true);
+            }
             return null;
         }
 
@@ -197,6 +205,48 @@ public class AddCourseActivity extends AppCompatActivity {
 
             ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(AddCourseActivity.this, android.R.layout.simple_dropdown_item_1line, names);
             courseNameEditText.setAdapter(nameAdapter);
+        }
+
+        @Override
+        protected void onCancelled(){
+            super.onCancelled();
+            new DatabaseException().promptDialog(AddCourseActivity.this);
+        }
+    }
+
+    private class RegisterCourse extends AsyncTask<Course, Object, Object> {
+        private int eNum;
+        @Override
+        protected Object doInBackground(Course... arg){
+            try{
+                Session.get(AddCourseActivity.this).getUser().registerCourse(arg[0]);
+            } catch (DatabaseException e){
+                eNum = 1;
+                cancel(true);
+            } catch(InputInvalidException e){
+                eNum = 2;
+                cancel(true);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object obj){
+            AlertDialog.Builder builder = new AlertDialog.Builder(AddCourseActivity.this);
+            // set dialog title & message, and provide Button to dismiss
+            builder.setTitle(R.string.addCourse_success_title);
+            builder.setMessage(R.string.addCourse_success_msg);
+            builder.setPositiveButton(R.string.addCourse_success_button, null);
+            builder.show(); // display the Dialog
+        }
+
+        @Override
+        protected void onCancelled(){
+            super.onCancelled();
+            if (eNum == 1)
+                new DatabaseException().promptDialog(AddCourseActivity.this);
+            else if (eNum == 2)
+                new InputInvalidException().promptDialog(AddCourseActivity.this);
         }
     }
 }

@@ -15,8 +15,17 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,27 +35,33 @@ import cmu.banana.classdiscuz.entities.Course;
 
 public class BackendConnector {
 
-    private static final String BACKEND = "128.237.131.190:8080/ClassDiscuzBackend";
+    private static final String BACKEND = "http://128.237.131.190:8080/ClassDiscuzBackend";
 
     public static ArrayList<User> getMembersByCourse(int courseId){
         User[] response = null;
         try {
-            HttpClient client = HttpClients.createDefault();
-            String postURL = BACKEND+"/usersincourse";
-            HttpPost post = new HttpPost(postURL);
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("courseId", String.valueOf(courseId)));
-            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params);
-            post.setEntity(ent);
+            URL url = new URL(BACKEND+"/usersincourse");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            String params = "courseId="+courseId;
 
-            HttpResponse responsePOST = client.execute(post);
-            HttpEntity resEntity = responsePOST.getEntity();
-            if (resEntity != null) {
-                String json = EntityUtils.toString(resEntity);
-                Gson gson = new Gson();
-                response = gson.fromJson(json,User[].class);
-                Log.d("Info","*******"+json);
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.setChunkedStreamingMode(0);
+
+            OutputStream out = new BufferedOutputStream(con.getOutputStream());
+
+            out.write(params.getBytes());
+            out.flush();
+            out.close();
+
+            InputStream in = new BufferedInputStream(con.getInputStream());
+            BufferedReader r = new BufferedReader(new InputStreamReader(in));
+            String str = null;
+            StringBuilder sb = new StringBuilder();
+            while ((str = r.readLine()) != null) {
+                sb.append(str);
             }
+            response = new Gson().fromJson(sb.toString(), User[].class);
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -56,29 +71,38 @@ public class BackendConnector {
             e.printStackTrace();
         }
 
-        ArrayList<User> result = (ArrayList)Arrays.asList(response);
+        ArrayList<User> result = new ArrayList<User>();
+        result.addAll(Arrays.asList(response));
         return result;
     }
 
     public static ArrayList<Course> getCourses(int userID){
         Course[] response = null;
         try {
-            HttpClient client = HttpClients.createDefault();
-            String postURL = BACKEND+"/registered";
-            HttpPost post = new HttpPost(postURL);
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("studentId", String.valueOf(userID)));
-            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params);
-            post.setEntity(ent);
 
-            HttpResponse responsePOST = client.execute(post);
-            HttpEntity resEntity = responsePOST.getEntity();
-            if (resEntity != null) {
-                String json = EntityUtils.toString(resEntity);
-                Gson gson = new Gson();
-                response = gson.fromJson(json,Course[].class);
-                Log.d("Info","*******"+json);
+            URL url = new URL(BACKEND+"/registered");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            String params = "studentId="+userID;
+
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.setChunkedStreamingMode(0);
+
+            OutputStream out = new BufferedOutputStream(con.getOutputStream());
+
+            out.write(params.getBytes());
+            out.flush();
+            out.close();
+
+            InputStream in = new BufferedInputStream(con.getInputStream());
+            BufferedReader r = new BufferedReader(new InputStreamReader(in));
+            String str = null;
+            StringBuilder sb = new StringBuilder();
+            while ((str = r.readLine()) != null) {
+                sb.append(str);
             }
+            response = new Gson().fromJson(sb.toString(), Course[].class);
+
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
@@ -87,29 +111,36 @@ public class BackendConnector {
             e.printStackTrace();
         }
 
-        ArrayList<Course> result = (ArrayList)Arrays.asList(response);
+        ArrayList<Course> result = new ArrayList<Course>();
+        result.addAll(Arrays.asList(response));
         return result;
     }
 
     public static User getMemberByID(int userID){
         User response = null;
         try {
-            HttpClient client = HttpClients.createDefault();
-            String postURL = BACKEND+"/id";
-            HttpPost post = new HttpPost(postURL);
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("studentId", String.valueOf(userID)));
-            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params);
-            post.setEntity(ent);
+            URL url = new URL(BACKEND+"/id");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            String params = "studentId="+userID;
 
-            HttpResponse responsePOST = client.execute(post);
-            HttpEntity resEntity = responsePOST.getEntity();
-            if (resEntity != null) {
-                String json = EntityUtils.toString(resEntity);
-                Gson gson = new Gson();
-                response = gson.fromJson(json,User.class);
-                Log.d("Info","*******"+json);
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.setChunkedStreamingMode(0);
+
+            OutputStream out = new BufferedOutputStream(con.getOutputStream());
+
+            out.write(params.getBytes());
+            out.flush();
+            out.close();
+
+            InputStream in = new BufferedInputStream(con.getInputStream());
+            BufferedReader r = new BufferedReader(new InputStreamReader(in));
+            String str = null;
+            StringBuilder sb = new StringBuilder();
+            while ((str = r.readLine()) != null) {
+                sb.append(str);
             }
+            response = new Gson().fromJson(sb.toString(), User.class);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
@@ -120,24 +151,22 @@ public class BackendConnector {
         return response;
     }
 
-    public static List<Course> getAllCourse() {
+    public static ArrayList<Course> getAllCourse() {
         Course[] response = null;
         try {
-            HttpClient client = HttpClients.createDefault();
-            String postURL = BACKEND+"/allcourses";
-            HttpPost post = new HttpPost(postURL);
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params);
-            post.setEntity(ent);
+            URL url = new URL(BACKEND+"/allcourses");
+            URLConnection connection = url.openConnection();
+//            connection.setRequestProperty("Accept-Charset", charset);
+            InputStream in = connection.getInputStream();
 
-            HttpResponse responsePOST = client.execute(post);
-            HttpEntity resEntity = responsePOST.getEntity();
-            if (resEntity != null) {
-                String json = EntityUtils.toString(resEntity);
-                Gson gson = new Gson();
-                response = gson.fromJson(json,Course[].class);
-                Log.d("Info","*******"+json);
+            BufferedReader r = new BufferedReader(new InputStreamReader(in));
+            String str = null;
+            StringBuilder sb = new StringBuilder();
+            while ((str = r.readLine()) != null) {
+                sb.append(str);
             }
+            Log.d("log",sb.toString());
+            response = new Gson().fromJson(sb.toString(), Course[].class);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
@@ -146,22 +175,29 @@ public class BackendConnector {
             e.printStackTrace();
         }
 
-        ArrayList<Course> result = (ArrayList)Arrays.asList(response);
+        ArrayList<Course> result = new ArrayList<Course>();
+        result.addAll(Arrays.asList(response));
         return result;
     }
 
-    public static void regOrDropCourse(int userId, int courseId) {
+    public static int regOrDropCourse(int userId, int courseId) {
         try {
-            HttpClient client = HttpClients.createDefault();
-            String postURL = BACKEND+"/regordrop";
-            HttpPost post = new HttpPost(postURL);
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("studentId", String.valueOf(userId)));
-            params.add(new BasicNameValuePair("courseId", String.valueOf(courseId)));
-            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params);
-            post.setEntity(ent);
 
-            HttpResponse responsePOST = client.execute(post);
+            URL url = new URL(BACKEND+"/regordrop");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            String params = "studentId="+userId +"&courseId="+courseId;
+
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.setChunkedStreamingMode(0);
+
+            OutputStream out = new BufferedOutputStream(con.getOutputStream());
+
+            out.write(params.getBytes());
+            out.flush();
+            out.close();
+
+            return 0;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
@@ -169,29 +205,35 @@ public class BackendConnector {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return -1;
     }
 
     public static User signUp(String email,String password, String name) {
         User response = null;
         try {
-            HttpClient client = HttpClients.createDefault();
-            String postURL = BACKEND+"/signup";
-            HttpPost post = new HttpPost(postURL);
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("email", email));
-            params.add(new BasicNameValuePair("password", password));
-            params.add(new BasicNameValuePair("name", name));
-            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params);
-            post.setEntity(ent);
+            URL url = new URL(BACKEND+"/signup");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            String params = "email="+email+"&password="+password+"&name="+name;
 
-            HttpResponse responsePOST = client.execute(post);
-            HttpEntity resEntity = responsePOST.getEntity();
-            if (resEntity != null) {
-                String json = EntityUtils.toString(resEntity);
-                Gson gson = new Gson();
-                response = gson.fromJson(json,User.class);
-                Log.d("Info","*******"+json);
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.setChunkedStreamingMode(0);
+
+            OutputStream out = new BufferedOutputStream(con.getOutputStream());
+
+            out.write(params.getBytes());
+            out.flush();
+            out.close();
+
+            InputStream in = new BufferedInputStream(con.getInputStream());
+            BufferedReader r = new BufferedReader(new InputStreamReader(in));
+            String str = null;
+            StringBuilder sb = new StringBuilder();
+            while ((str = r.readLine()) != null) {
+                sb.append(str);
             }
+            response = new Gson().fromJson(sb.toString(), User.class);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
@@ -205,23 +247,28 @@ public class BackendConnector {
     public static User logIn(String email, String password) {
         User response = null;
         try {
-            HttpClient client = HttpClients.createDefault();
-            String postURL = BACKEND+"/login";
-            HttpPost post = new HttpPost(postURL);
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("email", email));
-            params.add(new BasicNameValuePair("password", password));
-            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params);
-            post.setEntity(ent);
+            URL url = new URL(BACKEND+"/login");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            String params = "email="+email+"&password="+password;
 
-            HttpResponse responsePOST = client.execute(post);
-            HttpEntity resEntity = responsePOST.getEntity();
-            if (resEntity != null) {
-                String json = EntityUtils.toString(resEntity);
-                Gson gson = new Gson();
-                response = gson.fromJson(json,User.class);
-                Log.d("Info","*******"+json);
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.setChunkedStreamingMode(0);
+
+            OutputStream out = new BufferedOutputStream(con.getOutputStream());
+
+            out.write(params.getBytes());
+            out.flush();
+            out.close();
+
+            InputStream in = new BufferedInputStream(con.getInputStream());
+            BufferedReader r = new BufferedReader(new InputStreamReader(in));
+            String str = null;
+            StringBuilder sb = new StringBuilder();
+            while ((str = r.readLine()) != null) {
+                sb.append(str);
             }
+            response = new Gson().fromJson(sb.toString(), User.class);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
