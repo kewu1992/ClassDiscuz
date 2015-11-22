@@ -185,9 +185,9 @@ public class BackendConnector {
     public static int regOrDropCourse(int userId, int courseId) {
         try {
 
-            URL url = new URL(BACKEND+"/regordrop");
+            URL url = new URL(BACKEND+"/regordrop?studentId="+userId +"&courseId="+courseId);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            String params = "studentId="+userId +"&courseId="+courseId;
+//            String params = "studentId="+userId +"&courseId="+courseId;
 
             con.setDoOutput(true);
             con.setDoInput(true);
@@ -195,7 +195,7 @@ public class BackendConnector {
 
             OutputStream out = new BufferedOutputStream(con.getOutputStream());
 
-            out.write(params.getBytes());
+            //out.write(params.getBytes());
             out.flush();
             out.close();
 
