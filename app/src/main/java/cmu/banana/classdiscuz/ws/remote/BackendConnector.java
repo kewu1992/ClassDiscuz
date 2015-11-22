@@ -32,6 +32,7 @@ import java.util.List;
 
 import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.entities.Course;
+import cmu.banana.classdiscuz.exception.SignUpException;
 
 public class BackendConnector {
 
@@ -210,7 +211,7 @@ public class BackendConnector {
         return -1;
     }
 
-    public static User signUp(String email,String password, String name) {
+    public static User signUp(String email,String password, String name) throws SignUpException{
         User response = null;
         try {
             URL url = new URL(BACKEND+"/signup");
@@ -234,6 +235,17 @@ public class BackendConnector {
             while ((str = r.readLine()) != null) {
                 sb.append(str);
             }
+            //exception
+            if (sb.toString().equals("{\"result\":\"1\"}")) {
+                throw new SignUpException(1, "Database Exception.");
+            }
+            if (sb.toString().equals("{\"result\":\"2\"}")) {
+                throw new SignUpException(2, "Database Exception.");
+            }
+            if (sb.toString().equals("{\"result\":\"3\"}")) {
+                throw new SignUpException(3, "The email already exits.");
+            }
+
             response = new Gson().fromJson(sb.toString(), User.class);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

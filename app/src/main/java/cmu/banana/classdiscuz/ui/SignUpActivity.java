@@ -12,9 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import cmu.banana.classdiscuz.R;
 import cmu.banana.classdiscuz.entities.User;
+import cmu.banana.classdiscuz.exception.SignUpException;
 import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -25,6 +27,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText firstNameEditText;
     private EditText lastNameEditText;
     private Button signUpBtn;
+    private boolean isDatabaseError = false;
     private UserSignupTask mAuthTask = null;
     public static final String MyPREFERENCES = "MyPrefs";
     public static final String Email = "emailKey";
@@ -162,13 +165,19 @@ public class SignUpActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-
+            isDatabaseError = false;
             //get user from back end
-            user = BackendConnector.signUp(mEmail, mPassword, nName);
-
-            if (user == null) {
+            try {
+                user = BackendConnector.signUp(mEmail, mPassword, nName);
+            } catch (SignUpException e) {
+                int errorno = e.getErrorno();
+                String error = e.getErrormsg();
+                if (errorno == 1 || errorno == 2) {
+                    isDatabaseError = true;
+                }
                 return false;
             }
+
             //save email, password, userid in session
             SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -176,7 +185,7 @@ public class SignUpActivity extends AppCompatActivity {
             editor.putString(Password, mPassword);
             editor.putInt(UserId, user.getId());
             editor.commit();
-            
+
             return true;
         }
 
@@ -188,8 +197,16 @@ public class SignUpActivity extends AppCompatActivity {
 //                finish();
                 Intent goHomePage = new Intent(SignUpActivity.this, HomePageActivity.class);
                 startActivity(goHomePage);
-            } else {
-                emailEditText.setError(getString(R.string.error_incorrect_password));
+            }
+            if (isDatabaseError) {
+                Context context = getApplicationContext();
+                CharSequence text = "Database Error!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+            else {
+                emailEditText.setError("The email already exits");
                 emailEditText.requestFocus();
             }
         }
