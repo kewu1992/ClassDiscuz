@@ -2,15 +2,26 @@ package cmu.banana.classdiscuz.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+
+import java.util.ArrayList;
 
 import cmu.banana.classdiscuz.R;
+import cmu.banana.classdiscuz.entities.Course;
+import cmu.banana.classdiscuz.entities.Session;
+import cmu.banana.classdiscuz.exception.DatabaseException;
 
 
 /**
@@ -32,6 +43,9 @@ public class SchedulePageFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    ArrayList<Course> coursesList;
+    private boolean isGetCourseDone = false;
 
 
     /**
@@ -80,7 +94,32 @@ public class SchedulePageFragment extends Fragment {
             }
         });
 
+        new RefreshCourses().execute((Object) null);
+
+        while (!isGetCourseDone);
+
+        drawCourse(v);
+
         return v;
+    }
+
+    private void drawCourse(View v) {
+        int buttonHeight = 240;//1 hour = 120
+        int marginTop = 120;//1 hour = 120
+
+        RelativeLayout rl = (RelativeLayout) v.findViewById(R.id.sundayRelativeLayout);
+
+        RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                buttonHeight
+        );
+        p.setMargins(0, marginTop, 0, 0);
+
+        Button button = new Button(getActivity());
+        button.setLayoutParams(p);
+        button.setText("Button");
+
+        rl.addView(button);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -120,6 +159,30 @@ public class SchedulePageFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    private class RefreshCourses extends AsyncTask<Object, Object, ArrayList<Course>> {
+        @Override
+        protected ArrayList<Course> doInBackground(Object... arg){
+            try{
+                return Session.get(getActivity()).getUser().getRegisteredCourses();
+            } catch (DatabaseException e){
+                cancel(true);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Course> courses){
+            coursesList = courses;
+            isGetCourseDone = true;
+        }
+
+        @Override
+        protected void onCancelled(){
+            super.onCancelled();
+            new DatabaseException().promptDialog(getActivity());
+        }
     }
 
 }
