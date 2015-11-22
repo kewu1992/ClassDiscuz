@@ -1,9 +1,11 @@
 package cmu.banana.classdiscuz.ws.remote;
 
+import android.provider.MediaStore;
 import android.util.Log;
 
 import com.google.gson.Gson;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -307,5 +309,42 @@ public class BackendConnector {
             e.printStackTrace();
         }
         return response;
+    }
+
+    public static int updateProfile(int id, String name, String college, String major, byte[] image) {
+
+        try {
+            URL url = new URL(BACKEND+"/editprofile");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            String params = "studentId="+id+"&name="+name+"&college="+
+                    college+"&major="+major+"&avatar="+new String(Base64.encodeBase64(image));
+
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.setChunkedStreamingMode(0);
+
+            OutputStream out = new BufferedOutputStream(con.getOutputStream());
+
+            out.write(params.getBytes());
+            out.flush();
+            out.close();
+
+            InputStream in = new BufferedInputStream(con.getInputStream());
+            BufferedReader r = new BufferedReader(new InputStreamReader(in));
+            String str = null;
+            StringBuilder sb = new StringBuilder();
+            while ((str = r.readLine()) != null) {
+                sb.append(str);
+            }
+            in.close();
+            String result = sb.toString();
+            if (result.equals("{\"result\":\"1\"}") || result.equals("{\"result\":\"2\"}")) {
+                return -1;
+            }
+            return 0;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }
