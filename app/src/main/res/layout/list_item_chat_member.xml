@@ -4,8 +4,8 @@
 
     <ImageView
         android:id="@+id/member_list_avatar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -14,11 +14,11 @@
     <TextView
         android:id="@+id/member_list_name"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:textSize="20sp"
         android:paddingTop="5dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="0dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:text="Penny"

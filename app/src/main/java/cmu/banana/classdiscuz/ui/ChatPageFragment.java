@@ -86,6 +86,8 @@ public class ChatPageFragment extends Fragment {
         courseListView = (ListView) v.findViewById(R.id.courseListView);
         courseListView.setOnItemClickListener(courseListListener);
 
+        new RefreshCourses().execute((Object)null);
+
         return v;
     }
 
@@ -107,7 +109,8 @@ public class ChatPageFragment extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<Course> courses){
-            courseListView.setAdapter(new ArrayAdapter<Course>(getActivity(), android.R.layout.simple_list_item_1, courses));
+            ChatMsgAdapter chatMsgAdapter = new ChatMsgAdapter(courses);
+            courseListView.setAdapter(chatMsgAdapter);
         }
 
         @Override
@@ -155,18 +158,40 @@ public class ChatPageFragment extends Fragment {
 
             User chatMember = getItem(position);
 
-            byte[] imageBytes = Base64.decode(chatMember.getAvatar(), Base64.DEFAULT);
-            Bitmap pic = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-            ((ImageView)convertView.findViewById(R.id.member_list_avatar)).setImageBitmap(pic);
+            //byte[] imageBytes = Base64.decode(chatMember.getAvatar(), Base64.DEFAULT);
+            //Bitmap pic = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+            //((ImageView)convertView.findViewById(R.id.member_list_avatar)).setImageBitmap(pic);
 
-            ((TextView)convertView.findViewById(R.id.member_list_name)).setText("");
+            ((TextView)convertView.findViewById(R.id.member_list_name)).setText(chatMember.getName());
 
             return convertView;
         }
     }
 
-    private class ChatMsgAdapter extends ArrayAdapter<ChatMessage> {
-        public ChatMsgAdapter(ArrayList<ChatMessage> messages){
+    private class ChatMsgAdapter extends ArrayAdapter<Course> {
+        public ChatMsgAdapter(ArrayList<Course> courses){
+            super(getActivity(), android.R.layout.simple_list_item_1, courses);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // if we weren't given a view, inflate one
+            if (null == convertView) {
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_course, null);
+            }
+
+            Course course = getItem(position);
+
+            String shownName = course.getNum() + course.getName();
+
+            ((TextView)convertView.findViewById(R.id.course_item_name_text_view)).setText(shownName);
+
+            return convertView;
+        }
+    }
+
+    private class CourseAdapter extends ArrayAdapter<ChatMessage> {
+        public CourseAdapter(ArrayList<ChatMessage> messages){
             super(getActivity(), android.R.layout.simple_list_item_1, messages);
         }
 

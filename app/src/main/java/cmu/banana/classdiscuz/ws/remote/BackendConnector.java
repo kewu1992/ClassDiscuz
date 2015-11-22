@@ -102,6 +102,7 @@ public class BackendConnector {
                 sb.append(str);
             }
             response = new Gson().fromJson(sb.toString(), Course[].class);
+            
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
