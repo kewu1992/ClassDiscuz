@@ -6,7 +6,8 @@ import android.content.SharedPreferences;
 import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
 public class Session {
-    private static String PREFNAME = "";
+    public static final String MyPREFERENCES = "MyPrefs";
+    public static final String UserId = "idKey";
     private static User currentUser;
     private static Session sSession;
     SharedPreferences pref;
@@ -16,9 +17,8 @@ public class Session {
         mAppContext = appContext;
 
         if (currentUser == null) {
-            pref = appContext.getSharedPreferences(PREFNAME,Context.MODE_PRIVATE);
-            //int uid = pref.getInt("UserId",-1);
-            int uid = 1;
+            pref = appContext.getSharedPreferences(MyPREFERENCES,Context.MODE_PRIVATE);
+            int uid = pref.getInt(UserId, -1);
             currentUser = BackendConnector.getMemberByID(uid);
         }
     }
