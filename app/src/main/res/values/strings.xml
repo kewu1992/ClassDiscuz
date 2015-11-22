@@ -50,6 +50,10 @@
     <string name="dropCourse_success_msg">You have dropped the course successfully</string>
     <string name="dropCourse_success_button">Ok</string>
 
+    <string name="updateProfile_success_title">Success</string>
+    <string name="updateProfile_success_msg">You have updated your profile successfully</string>
+    <string name="updateProfile_success_button">Ok</string>
+
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>

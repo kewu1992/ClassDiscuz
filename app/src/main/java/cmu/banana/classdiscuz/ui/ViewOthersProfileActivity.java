@@ -107,9 +107,8 @@ public class ViewOthersProfileActivity extends AppCompatActivity {
             majorTextView.setText(user.getMajor());
             focusTextView.setText("Lv. " + FocusTranslate.time2Level(user.getFocus()));
 
-            byte[] imageBytes = Base64.decode(user.getAvatar(), Base64.DEFAULT);
-            Bitmap pic = BitmapFactory.
-                    decodeByteArray(imageBytes, 0, imageBytes.length);
+            byte[] imageBytes = user.getAvatar();
+            Bitmap pic = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
             avatarImageView.setImageBitmap(pic);
 
             new GetCourses().execute(user);
@@ -136,7 +135,10 @@ public class ViewOthersProfileActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(ArrayList<Course> courses){
-            courseListView.setAdapter(new ArrayAdapter<Course>(ViewOthersProfileActivity.this, android.R.layout.simple_list_item_1, courses));
+            ArrayList<String> courseNames = new ArrayList<>(courses.size());
+            for (Course course : courses)
+                courseNames.add(course.getName());
+            courseListView.setAdapter(new ArrayAdapter<String>(ViewOthersProfileActivity.this, android.R.layout.simple_list_item_1, courseNames));
         }
 
         @Override
