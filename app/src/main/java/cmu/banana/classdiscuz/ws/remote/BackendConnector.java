@@ -62,12 +62,12 @@ public class BackendConnector {
             while ((str = r.readLine()) != null) {
                 sb.append(str);
             }
-            response = new Gson().fromJson(sb.toString(), User[].class);
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
+            in.close();
+            String result = sb.toString();
+            if (result.equals("{\"result\":\"1\"}") || result.equals("{\"result\":\"2\"}")) {
+                return null;
+            }
+            response = new Gson().fromJson(result, User[].class);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -102,13 +102,15 @@ public class BackendConnector {
             while ((str = r.readLine()) != null) {
                 sb.append(str);
             }
-            response = new Gson().fromJson(sb.toString(), Course[].class);
+            in.close();
+            String result = sb.toString();
+            if (result.equals("{\"result\":\"1\"}") || result.equals("{\"result\":\"2\"}")) {
+                return null;
+            }
+
+            response = new Gson().fromJson(result, Course[].class);
             
 
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -142,11 +144,14 @@ public class BackendConnector {
             while ((str = r.readLine()) != null) {
                 sb.append(str);
             }
-            response = new Gson().fromJson(sb.toString(), User.class);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
+            in.close();
+
+            String result = sb.toString();
+            if (result.equals("{\"result\":\"1\"}") || result.equals("{\"result\":\"2\"}")) {
+                return null;
+            }
+
+            response = new Gson().fromJson(result, User.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -167,12 +172,14 @@ public class BackendConnector {
             while ((str = r.readLine()) != null) {
                 sb.append(str);
             }
-            Log.d("log",sb.toString());
-            response = new Gson().fromJson(sb.toString(), Course[].class);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
+            in.close();
+
+            String result = sb.toString();
+            if (result.equals("{\"result\":\"1\"}") || result.equals("{\"result\":\"2\"}")) {
+                return null;
+            }
+
+            response = new Gson().fromJson(result, Course[].class);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -199,11 +206,20 @@ public class BackendConnector {
             out.flush();
             out.close();
 
+            InputStream in = new BufferedInputStream(con.getInputStream());
+            BufferedReader r = new BufferedReader(new InputStreamReader(in));
+            String str = null;
+            StringBuilder sb = new StringBuilder();
+            while ((str = r.readLine()) != null) {
+                sb.append(str);
+            }
+            in.close();
+
+            String result = sb.toString();
+            if (result.equals("{\"result\":\"1\"}") || result.equals("{\"result\":\"2\"}")) {
+                return -1;
+            }
             return 0;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -235,23 +251,22 @@ public class BackendConnector {
             while ((str = r.readLine()) != null) {
                 sb.append(str);
             }
+            in.close();
+            String result = sb.toString();
+
             //exception
-            if (sb.toString().equals("{\"result\":\"1\"}")) {
+            if (result.equals("{\"result\":\"1\"}")) {
                 throw new SignUpException(1, "Database Exception.");
             }
-            if (sb.toString().equals("{\"result\":\"2\"}")) {
+            if (result.equals("{\"result\":\"2\"}")) {
                 throw new SignUpException(2, "Database Exception.");
             }
-            if (sb.toString().equals("{\"result\":\"3\"}")) {
+            if (result.equals("{\"result\":\"3\"}")) {
                 throw new SignUpException(3, "The email already exits.");
             }
 
-            response = new Gson().fromJson(sb.toString(), User.class);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            response = new Gson().fromJson(result, User.class);
+        }catch (IOException e) {
             e.printStackTrace();
         }
         return response;
@@ -281,11 +296,13 @@ public class BackendConnector {
             while ((str = r.readLine()) != null) {
                 sb.append(str);
             }
-            response = new Gson().fromJson(sb.toString(), User.class);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
+            in.close();
+            String result = sb.toString();
+            if (result.equals("{\"result\":\"1\"}") || result.equals("{\"result\":\"2\"}")) {
+                return null;
+            }
+
+            response = new Gson().fromJson(result, User.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
