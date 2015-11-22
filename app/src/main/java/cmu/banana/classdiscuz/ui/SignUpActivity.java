@@ -26,6 +26,10 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText lastNameEditText;
     private Button signUpBtn;
     private UserSignupTask mAuthTask = null;
+    public static final String MyPREFERENCES = "MyPrefs";
+    public static final String Email = "emailKey";
+    public static final String Password = "passwordKey";
+    public static final String UserId = "idKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +169,14 @@ public class SignUpActivity extends AppCompatActivity {
             if (user == null) {
                 return false;
             }
-
+            //save email, password, userid in session
+            SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString(Email, mEmail);
+            editor.putString(Password, mPassword);
+            editor.putInt(UserId, user.getId());
+            editor.commit();
+            
             return true;
         }
 
