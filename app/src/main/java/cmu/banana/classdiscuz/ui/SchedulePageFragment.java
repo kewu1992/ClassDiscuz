@@ -2,15 +2,28 @@ package cmu.banana.classdiscuz.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import cmu.banana.classdiscuz.R;
+import cmu.banana.classdiscuz.entities.Course;
+import cmu.banana.classdiscuz.entities.Session;
+import cmu.banana.classdiscuz.exception.DatabaseException;
 
 
 /**
@@ -33,6 +46,9 @@ public class SchedulePageFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    ArrayList<Course> coursesList = new ArrayList<Course>();
+    private View mView;
+    private RelativeLayout[] layout = new RelativeLayout[7];
 
     /**
      * Use this factory method to create a new instance of
@@ -42,7 +58,6 @@ public class SchedulePageFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment SchedulePageFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static SchedulePageFragment newInstance(String param1, String param2) {
         SchedulePageFragment fragment = new SchedulePageFragment();
         Bundle args = new Bundle();
@@ -80,8 +95,19 @@ public class SchedulePageFragment extends Fragment {
             }
         });
 
+        new RefreshCourses().execute((Object) null);
+
+        layout[1] =  (RelativeLayout) v.findViewById(R.id.mondayRelativeLayout);
+        layout[2] =  (RelativeLayout) v.findViewById(R.id.tuesdayRelativeLayout);
+        layout[3] =  (RelativeLayout) v.findViewById(R.id.wednesdayRelativeLayout);
+        layout[4] =  (RelativeLayout) v.findViewById(R.id.thursdayRelativeLayout);
+        layout[5] =  (RelativeLayout) v.findViewById(R.id.fridayRelativeLayout);
+
+        mView = v;
+
         return v;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -118,8 +144,96 @@ public class SchedulePageFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 
+    private class RefreshCourses extends AsyncTask<Object, Object, ArrayList<Course>> {
+        @Override
+        protected ArrayList<Course> doInBackground(Object... arg){
+            try{
+                return Session.get(getActivity()).getUser().getRegisteredCourses();
+            } catch (DatabaseException e){
+                cancel(true);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Course> courses){
+            coursesList = courses;
+            drawAllCourse(coursesList);
+        }
+
+        @Override
+        protected void onCancelled(){
+            super.onCancelled();
+            new DatabaseException().promptDialog(getActivity());
+        }
+    }
+
+    private void drawAllCourse(ArrayList<Course> list) {
+        Course course;
+        for (int i = 0; i < list.size(); i++) {
+            course = list.get(i);
+            drawCourse(mView, course.getName(), course.getTime());
+        }
+    }
+
+    //M T W R F
+    //relation between margin and time: 120dp = 60min
+    private void drawCourse(View v, String courseName, String time) {
+        int buttonHeight;
+        int marginTop;
+        int startMinute = 0;
+        int endMinute = 0;
+
+        //split the time string using "-" and " "
+        String[] tokens = time.split("[ -]");
+
+        //split the start time using ":"
+        String[] mTime = tokens[1].split("[:]");
+        startMinute = (Integer.parseInt(mTime[0]) - 7) * 60 + Integer.parseInt(mTime[1]);
+
+        //split the end time using ":"
+        String[] mTime2 = tokens[2].split("[:]");
+        endMinute = (Integer.parseInt(mTime2[0]) - 7)* 60 + Integer.parseInt(mTime2[1]);
+
+        //carculate the marginTop and buttonHeight
+        marginTop = startMinute * 2;
+        buttonHeight = (endMinute - startMinute) * 2;
+        String buttonName = courseName + "\n" + time;
+
+        //draw the button
+        if (tokens[0].contains("M")) {
+            drawButton(layout[1], marginTop, buttonHeight, buttonName);
+        }
+        if (tokens[0].contains("T")) {
+            drawButton(layout[2], marginTop, buttonHeight, buttonName);
+        }
+        if (tokens[0].contains("W")) {
+            drawButton(layout[3], marginTop, buttonHeight, buttonName);
+        }
+        if (tokens[0].contains("R")) {
+            drawButton(layout[4], marginTop, buttonHeight, buttonName);
+        }
+        if (tokens[0].contains("F")) {
+            drawButton(layout[5], marginTop, buttonHeight, buttonName);
+        }
+
+    }
+
+    //draw button.
+    private void drawButton(RelativeLayout rl, int marginTop, int buttonHeight, String buttonName) {
+        RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                buttonHeight
+        );
+        p.setMargins(0, marginTop, 0, 0);
+
+        Button button = new Button(getActivity());
+        button.setLayoutParams(p);
+        button.setText(buttonName);
+
+        rl.addView(button);
+    }
 }
