@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,7 @@ public class SchedulePageFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    public static final String EXTRA_MESSAGE = "com.banana.classdiscuz.SchedulePageFragment";
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -83,6 +84,8 @@ public class SchedulePageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log log = null;
+        log.i("chaoyal", "onCrV");
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_schedule_page, container, false);
 
@@ -175,13 +178,13 @@ public class SchedulePageFragment extends Fragment {
         Course course;
         for (int i = 0; i < list.size(); i++) {
             course = list.get(i);
-            drawCourse(mView, course.getName(), course.getTime());
+            drawCourse(mView, course.getName(), course.getTime(), course);
         }
     }
 
     //M T W R F
     //relation between margin and time: 120dp = 60min
-    private void drawCourse(View v, String courseName, String time) {
+    private void drawCourse(View v, String courseName, String time, Course course) {
         int buttonHeight;
         int marginTop;
         int startMinute = 0;
@@ -205,25 +208,25 @@ public class SchedulePageFragment extends Fragment {
 
         //draw the button
         if (tokens[0].contains("M")) {
-            drawButton(layout[1], marginTop, buttonHeight, buttonName);
+            drawButton(layout[1], marginTop, buttonHeight, buttonName, course);
         }
         if (tokens[0].contains("T")) {
-            drawButton(layout[2], marginTop, buttonHeight, buttonName);
+            drawButton(layout[2], marginTop, buttonHeight, buttonName, course);
         }
         if (tokens[0].contains("W")) {
-            drawButton(layout[3], marginTop, buttonHeight, buttonName);
+            drawButton(layout[3], marginTop, buttonHeight, buttonName, course);
         }
         if (tokens[0].contains("R")) {
-            drawButton(layout[4], marginTop, buttonHeight, buttonName);
+            drawButton(layout[4], marginTop, buttonHeight, buttonName, course);
         }
         if (tokens[0].contains("F")) {
-            drawButton(layout[5], marginTop, buttonHeight, buttonName);
+            drawButton(layout[5], marginTop, buttonHeight, buttonName, course);
         }
 
     }
 
     //draw button.
-    private void drawButton(RelativeLayout rl, int marginTop, int buttonHeight, String buttonName) {
+    private void drawButton(RelativeLayout rl, int marginTop, int buttonHeight, String buttonName, final Course course) {
         RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 buttonHeight
@@ -233,7 +236,50 @@ public class SchedulePageFragment extends Fragment {
         Button button = new Button(getActivity());
         button.setLayoutParams(p);
         button.setText(buttonName);
+        button.setTextSize(TypedValue.COMPLEX_UNIT_PX, 20);
 
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                Intent myIntent = new Intent(getActivity(), CourseInfoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(EXTRA_MESSAGE, course);
+                myIntent.putExtras(bundle);
+                startActivity(myIntent);
+
+ //               startActivityForResult(myIntent, 0);
+            }
+        });
         rl.addView(button);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log log = null;
+        log.i("chaoyal", "onPause");
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log log = null;
+        log.i("chaoyal", "onStop");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log log = null;
+        log.i("chaoyal", "onDisV");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log log = null;
+        log.i("chaoyal", "onResume");
+    }
+
+
+//    public void on
 }

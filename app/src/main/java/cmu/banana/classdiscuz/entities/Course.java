@@ -1,5 +1,6 @@
 package cmu.banana.classdiscuz.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import cmu.banana.classdiscuz.exception.DatabaseException;
 import cmu.banana.classdiscuz.exception.InputInvalidException;
 import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
-public class Course {
+public class Course implements Serializable{
     private int id;
     private String num;
     private String instructor;

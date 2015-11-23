@@ -103,6 +103,8 @@ public class User {
             if (selectedCourse.getId() == course.getId()){
                 if (BackendConnector.regOrDropCourse(id, course.getId()) == -1)
                     throw new DatabaseException();
+                else
+                    return;
             }
 
         // not yet select the course

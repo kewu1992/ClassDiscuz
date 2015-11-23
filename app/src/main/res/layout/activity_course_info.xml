@@ -6,7 +6,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="courseinfo_title"
+        android:text="Course Information"
         android:id="@+id/textView11"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Course:"/>
+                android:text="Course: "/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -126,10 +126,12 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Instructor: " />
 
-            <EditText
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/courseinfo_edit_instructor" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Instructor"
+                android:id="@+id/courseinfo_text_instructor" />
 
         </LinearLayout>
 
@@ -156,19 +158,32 @@
         </LinearLayout>
     </LinearLayout>
 
-    <fragment
-        class="com.google.android.gms.maps.MapFragment"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="59dp" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout15"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout4"
+        android:layout_margin="10dp">
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Drop"
+        android:id="@+id/courseinfo_button_drop"
+        android:layout_weight="1.0"
+        android:layout_alignTop="@+id/linearLayout4"
+        android:layout_toEndOf="@+id/textView11" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edit"
         android:id="@+id/courseinfo_button_edit"
-        android:layout_below="@+id/linearLayout15"
-        android:layout_centerHorizontal="true" />
+        android:layout_weight="1.0"
+        android:layout_alignTop="@+id/courseinfo_button_drop"
+        android:layout_toStartOf="@+id/textView11" />
 </RelativeLayout>
