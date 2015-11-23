@@ -32,9 +32,11 @@ import cmu.banana.classdiscuz.entities.Session;
 import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.exception.DatabaseException;
 import cmu.banana.classdiscuz.exception.InputInvalidException;
+import cmu.banana.classdiscuz.util.BitmapScale;
 
 public class SelfprofileActivity extends AppCompatActivity {
     private final static int SELECT_PHOTO_CODE = 9997;
+    private final static int avatar_base_size = 500*1024;
 
     private ImageView avatarImage;
     private TextView registerCoursesTextView;
@@ -106,8 +108,10 @@ public class SelfprofileActivity extends AppCompatActivity {
 
             avatarImage.setImageBitmap(bitmap);
 
+            Bitmap scaledBitmap = BitmapScale.bitmapScale(SelfprofileActivity.this, bitmap, avatarImage.getHeight());
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
             Session.get(SelfprofileActivity.this).getUser().setAvatar(stream.toByteArray());
 
             cursor.close();

@@ -28,6 +28,15 @@ public class BitmapScale {
     private static int dpToPx(int dp, Context context)
     {
         float density = context.getResources().getDisplayMetrics().density;
-        return Math.round((float)dp * density);
+        return Math.round((float) dp * density);
+    }
+
+    public static int compressScale(Bitmap bitmap, int base){
+        int count = bitmap.getByteCount();
+        float scale = (float)base / (float)count;
+        if (scale < 1)
+            return (int)(100 * scale);
+        else
+            return 100;
     }
 }
