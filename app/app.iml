@@ -75,15 +75,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/design/23.1.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.anjlab.android.iab.v3/library/1.0.26/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.castorflex.smoothprogressbar/library/1.1.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/7.8.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.8.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.jakewharton.rxbinding/rxbinding/0.2.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.trello/rxlifecycle-components/0.3.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.trello/rxlifecycle/0.3.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/io.reactivex/rxandroid/1.0.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/vc908.stickers/stickerfactory/0.7.9/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jacoco" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaResources" />
@@ -101,40 +92,23 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="rxlifecycle-0.3.0" level="project" />
-    <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
+    <orderEntry type="library" exported="" name="httpmime-4.5.1" level="project" />
+    <orderEntry type="library" exported="" name="gson-2.4" level="project" />
     <orderEntry type="library" exported="" name="quickblox-android-sdk-core-2.3.3" level="project" />
-    <orderEntry type="library" exported="" name="okhttp-2.3.0" level="project" />
-    <orderEntry type="library" exported="" name="retrofit-1.9.0" level="project" />
-    <orderEntry type="library" exported="" name="play-services-analytics-7.8.0" level="project" />
+    <orderEntry type="library" exported="" name="httpclient-win-4.5.1" level="project" />
+    <orderEntry type="library" exported="" name="httpcore-4.4.3" level="project" />
+    <orderEntry type="library" exported="" name="design-23.1.0" level="project" />
     <orderEntry type="library" exported="" name="commons-logging-1.2" level="project" />
     <orderEntry type="library" exported="" name="httpclient-cache-4.5.1" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-23.1.0" level="project" />
-    <orderEntry type="library" exported="" name="rxlifecycle-components-0.3.0" level="project" />
-    <orderEntry type="library" exported="" name="library-1.1.0" level="project" />
-    <orderEntry type="library" exported="" name="jna-4.1.0" level="project" />
-    <orderEntry type="library" exported="" name="httpclient-4.5.1" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-23.1.0" level="project" />
-    <orderEntry type="library" exported="" name="stickerfactory-0.7.9" level="project" />
-    <orderEntry type="library" exported="" name="okhttp-integration-1.2.2" level="project" />
-    <orderEntry type="library" exported="" name="glide-3.6.1" level="project" />
-    <orderEntry type="library" exported="" name="appcompat-v7-23.1.0" level="project" />
-    <orderEntry type="library" exported="" name="okio-1.3.0" level="project" />
-    <orderEntry type="library" exported="" name="play-services-base-7.8.0" level="project" />
-    <orderEntry type="library" exported="" name="support-annotations-23.1.0" level="project" />
-    <orderEntry type="library" exported="" name="commons-codec-1.9" level="project" />
-    <orderEntry type="library" exported="" name="eventbus-2.4.0" level="project" />
-    <orderEntry type="library" exported="" name="httpmime-4.5.1" level="project" />
-    <orderEntry type="library" exported="" name="gson-2.4" level="project" />
-    <orderEntry type="library" exported="" name="httpclient-win-4.5.1" level="project" />
-    <orderEntry type="library" exported="" name="library-1.0.26" level="project" />
-    <orderEntry type="library" exported="" name="httpcore-4.4.3" level="project" />
-    <orderEntry type="library" exported="" name="rxandroid-1.0.1" level="project" />
-    <orderEntry type="library" exported="" name="design-23.1.0" level="project" />
-    <orderEntry type="library" exported="" name="rxjava-1.0.14" level="project" />
     <orderEntry type="library" exported="" name="fluent-hc-4.5.1" level="project" />
     <orderEntry type="library" exported="" name="quickblox-android-sdk-chat-2.3.3" level="project" />
-    <orderEntry type="library" exported="" name="rxbinding-0.2.0" level="project" />
+    <orderEntry type="library" exported="" name="jna-4.1.0" level="project" />
+    <orderEntry type="library" exported="" name="httpclient-4.5.1" level="project" />
     <orderEntry type="library" exported="" name="jna-platform-4.1.0" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-23.1.0" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-23.1.0" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-23.1.0" level="project" />
+    <orderEntry type="library" exported="" name="commons-codec-1.9" level="project" />
   </component>
 </module>

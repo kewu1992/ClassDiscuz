@@ -6,16 +6,6 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import android.util.Base64;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -38,7 +28,7 @@ import cmu.banana.classdiscuz.exception.SignUpException;
 
 public class BackendConnector {
 
-    private static final String BACKEND = "http://128.237.197.150:8080/ClassDiscuzBackend";
+    private static final String BACKEND = "http://10.0.0.5:8080/ClassDiscuzBackend/";
 
     public static ArrayList<User> getMembersByCourse(int courseId){
         User[] response = null;
@@ -119,7 +109,7 @@ public class BackendConnector {
             }
 
             response = new Gson().fromJson(result, Course[].class);
-            
+
 
         } catch (IOException e) {
             e.printStackTrace();
