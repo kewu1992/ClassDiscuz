@@ -8,15 +8,21 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.TextUtils;
 import android.util.Base64;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.quickblox.chat.model.QBDialog;
 
 import java.util.ArrayList;
 
@@ -50,6 +56,9 @@ public class ChatPageFragment extends Fragment {
 
     private ListView memberListView;
     private ListView courseListView;
+    private ListView messagesContainer;
+    private EditText messageEditText;
+    private QBDialog dialog;
 
     public static ChatPageFragment newInstance(int param1, int param2) {
         ChatPageFragment fragment = new ChatPageFragment();
@@ -86,7 +95,25 @@ public class ChatPageFragment extends Fragment {
         courseListView = (ListView) v.findViewById(R.id.courseListView);
         courseListView.setOnItemClickListener(courseListListener);
 
+        messagesContainer = (ListView) v.findViewById(R.id.chat_list_view);
+        messageEditText = (EditText) v.findViewById(R.id.chat_edit_text);
+
         new RefreshCourses().execute((Object)null);
+
+        messageEditText.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    String messageText = messageEditText.getText().toString();
+                    if (TextUtils.isEmpty(messageText)) {
+                        return true;
+                    }
+//                    sendChatMessage(messageText);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         return v;
     }

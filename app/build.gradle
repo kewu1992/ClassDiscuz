@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+repositories {
+      maven { url  'http://maven.stickerpipe.com/artifactory/stickerfactory' }
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion '23.0.1'
@@ -33,10 +37,14 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
 //    compile 'com.google.android.gms:play-services:8.1.0'
-
+//    compile files('libs/quickblox-android-sdk-core-2.3.3.jar')
+//    compile files('libs/quickblox-android-sdk-chat-2.3.3.jar')
+//    compile('vc908.stickers:stickerfactory:0.7.9@aar') {
+//        transitive = true;
+//    }
 }

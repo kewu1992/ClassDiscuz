@@ -14,13 +14,15 @@ public class Course implements Serializable{
     private String instructor;
     private String name;
     private String time;
+    private String location;
 
-    public Course(int id, String num, String instructor, String name, String time) {
+    public Course(int id, String num, String instructor, String name, String time, String location) {
         this.id = id;
         this.num = num;
         this.instructor = instructor;
         this.name = name;
         this.time = time;
+        this.location = location;
     }
 
     public int getId() {
@@ -53,7 +55,12 @@ public class Course implements Serializable{
     public void setTime(String time) {
         this.time = time;
     }
-
+    public String getLocation() {
+        return location;
+    }
+    public void setLocation(String location) {
+        this.location = location;
+    }
     public void checkValid() throws InputInvalidException {
 
     }
