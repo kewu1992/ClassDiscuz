@@ -3,6 +3,7 @@ package cmu.banana.classdiscuz.ui;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,12 +35,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.quickblox.core.QBEntityCallbackImpl;
+import com.quickblox.users.model.QBUser;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import cmu.banana.classdiscuz.R;
+import cmu.banana.classdiscuz.app.ApplicationSingleton;
 import cmu.banana.classdiscuz.entities.Session;
 import cmu.banana.classdiscuz.entities.User;
+import cmu.banana.classdiscuz.ws.local.ChatService;
 import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -365,9 +371,30 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-//                finish();
-                Intent goHomePage = new Intent(LoginActivity.this, HomePageActivity.class);
-                startActivity(goHomePage);
+
+                final QBUser user = new QBUser();
+                user.setLogin(ApplicationSingleton.USER_LOGIN);
+                user.setPassword(ApplicationSingleton.USER_PASSWORD);
+
+                ChatService.initIfNeed(LoginActivity.this);
+
+                ChatService.getInstance().login(user, new QBEntityCallbackImpl() {
+
+                    @Override
+                    public void onSuccess() {
+
+                        Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(List errors) {
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(LoginActivity.this);
+                        dialog.setMessage("chat login errors: " + errors).create().show();
+                    }
+                });
+
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
