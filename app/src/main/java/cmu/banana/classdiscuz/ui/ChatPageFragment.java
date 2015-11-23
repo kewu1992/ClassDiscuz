@@ -108,7 +108,7 @@ public class ChatPageFragment extends Fragment {
                     if (TextUtils.isEmpty(messageText)) {
                         return true;
                     }
-                    sendChatMessage(messageText);
+//                    sendChatMessage(messageText);
                     return true;
                 }
                 return false;
