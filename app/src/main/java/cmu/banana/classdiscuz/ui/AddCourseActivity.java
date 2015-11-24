@@ -240,6 +240,7 @@ public class AddCourseActivity extends AppCompatActivity {
             builder.setPositiveButton(R.string.addCourse_success_button, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int button) {
+                    Course.isNeedRefresh = true;
                     AddCourseActivity.this.finish();
                 }
 

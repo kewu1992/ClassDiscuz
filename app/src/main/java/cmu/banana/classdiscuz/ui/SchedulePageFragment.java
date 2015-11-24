@@ -50,7 +50,7 @@ public class SchedulePageFragment extends Fragment {
 
     ArrayList<Course> coursesList = new ArrayList<Course>();
     private View mView;
-    private RelativeLayout[] layout = new RelativeLayout[7];
+    private RelativeLayout[] layout = new RelativeLayout[5];
 
     /**
      * Use this factory method to create a new instance of
@@ -101,11 +101,11 @@ public class SchedulePageFragment extends Fragment {
 
         new RefreshCourses().execute((Object) null);
 
-        layout[1] =  (RelativeLayout) v.findViewById(R.id.mondayRelativeLayout);
-        layout[2] =  (RelativeLayout) v.findViewById(R.id.tuesdayRelativeLayout);
-        layout[3] =  (RelativeLayout) v.findViewById(R.id.wednesdayRelativeLayout);
-        layout[4] =  (RelativeLayout) v.findViewById(R.id.thursdayRelativeLayout);
-        layout[5] =  (RelativeLayout) v.findViewById(R.id.fridayRelativeLayout);
+        layout[0] =  (RelativeLayout) v.findViewById(R.id.mondayRelativeLayout);
+        layout[1] =  (RelativeLayout) v.findViewById(R.id.tuesdayRelativeLayout);
+        layout[2] =  (RelativeLayout) v.findViewById(R.id.wednesdayRelativeLayout);
+        layout[3] =  (RelativeLayout) v.findViewById(R.id.thursdayRelativeLayout);
+        layout[4] =  (RelativeLayout) v.findViewById(R.id.fridayRelativeLayout);
 
         mView = v;
 
@@ -209,19 +209,19 @@ public class SchedulePageFragment extends Fragment {
 
         //draw the button
         if (tokens[0].contains("M")) {
-            drawButton(layout[1], marginTop, buttonHeight, buttonName, course);
+            drawButton(layout[0], marginTop, buttonHeight, buttonName, course);
         }
         if (tokens[0].contains("T")) {
-            drawButton(layout[2], marginTop, buttonHeight, buttonName, course);
+            drawButton(layout[1], marginTop, buttonHeight, buttonName, course);
         }
         if (tokens[0].contains("W")) {
-            drawButton(layout[3], marginTop, buttonHeight, buttonName, course);
+            drawButton(layout[2], marginTop, buttonHeight, buttonName, course);
         }
         if (tokens[0].contains("R")) {
-            drawButton(layout[4], marginTop, buttonHeight, buttonName, course);
+            drawButton(layout[3], marginTop, buttonHeight, buttonName, course);
         }
         if (tokens[0].contains("F")) {
-            drawButton(layout[5], marginTop, buttonHeight, buttonName, course);
+            drawButton(layout[4], marginTop, buttonHeight, buttonName, course);
         }
 
     }
@@ -255,30 +255,8 @@ public class SchedulePageFragment extends Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        Log log = null;
-        log.i("chaoyal", "onPause");
-    }
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log log = null;
-        log.i("chaoyal", "onStop");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log log = null;
-        log.i("chaoyal", "onDisV");
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
-        Log log = null;
-        log.i("chaoyal", "onResume");
         if (Course.isNeedRefresh) {
             Course.isNeedRefresh = false;
             SchedulePageFragment schedule = new SchedulePageFragment();
@@ -287,7 +265,4 @@ public class SchedulePageFragment extends Fragment {
             tr.commit();
         }
     }
-
-
-//    public void on
 }
