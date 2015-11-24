@@ -1,6 +1,7 @@
 package cmu.banana.classdiscuz.ui;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -278,6 +279,13 @@ public class SchedulePageFragment extends Fragment {
         super.onResume();
         Log log = null;
         log.i("chaoyal", "onResume");
+        if (Course.isNeedRefresh) {
+            Course.isNeedRefresh = false;
+            SchedulePageFragment schedule = new SchedulePageFragment();
+            FragmentTransaction tr = getFragmentManager().beginTransaction();
+            tr.replace(R.id.homepage_content, schedule);
+            tr.commit();
+        }
     }
 
 

@@ -15,6 +15,7 @@ public class Course implements Serializable{
     private String name;
     private String time;
     private String location;
+    public static boolean isNeedRefresh = false;
 
     public Course(int id, String num, String instructor, String name, String time, String location) {
         this.id = id;

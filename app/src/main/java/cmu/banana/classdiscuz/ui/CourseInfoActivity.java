@@ -2,6 +2,7 @@ package cmu.banana.classdiscuz.ui;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -120,11 +121,13 @@ public class CourseInfoActivity extends AppCompatActivity {
             builder.setMessage(R.string.dropCourse_success_msg);
             builder.setPositiveButton(R.string.dropCourse_success_button, null);
             builder.show(); // display the Dialog
-            SchedulePageFragment SchedulePageFragment = new SchedulePageFragment();
-            FragmentTransaction tr = getFragmentManager().beginTransaction();
-            tr.replace(R.id.homepage_content, SchedulePageFragment);
-            tr.commit();
+            Course.isNeedRefresh = true;
             CourseInfoActivity.this.finish();
+        }
+
+
+        public void onFragmentInteraction(Uri uri){
+
         }
 
         @Override
