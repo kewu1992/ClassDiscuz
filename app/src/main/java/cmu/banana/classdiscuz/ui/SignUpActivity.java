@@ -198,7 +198,7 @@ public class SignUpActivity extends AppCompatActivity {
                 Intent goHomePage = new Intent(SignUpActivity.this, HomePageActivity.class);
                 startActivity(goHomePage);
             }
-            if (isDatabaseError) {
+            else if (isDatabaseError) {
                 Context context = getApplicationContext();
                 CharSequence text = "Database Error!";
                 int duration = Toast.LENGTH_SHORT;
