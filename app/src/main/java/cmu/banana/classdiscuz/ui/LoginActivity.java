@@ -372,29 +372,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
 
-//                final QBUser user = new QBUser();
-//                user.setLogin(ApplicationSingleton.USER_LOGIN);
-//                user.setPassword(ApplicationSingleton.USER_PASSWORD);
-//
-//                ChatService.initIfNeed(LoginActivity.this);
-//
-//                ChatService.getInstance().login(user, new QBEntityCallbackImpl() {
-//
-//                    @Override
-//                    public void onSuccess() {
-//
-//                        Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
-//                        startActivity(intent);
-//                        finish();
-//                    }
-//
-//                    @Override
-//                    public void onError(List errors) {
-//                        AlertDialog.Builder dialog = new AlertDialog.Builder(LoginActivity.this);
-//                        dialog.setMessage("chat login errors: " + errors).create().show();
-//                    }
-//                });
-
                 Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
                 startActivity(intent);
                 finish();

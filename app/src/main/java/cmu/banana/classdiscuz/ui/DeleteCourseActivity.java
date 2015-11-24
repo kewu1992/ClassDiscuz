@@ -1,5 +1,6 @@
 package cmu.banana.classdiscuz.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import cmu.banana.classdiscuz.entities.Course;
 import cmu.banana.classdiscuz.entities.Session;
 import cmu.banana.classdiscuz.exception.DatabaseException;
 import cmu.banana.classdiscuz.exception.InputInvalidException;
+import cmu.banana.classdiscuz.exception.NoSuchCourseException;
 
 /**
  * Created by WK on 11/6/15.
@@ -131,6 +133,9 @@ public class DeleteCourseActivity  extends AppCompatActivity {
             } catch(InputInvalidException e){
                 eNum = 2;
                 cancel(true);
+            } catch (NoSuchCourseException e){
+                eNum = 3;
+                cancel(true);
             }
             return null;
         }
@@ -141,7 +146,14 @@ public class DeleteCourseActivity  extends AppCompatActivity {
             // set dialog title & message, and provide Button to dismiss
             builder.setTitle(R.string.dropCourse_success_title);
             builder.setMessage(R.string.dropCourse_success_msg);
-            builder.setPositiveButton(R.string.dropCourse_success_button, null);
+            builder.setPositiveButton(R.string.dropCourse_success_button, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int button) {
+                    Course.isNeedRefresh = true;
+                    DeleteCourseActivity.this.finish();
+                }
+
+            });
             builder.show(); // display the Dialog
             DeleteCourseActivity.this.finish();
         }
@@ -153,6 +165,8 @@ public class DeleteCourseActivity  extends AppCompatActivity {
                 new DatabaseException().promptDialog(DeleteCourseActivity.this);
             else if (eNum == 2)
                 new InputInvalidException().promptDialog(DeleteCourseActivity.this);
+            else if (eNum == 3)
+                new NoSuchCourseException().promptDialog(DeleteCourseActivity.this);
         }
     }
 

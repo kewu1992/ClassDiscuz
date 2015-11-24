@@ -25,6 +25,7 @@ import cmu.banana.classdiscuz.entities.Course;
 import cmu.banana.classdiscuz.entities.Session;
 import cmu.banana.classdiscuz.exception.DatabaseException;
 import cmu.banana.classdiscuz.exception.InputInvalidException;
+import cmu.banana.classdiscuz.exception.NoSuchCourseException;
 
 /**
  * Created by WK on 11/6/15.
@@ -227,6 +228,9 @@ public class AddCourseActivity extends AppCompatActivity {
             } catch(InputInvalidException e){
                 eNum = 2;
                 cancel(true);
+            } catch(NoSuchCourseException e){
+                eNum = 3;
+                cancel(true);
             }
             return null;
         }
@@ -255,6 +259,8 @@ public class AddCourseActivity extends AppCompatActivity {
                 new DatabaseException().promptDialog(AddCourseActivity.this);
             else if (eNum == 2)
                 new InputInvalidException().promptDialog(AddCourseActivity.this);
+            else if (eNum == 3)
+                new NoSuchCourseException().promptDialog(AddCourseActivity.this);
         }
     }
 }

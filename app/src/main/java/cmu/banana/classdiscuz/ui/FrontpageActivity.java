@@ -29,7 +29,7 @@ public class FrontpageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent goSignup = new Intent(FrontpageActivity.this, SignUpActivity.class);
-                startActivity(goSignup);
+                startActivityForResult(goSignup, 2);
             }
         });
 
@@ -37,7 +37,7 @@ public class FrontpageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent goSignIn = new Intent(FrontpageActivity.this, LoginActivity.class);
-                startActivity(goSignIn);
+                startActivityForResult(goSignIn, 1);
             }
         });
 
@@ -46,7 +46,9 @@ public class FrontpageActivity extends AppCompatActivity {
         mAuthTask.execute((Void) null);
     }
 
-
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        finish();
+    }
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
@@ -70,8 +72,6 @@ public class FrontpageActivity extends AppCompatActivity {
 
             mEmail = sharedpreferences.getString(Email, "null");
             mPassword = sharedpreferences.getString(Password, "null");
-
-            Log.i("chaoyal", mEmail);
 
             // TODO: register the new account here.
             return true;

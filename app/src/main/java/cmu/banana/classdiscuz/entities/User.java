@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import cmu.banana.classdiscuz.exception.DatabaseException;
 import cmu.banana.classdiscuz.exception.InputInvalidException;
+import cmu.banana.classdiscuz.exception.NoSuchCourseException;
 import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
 public class User {
@@ -87,7 +88,9 @@ public class User {
         return result;
     }
 
-    public void registerCourse(Course course) throws InputInvalidException, DatabaseException{
+    public void registerCourse(Course course) throws InputInvalidException, DatabaseException, NoSuchCourseException {
+        if (course == null)
+            throw new NoSuchCourseException();
         ArrayList<Course> selectedCourses = getRegisteredCourses();
         for (Course selectedCourse : selectedCourses)
             if (selectedCourse.getId() == course.getId())
@@ -97,7 +100,9 @@ public class User {
             throw new DatabaseException();
     }
 
-    public void dropCourse(Course course) throws InputInvalidException, DatabaseException{
+    public void dropCourse(Course course) throws InputInvalidException, DatabaseException, NoSuchCourseException{
+        if (course == null)
+            throw new NoSuchCourseException();
         ArrayList<Course> selectedCourses = getRegisteredCourses();
         for (Course selectedCourse : selectedCourses)
             if (selectedCourse.getId() == course.getId()){

@@ -54,6 +54,10 @@
     <string name="updateProfile_success_msg">You have updated your profile successfully</string>
     <string name="updateProfile_success_button">Ok</string>
 
+    <string name="no_course_title">No such course</string>
+    <string name="no_course_msg">No such course in database, please change your input</string>
+    <string name="no_course_button">Ok</string>
+
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>

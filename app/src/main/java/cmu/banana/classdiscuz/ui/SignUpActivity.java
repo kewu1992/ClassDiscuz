@@ -197,6 +197,7 @@ public class SignUpActivity extends AppCompatActivity {
 //                finish();
                 Intent goHomePage = new Intent(SignUpActivity.this, HomePageActivity.class);
                 startActivity(goHomePage);
+                finish();
             }
             else if (isDatabaseError) {
                 Context context = getApplicationContext();
