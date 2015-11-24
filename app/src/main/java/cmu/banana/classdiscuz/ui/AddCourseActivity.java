@@ -1,5 +1,6 @@
 package cmu.banana.classdiscuz.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -236,9 +237,14 @@ public class AddCourseActivity extends AppCompatActivity {
             // set dialog title & message, and provide Button to dismiss
             builder.setTitle(R.string.addCourse_success_title);
             builder.setMessage(R.string.addCourse_success_msg);
-            builder.setPositiveButton(R.string.addCourse_success_button, null);
+            builder.setPositiveButton(R.string.addCourse_success_button, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int button) {
+                    AddCourseActivity.this.finish();
+                }
+
+            });
             builder.show(); // display the Dialog
-            AddCourseActivity.this.finish();
         }
 
         @Override
