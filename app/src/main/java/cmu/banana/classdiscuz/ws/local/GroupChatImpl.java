@@ -12,7 +12,6 @@ import com.quickblox.chat.model.QBChatMessage;
 import com.quickblox.chat.model.QBDialog;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.QBEntityCallbackImpl;
-import com.quickblox.sample.chat.ui.activities.ChatActivity;
 
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
@@ -21,15 +20,17 @@ import org.jivesoftware.smackx.muc.DiscussionHistory;
 import java.util.Arrays;
 import java.util.List;
 
+import cmu.banana.classdiscuz.ui.HomePageActivity;
+
 public class GroupChatImpl extends QBMessageListenerImpl<QBGroupChat> implements Chat {
     private static final String TAG = GroupChatImpl.class.getSimpleName();
 
-    private ChatActivity chatActivity;
+    private HomePageActivity chatActivity;
 
     private QBGroupChatManager groupChatManager;
     private QBGroupChat groupChat;
 
-    public GroupChatImpl(ChatActivity chatActivity) {
+    public GroupChatImpl(HomePageActivity chatActivity) {
         this.chatActivity = chatActivity;
     }
 
