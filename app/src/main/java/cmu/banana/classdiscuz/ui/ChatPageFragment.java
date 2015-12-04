@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +62,6 @@ public class ChatPageFragment extends Fragment {
 
     private ListView memberListView;
     private ListView courseListView;
-    private EditText messageEditText;
     private ArrayList<QBDialog> dialogs;
 
     public static ChatPageFragment newInstance(int param1) {
@@ -96,24 +96,7 @@ public class ChatPageFragment extends Fragment {
         courseListView = (ListView) v.findViewById(R.id.courseListView);
         courseListView.setOnItemClickListener(courseListListener);
 
-        messageEditText = (EditText) v.findViewById(R.id.chat_edit_text);
-
-        new RefreshCourses().execute((Object)null);
-
-        messageEditText.setOnEditorActionListener(new EditText.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    String messageText = messageEditText.getText().toString();
-                    if (TextUtils.isEmpty(messageText)) {
-                        return true;
-                    }
-//                    sendChatMessage(messageText);
-                    return true;
-                }
-                return false;
-            }
-        });
+        new RefreshCourses().execute((Object) null);
 
         return v;
     }
@@ -126,7 +109,6 @@ public class ChatPageFragment extends Fragment {
         if (((ChatBaseActivity)getActivity()).isSessionActive())
             getDialogs();
 
-        setDefaultFragment();
     }
 
     public void getDialogs(){
@@ -138,14 +120,13 @@ public class ChatPageFragment extends Fragment {
             @Override
             public void onSuccess(Object object, Bundle bundle) {
                 //progressBar.setVisibility(View.GONE);
-
                 dialogs = (ArrayList<QBDialog>) object;
+                setDefaultFragment();
             }
 
             @Override
             public void onError(List errors) {
                 //progressBar.setVisibility(View.GONE);
-
                 AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
                 dialog.setMessage("get dialogs errors: " + errors).create().show();
             }
