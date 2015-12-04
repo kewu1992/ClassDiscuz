@@ -226,7 +226,11 @@ public class BackendConnector {
             if (result.equals("{\"result\":\"1\"}") || result.equals("{\"result\":\"2\"}")) {
                 return -1;
             }
-            return 0;
+
+            if (result.equals("{\"result\":\"00\"}"))
+                return 0;
+            if (result.equals("{\"result\":\"01\"}"))
+                return 1;
         } catch (IOException e) {
             e.printStackTrace();
         }

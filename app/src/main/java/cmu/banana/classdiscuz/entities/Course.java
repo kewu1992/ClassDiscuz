@@ -15,6 +15,7 @@ public class Course implements Serializable{
     private String name;
     private String time;
     private String location;
+    private int superUser;
     public static boolean isNeedRefresh = false;
 
     public Course(int id, String num, String instructor, String name, String time, String location) {
@@ -31,6 +32,12 @@ public class Course implements Serializable{
     }
     public void setId(int id) {
         this.id = id;
+    }
+    public int getSuperUser() {
+        return superUser;
+    }
+    public void setSuperUser(int superUser) {
+        this.superUser = superUser;
     }
     public String getNum() {
         return num;
