@@ -24,6 +24,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Created by igorkhomenko on 4/28/15.
+ */
 public class ChatService {
 
     private static final String TAG = ChatService.class.getSimpleName();
@@ -150,7 +153,7 @@ public class ChatService {
                 // collect all occupants ids
                 //
                 List<Integer> usersIDs = new ArrayList<Integer>();
-                for(QBDialog dialog : dialogs){
+                for (QBDialog dialog : dialogs) {
                     usersIDs.addAll(dialog.getOccupants());
                 }
 
@@ -262,4 +265,3 @@ public class ChatService {
         }
     };
 }
-
