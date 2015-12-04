@@ -348,6 +348,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
+
+
             //save email, password, userid in session
             SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -372,9 +374,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
 
-                Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
-                startActivity(intent);
-                finish();
+                final QBUser user = new QBUser();
+                user.setLogin(mEmail);
+                user.setPassword(mPassword);
+
+                ChatService.initIfNeed(LoginActivity.this);
+                ChatService.getInstance().login(user, new QBEntityCallbackImpl() {
+
+                    @Override
+                    public void onSuccess() {
+                        Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(List errors) {
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(LoginActivity.this);
+                        dialog.setMessage("chat login errors: " + errors).create().show();
+                    }
+                });
+
+
 
             } else {
 

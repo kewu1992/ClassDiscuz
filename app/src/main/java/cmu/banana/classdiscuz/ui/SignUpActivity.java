@@ -168,6 +168,7 @@ public class SignUpActivity extends AppCompatActivity {
             isDatabaseError = false;
             //get user from back end
             try {
+
                 user = BackendConnector.signUp(mEmail, mPassword, nName);
             } catch (SignUpException e) {
                 int errorno = e.getErrorno();
