@@ -98,6 +98,13 @@ public class User {
 
         if (BackendConnector.regOrDropCourse(id, course.getId()) == -1)
             throw new DatabaseException();
+        else {
+            if (course.getSuperUser() == 0) {
+                
+            } else {
+
+            }
+        }
     }
 
     public void dropCourse(Course course) throws InputInvalidException, DatabaseException, NoSuchCourseException{
