@@ -31,9 +31,11 @@ import com.quickblox.chat.model.QBDialog;
 import com.quickblox.core.QBEntityCallbackImpl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cmu.banana.classdiscuz.R;
+import cmu.banana.classdiscuz.app.ApplicationSingleton;
 import cmu.banana.classdiscuz.entities.Session;
 import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.entities.ChatMessage;
@@ -177,7 +179,6 @@ public class ChatPageFragment extends Fragment {
 
                 curCoursePosition = 0;
                 curDialogId = courses.get(0).getDialogId();
-                setDefaultFragment();
                 new RefreshChatMembers().execute(courses.get(0));
             }
         }
@@ -204,6 +205,13 @@ public class ChatPageFragment extends Fragment {
         protected void onPostExecute(ArrayList<User> members){
             ChatMemberAdapter chatMemberAdapter = new ChatMemberAdapter(members);
             memberListView.setAdapter(chatMemberAdapter);
+
+            HashMap<Integer, String> userID2Name = new HashMap<>();
+            for (User user : members)
+                userID2Name.put(user.getChatId(), user.getName());
+            ApplicationSingleton.getInstance().setUserHashMap(userID2Name);
+
+            setDefaultFragment();
         }
 
         @Override
@@ -275,7 +283,6 @@ public class ChatPageFragment extends Fragment {
         {
             curCoursePosition = position;
             curDialogId = ((Course)courseListView.getAdapter().getItem(curCoursePosition)).getDialogId();
-            setDefaultFragment();
             new RefreshChatMembers().execute((Course)courseListView.getAdapter().getItem(curCoursePosition));
         }
 

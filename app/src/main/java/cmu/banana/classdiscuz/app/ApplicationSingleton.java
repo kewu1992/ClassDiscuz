@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.quickblox.core.QBSettings;
 
+import java.util.HashMap;
+
 /**
  * Created by WK on 11/22/15.
  *
@@ -25,6 +27,8 @@ public class ApplicationSingleton extends Application{
         return instance;
     }
 
+    private HashMap<Integer, String> userID2Name;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -35,5 +39,13 @@ public class ApplicationSingleton extends Application{
         //
         QBSettings.getInstance().fastConfigInit(APP_ID, AUTH_KEY, AUTH_SECRET);
         //StickersManager.initialize(STICKER_API_KEY, this);
+    }
+
+    public void setUserHashMap(HashMap<Integer, String> map) {
+        userID2Name = map;
+    }
+
+    public String getName(Integer id) {
+        return userID2Name.get(id);
     }
 }
