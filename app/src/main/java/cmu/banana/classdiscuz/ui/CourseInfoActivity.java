@@ -17,14 +17,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import cmu.banana.classdiscuz.R;
 import cmu.banana.classdiscuz.entities.Course;
 import cmu.banana.classdiscuz.entities.Session;
 import cmu.banana.classdiscuz.exception.DatabaseException;
 import cmu.banana.classdiscuz.exception.InputInvalidException;
 import cmu.banana.classdiscuz.exception.NoSuchCourseException;
+import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
-public class CourseInfoActivity extends AppCompatActivity {
+public class CourseInfoActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private TextView courseTextView;
     private TextView numberTextView;
@@ -33,6 +41,9 @@ public class CourseInfoActivity extends AppCompatActivity {
     private TextView instructorTextView;
     private EditText officehourEditText;
     private Button   dropButton;
+    private Course course;
+    private GoogleMap googleMap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +62,8 @@ public class CourseInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        final Course course = (Course)bundle.getSerializable(SchedulePageFragment.EXTRA_MESSAGE);
+        course = (Course)bundle.getSerializable(SchedulePageFragment.EXTRA_MESSAGE);
+
         courseTextView.setText(course.getName());
         timeTextView.setText(course.getTime());
         numberTextView.setText(course.getNum());
@@ -66,6 +78,10 @@ public class CourseInfoActivity extends AppCompatActivity {
                 new DropCourse().execute(course);
             }
         });
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
     }
 
@@ -97,6 +113,12 @@ public class CourseInfoActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
 
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        googleMap = map;
+        new MarkLocation().execute(course);
     }
 
     private class DropCourse extends AsyncTask<Course, Object, Object> {
@@ -150,6 +172,32 @@ public class CourseInfoActivity extends AppCompatActivity {
                 new InputInvalidException().promptDialog(CourseInfoActivity.this);
             else if (eNum == 3)
                 new NoSuchCourseException().promptDialog(CourseInfoActivity.this);
+        }
+    }
+
+
+    private class MarkLocation extends AsyncTask<Course, Object, String> {
+        Course course;
+        @Override
+        protected String doInBackground(Course... arg){
+            course = arg[0];
+            String loc = BackendConnector.getGeolocation(course.getLocation());
+            return loc;
+        }
+
+        @Override
+        protected void onPostExecute(String arg){
+            if (arg != null) {
+                String[] coord = arg.split(",");
+                LatLng curr = new LatLng(Double.parseDouble(coord[0]), Double.parseDouble(coord[1]));
+                googleMap.addMarker(new MarkerOptions().position(curr).title(course.getName()));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(curr));
+                googleMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+            } else {
+                LatLng curr = new LatLng(40, -79);
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(curr));
+                googleMap.animateCamera(CameraUpdateFactory.zoomTo(13));
+            }
         }
     }
 }

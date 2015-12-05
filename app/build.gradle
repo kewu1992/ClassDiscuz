@@ -14,6 +14,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -41,6 +42,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
-    compile files('libs/quickblox-android-sdk-chat-2.3.3.jar')
-    compile files('libs/quickblox-android-sdk-core-2.3.3.jar')
+    compile 'com.google.android.gms:play-services-maps:8.3.0'
+
 }
