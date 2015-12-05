@@ -1,5 +1,6 @@
 package cmu.banana.classdiscuz.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,9 +15,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.quickblox.core.QBEntityCallbackImpl;
+import com.quickblox.core.QBSettings;
+import com.quickblox.users.QBUsers;
+import com.quickblox.users.model.QBUser;
+
+import java.util.List;
+
 import cmu.banana.classdiscuz.R;
+import cmu.banana.classdiscuz.app.ApplicationSingleton;
 import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.exception.SignUpException;
+import cmu.banana.classdiscuz.ws.local.ChatService;
 import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -194,10 +204,27 @@ public class SignUpActivity extends AppCompatActivity {
             mAuthTask = null;
 
             if (success) {
-//                finish();
-                Intent goHomePage = new Intent(SignUpActivity.this, HomePageActivity.class);
-                startActivity(goHomePage);
-                finish();
+                final QBUser user = new QBUser();
+                user.setLogin(mEmail);
+                user.setPassword(mPassword);
+
+                ChatService.initIfNeed(SignUpActivity.this);
+                ChatService.getInstance().login(user, new QBEntityCallbackImpl() {
+
+                    @Override
+                    public void onSuccess() {
+                        Intent goHomePage = new Intent(SignUpActivity.this, HomePageActivity.class);
+                        startActivity(goHomePage);
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(List errors) {
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(SignUpActivity.this);
+                        dialog.setMessage("chat login errors: " + errors).create().show();
+                    }
+                });
+
             }
             else if (isDatabaseError) {
                 Context context = getApplicationContext();

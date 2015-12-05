@@ -28,7 +28,7 @@ import cmu.banana.classdiscuz.exception.SignUpException;
 
 public class BackendConnector {
 
-    private static final String BACKEND = "http://ec2-52-91-129-213.compute-1.amazonaws.com:8080/ClassDiscuzBackend";
+    private static final String BACKEND = "http://128.237.199.88:8080/ClassDiscuzBackend/";
 
     public static ArrayList<User> getMembersByCourse(int courseId){
         User[] response = null;
@@ -226,7 +226,11 @@ public class BackendConnector {
             if (result.equals("{\"result\":\"1\"}") || result.equals("{\"result\":\"2\"}")) {
                 return -1;
             }
-            return 0;
+
+            if (result.equals("{\"result\":\"00\"}"))
+                return 0;
+            if (result.equals("{\"result\":\"01\"}"))
+                return 1;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -361,6 +365,43 @@ public class BackendConnector {
             URL url = new URL(BACKEND+"/updatefocus");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             String params = "studentId="+studentId+"&focus="+focus;
+
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.setChunkedStreamingMode(0);
+
+            OutputStream out = new BufferedOutputStream(con.getOutputStream());
+
+            out.write(params.getBytes());
+            out.flush();
+            out.close();
+
+            InputStream in = new BufferedInputStream(con.getInputStream());
+            BufferedReader r = new BufferedReader(new InputStreamReader(in));
+            String str = null;
+            StringBuilder sb = new StringBuilder();
+            while ((str = r.readLine()) != null) {
+                sb.append(str);
+            }
+            in.close();
+            String result = sb.toString();
+
+            if (result.equals("{\"result\":\"1\"}") || result.equals("{\"result\":\"2\"}")) {
+                return -1;
+            }
+            return 0;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public static int updateChatId(int studentId, int chatId) {
+
+        try {
+            URL url = new URL(BACKEND+"/updatechatid");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            String params = "studentId="+studentId+"&chatId="+chatId;
 
             con.setDoOutput(true);
             con.setDoInput(true);

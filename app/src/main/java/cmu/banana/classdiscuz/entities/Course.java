@@ -15,17 +15,26 @@ public class Course implements Serializable{
     private String name;
     private String time;
     private String location;
+    private String dialogId;
+
     public static boolean isNeedRefresh = false;
 
-    public Course(int id, String num, String instructor, String name, String time, String location) {
+    public Course(int id, String num, String instructor, String name, String time, String location, String dialogId) {
         this.id = id;
         this.num = num;
         this.instructor = instructor;
         this.name = name;
         this.time = time;
         this.location = location;
+        this.dialogId = dialogId;
     }
 
+    public String getDialogId() {
+        return dialogId;
+    }
+    public void setDialogId(String dialogId) {
+        this.dialogId = dialogId;
+    }
     public int getId() {
         return id;
     }

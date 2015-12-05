@@ -58,31 +58,41 @@ android:layout_width="match_parent" android:layout_height="match_parent">
                 android:layout_height="wrap_content"
                 android:id="@+id/courseListView" />
 
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/chat_height"
-                android:id="@+id/chat_list_view"
-                android:layout_toStartOf="@+id/chat_member_list"
-                android:layout_toEndOf="@+id/courseListView"/>
 
-            <View
-                android:id="@+id/chat_text_line"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_width"
-                android:background="#FF909090"
-                android:layout_below="@id/chat_list_view"
-                android:layout_toStartOf="@+id/chat_member_list"
-                android:layout_toEndOf="@+id/courseListView"/>
+            <!--<ListView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/chat_height"-->
+                <!--android:id="@+id/chat_list_view"-->
+                <!--android:layout_toStartOf="@+id/chat_member_list"-->
+                <!--android:layout_toEndOf="@+id/courseListView"/>-->
+
+            <!--<View-->
+                <!--android:id="@+id/chat_text_line"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/line_width"-->
+                <!--android:background="#FF909090"-->
+                <!--android:layout_below="@id/chat_list_view"-->
+                <!--android:layout_toStartOf="@+id/chat_member_list"-->
+                <!--android:layout_toEndOf="@+id/courseListView"/>-->
 
 
-            <EditText
+            <!--<EditText-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:id="@+id/chat_edit_text"-->
+                <!--android:layout_below="@id/chat_list_view"-->
+                <!--android:layout_toStartOf="@+id/chat_member_list"-->
+                <!--android:layout_toEndOf="@+id/courseListView"-->
+                <!--android:imeOptions="actionDone"/>-->
+
+            <FrameLayout
+                android:id="@+id/chat_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/chat_edit_text"
-                android:layout_below="@id/chat_list_view"
                 android:layout_toStartOf="@+id/chat_member_list"
-                android:layout_toEndOf="@+id/courseListView"
-                android:imeOptions="actionDone"/>
+                android:layout_toEndOf="@+id/courseListView">
+
+            </FrameLayout>
 
             <RelativeLayout
                 android:id="@+id/chat_member_list"

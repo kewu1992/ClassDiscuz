@@ -1,5 +1,8 @@
 package cmu.banana.classdiscuz.ui;
 
+import android.app.AlertDialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +13,7 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +26,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.quickblox.chat.model.QBChatMessage;
 import com.quickblox.chat.model.QBDialog;
+import com.quickblox.core.QBEntityCallbackImpl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cmu.banana.classdiscuz.R;
 import cmu.banana.classdiscuz.entities.Session;
@@ -33,6 +40,7 @@ import cmu.banana.classdiscuz.entities.ChatMessage;
 import cmu.banana.classdiscuz.entities.Course;
 import cmu.banana.classdiscuz.exception.DatabaseException;
 import cmu.banana.classdiscuz.util.BitmapScale;
+import cmu.banana.classdiscuz.ws.local.ChatService;
 
 
 /**
@@ -46,25 +54,20 @@ import cmu.banana.classdiscuz.util.BitmapScale;
 public class ChatPageFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "currentSelectCourse";
-    private static final String ARG_PARAM2 = "userID";
     public static final String USR_ID = "usr_id"; // Intent extra key
 
     private int curCoursePosition;
-    private int userID;
 
     private OnFragmentInteractionListener mListener;
 
     private ListView memberListView;
     private ListView courseListView;
-    private ListView messagesContainer;
-    private EditText messageEditText;
-    private QBDialog dialog;
+    private ArrayList<QBDialog> dialogs;
 
-    public static ChatPageFragment newInstance(int param1, int param2) {
+    public static ChatPageFragment newInstance(int param1) {
         ChatPageFragment fragment = new ChatPageFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, param1);
-        args.putInt(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -78,9 +81,7 @@ public class ChatPageFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             curCoursePosition = getArguments().getInt(ARG_PARAM1);
-            userID = getArguments().getInt(ARG_PARAM2);
         }
-
     }
 
     @Override
@@ -95,27 +96,55 @@ public class ChatPageFragment extends Fragment {
         courseListView = (ListView) v.findViewById(R.id.courseListView);
         courseListView.setOnItemClickListener(courseListListener);
 
-        messagesContainer = (ListView) v.findViewById(R.id.chat_list_view);
-        messageEditText = (EditText) v.findViewById(R.id.chat_edit_text);
-
-        new RefreshCourses().execute((Object)null);
-
-        messageEditText.setOnEditorActionListener(new EditText.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    String messageText = messageEditText.getText().toString();
-                    if (TextUtils.isEmpty(messageText)) {
-                        return true;
-                    }
-//                    sendChatMessage(messageText);
-                    return true;
-                }
-                return false;
-            }
-        });
+        new RefreshCourses().execute((Object) null);
 
         return v;
+    }
+
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+
+        if (((ChatBaseActivity)getActivity()).isSessionActive())
+            getDialogs();
+
+    }
+
+    public void getDialogs(){
+        //progressBar.setVisibility(View.VISIBLE);
+
+        // Get dialogs
+        //
+        ChatService.getInstance().getDialogs(new QBEntityCallbackImpl() {
+            @Override
+            public void onSuccess(Object object, Bundle bundle) {
+                //progressBar.setVisibility(View.GONE);
+                dialogs = (ArrayList<QBDialog>) object;
+                setDefaultFragment();
+            }
+
+            @Override
+            public void onError(List errors) {
+                //progressBar.setVisibility(View.GONE);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                dialog.setMessage("get dialogs errors: " + errors).create().show();
+            }
+        });
+    }
+
+    private void setDefaultFragment()
+    {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        ChatFragment chat = ChatFragment.newInstance(dialogs.get(0));
+        transaction.replace(R.id.chat_content, chat);
+        transaction.commit();
+    }
+
+    public void showMessage(QBChatMessage message) {
+        ChatFragment fragment = (ChatFragment) getFragmentManager().findFragmentById(R.id.chat_content);
+        fragment.showMessage(message);
     }
 
 

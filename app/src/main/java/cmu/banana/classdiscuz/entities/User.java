@@ -16,8 +16,9 @@ public class User {
     private String college;
     private String major;
     private int focus;
+    private int chatId;
 
-    public User(int id, String email, String password, String name, byte[] avatar, String college, String major, int focus) {
+    public User(int id, String email, String password, String name, byte[] avatar, String college, String major, int focus, int chatId) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -26,6 +27,7 @@ public class User {
         this.college = college;
         this.major = major;
         this.focus = focus;
+        this.chatId = chatId;
     }
 
     public int getId() {
@@ -33,6 +35,12 @@ public class User {
     }
     public void setId(int id) {
         this.id = id;
+    }
+    public int getChatId() {
+        return chatId;
+    }
+    public void setChatId(int chatId) {
+        this.chatId = chatId;
     }
     public String getEmail() {
         return email;
