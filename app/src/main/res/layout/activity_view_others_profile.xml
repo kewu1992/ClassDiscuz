@@ -3,8 +3,8 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:id="@+id/view_profile_avatar_imageView"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
@@ -17,22 +17,22 @@
         android:layout_height="wrap_content"
         android:text="Name"
         android:id="@+id/view_profile_name_textView"
-        android:layout_alignTop="@+id/view_profile_avatar_imageView"
-        android:layout_toEndOf="@+id/view_profile_avatar_imageView"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="42dp"
         android:textColor="#000000"
-        android:textSize="18dp"
-        android:layout_marginTop="10dp" />
+        android:textSize="25dp"
+        android:layout_alignBottom="@+id/view_profile_avatar_imageView"
+        android:layout_toEndOf="@+id/view_profile_avatar_imageView"
+        android:layout_marginBottom="33dp" />
 
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/view_profile_university_icon_imageView"
-        android:src="@drawable/default_avatar"
+        android:src="@drawable/ic_university"
         android:layout_marginLeft="0dp"
         android:layout_below="@+id/view_profile_avatar_imageView"
         android:layout_alignStart="@+id/view_profile_name_textView"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="25dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -43,14 +43,14 @@
         android:textSize="18dp"
         android:layout_alignTop="@+id/view_profile_university_icon_imageView"
         android:layout_toEndOf="@+id/view_profile_university_icon_imageView"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="140dp"
         android:layout_marginTop="15dp" />
 
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/view_profile_major_icon_imageView"
-        android:src="@drawable/default_avatar"
+        android:src="@drawable/ic_college"
         android:layout_marginLeft="0dp"
         android:layout_below="@+id/view_profile_university_icon_imageView"
         android:layout_alignStart="@+id/view_profile_university_icon_imageView"
@@ -63,7 +63,7 @@
         android:id="@+id/view_profile_major_textView"
         android:textColor="#000000"
         android:textSize="18dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="140dp"
         android:layout_alignTop="@+id/view_profile_major_icon_imageView"
         android:layout_toEndOf="@+id/view_profile_major_icon_imageView"
         android:layout_marginTop="15dp" />
@@ -72,7 +72,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/view_profile_focus_icon_imageView"
-        android:src="@drawable/default_avatar"
+        android:src="@drawable/ic_focus"
         android:layout_marginLeft="0dp"
         android:layout_below="@+id/view_profile_major_icon_imageView"
         android:layout_alignStart="@+id/view_profile_major_icon_imageView"
@@ -85,7 +85,7 @@
         android:id="@+id/view_profile_focus_textView"
         android:textColor="#000000"
         android:textSize="18dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="140dp"
         android:layout_alignTop="@+id/view_profile_focus_icon_imageView"
         android:layout_toEndOf="@+id/view_profile_focus_icon_imageView"
         android:layout_marginTop="15dp" />
@@ -100,13 +100,44 @@
         android:layout_marginLeft="20dp"
         android:layout_alignTop="@+id/view_profile_name_textView"
         android:layout_toEndOf="@+id/view_profile_focus_textView"
-        android:layout_marginStart="245dp" />
+        android:layout_marginStart="130dp" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/view_profile_register_course_listView"
-        android:layout_alignTop="@+id/view_profile_avatar_imageView"
-        android:layout_toEndOf="@+id/view_profile_registered_course_textView"
-        android:choiceMode="none" />
+        android:choiceMode="none"
+        android:layout_alignTop="@+id/view_profile_registered_course_textView"
+        android:layout_toEndOf="@+id/view_profile_registered_course_textView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="University"
+        android:id="@+id/textView"
+        android:layout_alignBottom="@+id/view_profile_college_textView"
+        android:layout_toEndOf="@id/view_profile_university_icon_imageView"
+        android:layout_marginLeft="20dp"
+        android:textSize="18dp"
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Major"
+        android:id="@+id/textView2"
+        android:textSize="18dp"
+        android:textColor="#000000"
+        android:layout_alignTop="@+id/view_profile_major_textView"
+        android:layout_alignStart="@+id/textView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Focus Points"
+        android:id="@+id/textView3"
+        android:textSize="18dp"
+        android:textColor="#000000"
+        android:layout_alignTop="@+id/view_profile_focus_textView"
+        android:layout_alignStart="@+id/textView2" />
 </RelativeLayout>

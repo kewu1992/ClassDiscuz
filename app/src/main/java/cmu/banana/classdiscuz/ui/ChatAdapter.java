@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.quickblox.chat.model.QBChatMessage;
 import cmu.banana.classdiscuz.R;
+import cmu.banana.classdiscuz.app.ApplicationSingleton;
 import cmu.banana.classdiscuz.ws.local.ChatService;
 import cmu.banana.classdiscuz.util.TimeUtils;
 import com.quickblox.users.model.QBUser;
@@ -89,7 +90,8 @@ public class ChatAdapter extends BaseAdapter {
             holder.txtMessage.setText(chatMessage.getBody());
         }
         if (chatMessage.getSenderId() != null) {
-            holder.txtInfo.setText(chatMessage.getSenderId() + ": " + getTimeText(chatMessage));
+            String name = ApplicationSingleton.getInstance().getName(chatMessage.getSenderId());
+            holder.txtInfo.setText(name + ": " + getTimeText(chatMessage));
         } else {
             holder.txtInfo.setText(getTimeText(chatMessage));
         }
