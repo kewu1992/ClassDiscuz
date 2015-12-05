@@ -1,8 +1,11 @@
 package cmu.banana.classdiscuz.app;
 
 import android.app.Application;
+import android.widget.Toast;
 
 import com.quickblox.core.QBSettings;
+
+import org.apache.harmony.javax.security.auth.callback.TextOutputCallback;
 
 import java.util.HashMap;
 
@@ -29,6 +32,8 @@ public class ApplicationSingleton extends Application{
 
     private HashMap<Integer, String> userID2Name;
 
+    private Toast toast;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -47,5 +52,18 @@ public class ApplicationSingleton extends Application{
 
     public String getName(Integer id) {
         return userID2Name.get(id);
+    }
+
+    public void setToast(Toast toast) {
+        this.toast = toast;
+    }
+
+    public void cancelToast() {
+        if (toast != null)
+            toast.cancel();
+    }
+
+    public Toast getToast() {
+        return toast;
     }
 }
