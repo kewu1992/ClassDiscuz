@@ -67,6 +67,9 @@ public class ChatPageFragment extends Fragment {
     private ListView courseListView;
     private ArrayList<QBDialog> dialogs;
 
+    private RefreshCourses refreshCoursesTask;
+    private RefreshChatMembers refreshChatMembers;
+
     public static ChatPageFragment newInstance(int param1) {
         ChatPageFragment fragment = new ChatPageFragment();
         Bundle args = new Bundle();
@@ -123,7 +126,10 @@ public class ChatPageFragment extends Fragment {
                 //progressBar.setVisibility(View.GONE);
                 dialogs = (ArrayList<QBDialog>) object;
 
-                new RefreshCourses().execute((Object) null);
+                if (refreshCoursesTask != null)
+                    refreshCoursesTask.cancel(true);
+                refreshCoursesTask = new RefreshCourses();
+                refreshCoursesTask.execute((Object) null);
             }
 
             @Override
@@ -161,11 +167,14 @@ public class ChatPageFragment extends Fragment {
     }
 
     private class RefreshCourses extends AsyncTask<Object, Object, ArrayList<Course>>{
+        private int errNum;
         @Override
         protected ArrayList<Course> doInBackground(Object... arg){
             try{
+                errNum = 0;
                 return Session.get(getActivity()).getUser().getRegisteredCourses();
             } catch (DatabaseException e){
+                errNum = 1;
                 cancel(true);
             }
             return null;
@@ -179,23 +188,31 @@ public class ChatPageFragment extends Fragment {
 
                 curCoursePosition = 0;
                 curDialogId = courses.get(0).getDialogId();
-                new RefreshChatMembers().execute(courses.get(0));
+
+                if (refreshChatMembers != null)
+                    refreshChatMembers.cancel(true);
+                refreshChatMembers = new RefreshChatMembers();
+                refreshChatMembers.execute(courses.get(0));
             }
         }
 
         @Override
         protected void onCancelled(){
             super.onCancelled();
-            new DatabaseException().promptDialog(getActivity());
+            if (errNum == 1)
+                new DatabaseException().promptDialog(getActivity());
         }
     }
 
     private class RefreshChatMembers extends AsyncTask<Course, Object, ArrayList<User>>{
+        private int errNum;
         @Override
         protected ArrayList<User> doInBackground(Course... arg){
             try{
+                errNum = 0;
                 return arg[0].getStudents();
             } catch (DatabaseException e){
+                errNum = 1;
                 cancel(true);
             }
             return null;
@@ -217,7 +234,8 @@ public class ChatPageFragment extends Fragment {
         @Override
         protected void onCancelled(){
             super.onCancelled();
-            new DatabaseException().promptDialog(getActivity());
+            if (errNum == 1)
+                new DatabaseException().promptDialog(getActivity());
         }
     }
 
@@ -283,7 +301,10 @@ public class ChatPageFragment extends Fragment {
         {
             curCoursePosition = position;
             curDialogId = ((Course)courseListView.getAdapter().getItem(curCoursePosition)).getDialogId();
-            new RefreshChatMembers().execute((Course)courseListView.getAdapter().getItem(curCoursePosition));
+            if (refreshChatMembers != null)
+                refreshChatMembers.cancel(true);
+            refreshChatMembers = new RefreshChatMembers();
+            refreshChatMembers.execute((Course)courseListView.getAdapter().getItem(curCoursePosition));
         }
 
     };

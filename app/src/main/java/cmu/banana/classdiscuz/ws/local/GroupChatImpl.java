@@ -20,6 +20,7 @@ import org.jivesoftware.smackx.muc.DiscussionHistory;
 import java.util.Arrays;
 import java.util.List;
 
+import cmu.banana.classdiscuz.app.ApplicationSingleton;
 import cmu.banana.classdiscuz.ui.HomePageActivity;
 
 public class GroupChatImpl extends QBMessageListenerImpl<QBGroupChat> implements Chat {
@@ -53,7 +54,9 @@ public class GroupChatImpl extends QBMessageListenerImpl<QBGroupChat> implements
         DiscussionHistory history = new DiscussionHistory();
         history.setMaxStanzas(0);
 
-        Toast.makeText(chatActivity, "Joining room...", Toast.LENGTH_LONG).show();
+        ApplicationSingleton.getInstance().cancelToast();
+        ApplicationSingleton.getInstance().setToast(Toast.makeText(chatActivity, "Joining room...", Toast.LENGTH_LONG));
+        ApplicationSingleton.getInstance().getToast().show();
 
         groupChat.join(history, new QBEntityCallbackImpl() {
             @Override
@@ -66,7 +69,9 @@ public class GroupChatImpl extends QBMessageListenerImpl<QBGroupChat> implements
                     public void run() {
                         callback.onSuccess();
 
-                        Toast.makeText(chatActivity, "Join successful", Toast.LENGTH_LONG).show();
+                        ApplicationSingleton.getInstance().cancelToast();
+                        ApplicationSingleton.getInstance().setToast(Toast.makeText(chatActivity, "Join successful", Toast.LENGTH_LONG));
+                        ApplicationSingleton.getInstance().getToast().show();
                     }
                 });
                 Log.w("Chat", "Join successful");
@@ -82,7 +87,7 @@ public class GroupChatImpl extends QBMessageListenerImpl<QBGroupChat> implements
                 });
 
 
-                Log.w("Could not join chat, errors:", Arrays.toString(list.toArray()));
+                Log.w("Could not join chat:", Arrays.toString(list.toArray()));
             }
         });
     }
