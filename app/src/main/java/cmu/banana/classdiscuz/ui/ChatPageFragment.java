@@ -57,6 +57,7 @@ public class ChatPageFragment extends Fragment {
     public static final String USR_ID = "usr_id"; // Intent extra key
 
     private int curCoursePosition;
+    private String curDialogId;
 
     private OnFragmentInteractionListener mListener;
 
@@ -96,8 +97,6 @@ public class ChatPageFragment extends Fragment {
         courseListView = (ListView) v.findViewById(R.id.courseListView);
         courseListView.setOnItemClickListener(courseListListener);
 
-        new RefreshCourses().execute((Object) null);
-
         return v;
     }
 
@@ -121,7 +120,8 @@ public class ChatPageFragment extends Fragment {
             public void onSuccess(Object object, Bundle bundle) {
                 //progressBar.setVisibility(View.GONE);
                 dialogs = (ArrayList<QBDialog>) object;
-                setDefaultFragment();
+
+                new RefreshCourses().execute((Object) null);
             }
 
             @Override
@@ -135,9 +135,15 @@ public class ChatPageFragment extends Fragment {
 
     private void setDefaultFragment()
     {
+        QBDialog selectedDialog = null;
+        for (QBDialog dialog : dialogs)
+            if (dialog.getDialogId().compareTo(curDialogId) == 0){
+                selectedDialog = dialog;
+                break;
+            }
         FragmentManager fm = getFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        ChatFragment chat = ChatFragment.newInstance(dialogs.get(0));
+        ChatFragment chat = ChatFragment.newInstance(selectedDialog);
         transaction.replace(R.id.chat_content, chat);
         transaction.commit();
     }
@@ -167,6 +173,13 @@ public class ChatPageFragment extends Fragment {
         protected void onPostExecute(ArrayList<Course> courses){
             CourseAdapter courseAdapter = new CourseAdapter(courses);
             courseListView.setAdapter(courseAdapter);
+            if (courses.size() > 0) {
+
+                curCoursePosition = 0;
+                curDialogId = courses.get(0).getDialogId();
+                setDefaultFragment();
+                new RefreshChatMembers().execute(courses.get(0));
+            }
         }
 
         @Override
@@ -255,30 +268,14 @@ public class ChatPageFragment extends Fragment {
         }
     }
 
-    private class ChatMsgAdapter extends ArrayAdapter<ChatMessage> {
-        public  ChatMsgAdapter(ArrayList<ChatMessage> messages){
-            super(getActivity(), android.R.layout.simple_list_item_1, messages);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            // if we weren't given a view, inflate one
-            if (null == convertView) {
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_chat_msg, null);
-            }
-
-            ChatMessage chatMessage = getItem(position);
-
-            return convertView;
-        }
-    }
-
     AdapterView.OnItemClickListener courseListListener = new AdapterView.OnItemClickListener()
     {
         @Override
         public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id)
         {
             curCoursePosition = position;
+            curDialogId = ((Course)courseListView.getAdapter().getItem(curCoursePosition)).getDialogId();
+            setDefaultFragment();
             new RefreshChatMembers().execute((Course)courseListView.getAdapter().getItem(curCoursePosition));
         }
 

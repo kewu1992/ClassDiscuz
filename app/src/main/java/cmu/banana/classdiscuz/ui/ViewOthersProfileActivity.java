@@ -108,8 +108,10 @@ public class ViewOthersProfileActivity extends AppCompatActivity {
             focusTextView.setText("Lv. " + FocusTranslate.time2Level(user.getFocus()));
 
             byte[] imageBytes = user.getAvatar();
-            Bitmap pic = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-            avatarImageView.setImageBitmap(pic);
+            if (imageBytes != null) {
+                Bitmap pic = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+                avatarImageView.setImageBitmap(pic);
+            }
 
             new GetCourses().execute(user);
         }
