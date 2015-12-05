@@ -4,14 +4,19 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.quickblox.chat.model.QBChatMessage;
+
+import org.w3c.dom.Text;
 
 import cmu.banana.classdiscuz.R;
 
@@ -23,10 +28,25 @@ public class HomePageActivity extends ChatBaseActivity implements ChatPageFragme
     private SchedulePageFragment schedule;
     private ChatPageFragment chat;
 
+    private ImageView ic_schedule;
+    private ImageView ic_chat;
+    private TextView tx_schedule;
+    private TextView tx_chat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
+        ic_schedule = (ImageView) findViewById(R.id.bottom_switch_schedule_image);
+        ic_chat = (ImageView) findViewById(R.id.bottom_switch_chat_image);
+        tx_schedule = (TextView) findViewById(R.id.bottom_switch_schedule);
+        tx_chat = (TextView) findViewById(R.id.bottom_switch_chat);
+
+        ic_schedule.setImageResource(R.drawable.ic_schedule_bule);
+        tx_schedule.setTextColor(Color.parseColor("#667cde"));
+        ic_chat.setImageResource(R.drawable.ic_chat_grey);
+        tx_chat.setTextColor(Color.parseColor("#878787"));
 
         setDefaultFragment();
     }
@@ -48,19 +68,29 @@ public class HomePageActivity extends ChatBaseActivity implements ChatPageFragme
         {
             //click the schecule
             case R.id.bottom_switch_schedule:
+            case R.id.bottom_switch_schedule_image:
                 if (schedule == null)
                 {
                     schedule = new SchedulePageFragment();
                 }
                 //
                 transaction.replace(R.id.homepage_content, schedule);
+                ic_schedule.setImageResource(R.drawable.ic_schedule_bule);
+                tx_schedule.setTextColor(Color.parseColor("#667cde"));
+                ic_chat.setImageResource(R.drawable.ic_chat_grey);
+                tx_chat.setTextColor(Color.parseColor("#878787"));
                 break;
             case R.id.bottom_switch_chat:
+            case R.id.bottom_switch_chat_image:
                 if (chat == null)
                 {
                     chat = ChatPageFragment.newInstance(0);
                 }
                 transaction.replace(R.id.homepage_content, chat);
+                ic_schedule.setImageResource(R.drawable.ic_schedule_grey);
+                tx_schedule.setTextColor(Color.parseColor("#878787"));
+                ic_chat.setImageResource(R.drawable.ic_chat_blue);
+                tx_chat.setTextColor(Color.parseColor("#667cde"));
                 break;
         }
         transaction.commit();
