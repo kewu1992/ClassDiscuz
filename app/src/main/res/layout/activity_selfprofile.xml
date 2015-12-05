@@ -15,7 +15,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="EditSave"
+        android:text="Save"
         android:id="@+id/selfprofile_button_edit"
         android:layout_above="@+id/selfprofile_button_logout"
         android:layout_alignStart="@+id/selfprofile_button_logout" />
@@ -52,7 +52,7 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="100dp"
+        android:layout_marginEnd="10dp"
         android:layout_centerVertical="true"
         android:layout_toStartOf="@+id/selfprofile_avatar"
         android:id="@+id/linearLayout2">
@@ -73,7 +73,7 @@
                 android:id="@+id/selfprofile_text_name" />
 
             <EditText
-                android:layout_width="match_parent"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/selfprofile_edit_name_value"
@@ -101,7 +101,7 @@
                 android:id="@+id/selfprofile_text_university" />
 
             <EditText
-                android:layout_width="match_parent"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/selfprofile_edit_university_value"
                 android:maxLength="20"/>
@@ -128,7 +128,7 @@
                 android:id="@+id/selfprofile_text_major" />
 
             <EditText
-                android:layout_width="match_parent"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/selfprofile_edit_major_value"
                 android:maxLength="20"/>
@@ -155,7 +155,7 @@
                 android:id="@+id/selfprofile_text_focus" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="n"
