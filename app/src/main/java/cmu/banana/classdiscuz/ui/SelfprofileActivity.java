@@ -14,10 +14,12 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -44,12 +46,14 @@ public class SelfprofileActivity extends AppCompatActivity {
     private EditText nameEditText;
     private EditText universityEditText;
     private EditText majorEditText;
+    private Button saveEditButton;
+    private ListView courseListView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selfprofile);
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -59,9 +63,14 @@ public class SelfprofileActivity extends AppCompatActivity {
         nameEditText = (EditText)findViewById(R.id.selfprofile_edit_name_value);
         universityEditText = (EditText)findViewById(R.id.selfprofile_edit_university_value);
         majorEditText = (EditText)findViewById(R.id.selfprofile_edit_major_value);
-
         avatarImage.setOnClickListener(buttonListen);
-
+        courseListView = (ListView) findViewById(R.id.view_selfprofile_register_course_listView);
+        saveEditButton = (Button)findViewById(R.id.selfprofile_button_edit);
+        saveEditButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                new UpdateProfile().execute((Object) null);
+            }
+        });
         new RefreshUserInfo().execute((Object)null);
     }
 
@@ -116,7 +125,6 @@ public class SelfprofileActivity extends AppCompatActivity {
 
             cursor.close();
 
-            new UpdateProfile().execute((Object) null);
         }
     }
 
@@ -134,12 +142,15 @@ public class SelfprofileActivity extends AppCompatActivity {
             nameEditText.setText(user.getName());
             universityEditText.setText(user.getCollege());
             majorEditText.setText(user.getMajor());
+            focusTextView.setText(Integer.toString(user.getFocus()));
 
             if (user.getAvatar() != null){
                 byte[] imageBytes = user.getAvatar();
                 Bitmap pic = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
                 avatarImage.setImageBitmap(pic);
             }
+
+            new GetCourses().execute(user);
         }
 
     }
@@ -189,4 +200,32 @@ public class SelfprofileActivity extends AppCompatActivity {
                 new InputInvalidException().promptDialog(SelfprofileActivity.this);
         }
     }
+
+    private class GetCourses extends AsyncTask<User, Object, ArrayList<Course>>{
+        @Override
+        protected ArrayList<Course> doInBackground(User... arg){
+            try{
+                return arg[0].getRegisteredCourses();
+            } catch (DatabaseException e){
+                cancel(true);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Course> courses){
+            ArrayList<String> courseNames = new ArrayList<>(courses.size());
+            for (Course course : courses)
+                courseNames.add(course.getName());
+            courseListView.setAdapter(new ArrayAdapter<String>(SelfprofileActivity.this, android.R.layout.simple_list_item_1, courseNames));
+        }
+
+        @Override
+        protected void onCancelled(){
+            super.onCancelled();
+            new DatabaseException().promptDialog(SelfprofileActivity.this);
+        }
+    }
+
 }
