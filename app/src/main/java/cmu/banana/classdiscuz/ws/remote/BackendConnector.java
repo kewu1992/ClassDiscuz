@@ -432,4 +432,43 @@ public class BackendConnector {
         }
         return -1;
     }
+
+    public static String getGeolocation(String address) {
+        if (address == null || address.equals("null"))
+            return null;
+
+        String location = null;
+        try {
+            URL url = new URL(BACKEND+"/geolocation");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            String params = "address="+address;
+
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.setChunkedStreamingMode(0);
+
+            OutputStream out = new BufferedOutputStream(con.getOutputStream());
+
+            out.write(params.getBytes());
+            out.flush();
+            out.close();
+
+            InputStream in = new BufferedInputStream(con.getInputStream());
+            BufferedReader r = new BufferedReader(new InputStreamReader(in));
+            String str = null;
+            StringBuilder sb = new StringBuilder();
+            while ((str = r.readLine()) != null) {
+                sb.append(str);
+            }
+            in.close();
+            String result = sb.toString();
+            if (result.equals("null")) {
+                return null;
+            }
+            location = result;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return location;
+    }
 }
