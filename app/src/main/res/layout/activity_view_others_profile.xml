@@ -107,8 +107,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/view_profile_register_course_listView"
         android:choiceMode="none"
-        android:layout_alignTop="@+id/view_profile_registered_course_textView"
-        android:layout_toEndOf="@+id/view_profile_registered_course_textView" />
+        android:layout_below="@+id/view_profile_registered_course_textView"
+        android:layout_alignStart="@+id/view_profile_registered_course_textView" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -8,6 +8,8 @@ import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 public class Session {
     public static final String MyPREFERENCES = "MyPrefs";
     public static final String UserId = "idKey";
+    public static final String Email = "emailKey";
+    public static final String Password = "passwordKey";
     private static User currentUser;
     private static Session sSession;
     SharedPreferences pref;
@@ -32,5 +34,15 @@ public class Session {
 
     public User getUser() {
         return currentUser;
+    }
+
+    public void addLoginInfo(String email, String password, int userid, User user) {
+        SharedPreferences sharedpreferences = mAppContext.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putInt(UserId, userid);
+        editor.putString(Email, email);
+        editor.putString(Password, password);
+        editor.commit();
+        int uid = userid;
     }
 }

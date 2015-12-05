@@ -15,7 +15,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="EditSave"
+        android:text="Save"
         android:id="@+id/selfprofile_button_edit"
         android:layout_above="@+id/selfprofile_button_logout"
         android:layout_alignStart="@+id/selfprofile_button_logout" />
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Name:            "
+                android:text="Name:              "
                 android:id="@+id/selfprofile_text_name" />
 
             <EditText
@@ -97,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="University:     "
+                android:text="University:       "
                 android:id="@+id/selfprofile_text_university" />
 
             <EditText
@@ -124,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Major:            "
+                android:text="Major:              "
                 android:id="@+id/selfprofile_text_major" />
 
             <EditText
@@ -151,7 +151,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Focus Points:"
+                android:text="Focus Points:  "
                 android:id="@+id/selfprofile_text_focus" />
 
             <TextView

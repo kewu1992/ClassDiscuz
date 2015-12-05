@@ -35,6 +35,7 @@ import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.exception.DatabaseException;
 import cmu.banana.classdiscuz.exception.InputInvalidException;
 import cmu.banana.classdiscuz.util.BitmapScale;
+import cmu.banana.classdiscuz.util.FocusTranslate;
 
 public class SelfprofileActivity extends AppCompatActivity {
     private final static int SELECT_PHOTO_CODE = 9997;
@@ -142,7 +143,7 @@ public class SelfprofileActivity extends AppCompatActivity {
             nameEditText.setText(user.getName());
             universityEditText.setText(user.getCollege());
             majorEditText.setText(user.getMajor());
-            focusTextView.setText(Integer.toString(user.getFocus()));
+            focusTextView.setText("Lv. " + FocusTranslate.time2Level(user.getFocus()));
 
             if (user.getAvatar() != null){
                 byte[] imageBytes = user.getAvatar();

@@ -1,6 +1,5 @@
 package cmu.banana.classdiscuz.ui;
 
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -41,6 +40,7 @@ public class CourseInfoActivity extends AppCompatActivity implements OnMapReadyC
     private TextView instructorTextView;
     private EditText officehourEditText;
     private Button   dropButton;
+    private Button   editButton;
     private Course course;
     private GoogleMap googleMap;
 
@@ -59,6 +59,7 @@ public class CourseInfoActivity extends AppCompatActivity implements OnMapReadyC
         instructorTextView =(TextView)findViewById(R.id.courseinfo_text_instructor);
         officehourEditText = (EditText)findViewById(R.id.courseinfo_edit_officehour);
         dropButton = (Button)findViewById(R.id.courseinfo_button_drop);
+        editButton = (Button)findViewById(R.id.courseinfo_button_edit);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -71,6 +72,14 @@ public class CourseInfoActivity extends AppCompatActivity implements OnMapReadyC
 
         String place = placeEditText.getText().toString();
         String officehour = officehourEditText.getText().toString();
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*save place and office hour*/
+
+            }
+        });
 
         dropButton.setOnClickListener(new View.OnClickListener() {
             @Override

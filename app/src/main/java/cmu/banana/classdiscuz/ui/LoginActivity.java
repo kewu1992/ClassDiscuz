@@ -55,11 +55,6 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
-    public static final String MyPREFERENCES = "MyPrefs";
-    public static final String Email = "emailKey";
-    public static final String Password = "passwordKey";
-    public static final String UserId = "idKey";
-
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -348,15 +343,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-
-
+            Session session = Session.get(getApplicationContext());
+            session.addLoginInfo(mEmail, mPassword, user.getId(), user);
             //save email, password, userid in session
-            SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putString(Email, mEmail);
-            editor.putString(Password, mPassword);
-            editor.putInt(UserId, user.getId());
-            editor.commit();
+//            SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor = sharedpreferences.edit();
+//            editor.putString(Email, mEmail);
+//            editor.putString(Password, mPassword);
+//            editor.putInt(UserId, user.getId());
+//            editor.commit();
 //            for (String credential : DUMMY_CREDENTIALS) {
 //                String[] pieces = credential.split(":");
 //                if (pieces[0].equals(mEmail)) {

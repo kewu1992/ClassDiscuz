@@ -24,6 +24,7 @@ import java.util.List;
 
 import cmu.banana.classdiscuz.R;
 import cmu.banana.classdiscuz.app.ApplicationSingleton;
+import cmu.banana.classdiscuz.entities.Session;
 import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.exception.SignUpException;
 import cmu.banana.classdiscuz.ws.local.ChatService;
@@ -39,10 +40,6 @@ public class SignUpActivity extends AppCompatActivity {
     private Button signUpBtn;
     private boolean isDatabaseError = false;
     private UserSignupTask mAuthTask = null;
-    public static final String MyPREFERENCES = "MyPrefs";
-    public static final String Email = "emailKey";
-    public static final String Password = "passwordKey";
-    public static final String UserId = "idKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,12 +186,14 @@ public class SignUpActivity extends AppCompatActivity {
             }
 
             //save email, password, userid in session
-            SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putString(Email, mEmail);
-            editor.putString(Password, mPassword);
-            editor.putInt(UserId, user.getId());
-            editor.commit();
+            Session session = Session.get(getApplicationContext());
+            session.addLoginInfo(mEmail, mPassword, user.getId(), user);
+//            SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor = sharedpreferences.edit();
+//            editor.putString(Email, mEmail);
+//            editor.putString(Password, mPassword);
+//            editor.putInt(UserId, user.getId());
+//            editor.commit();
 
             return true;
         }
