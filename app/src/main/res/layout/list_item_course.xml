@@ -6,5 +6,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/course_item_name_text_view" />
+        android:id="@+id/course_item_name_text_view"
+        android:textColor="@color/material_blue_grey_800"
+        android:textSize="18dp" />
 </LinearLayout>

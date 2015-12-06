@@ -2,6 +2,8 @@ package cmu.banana.classdiscuz.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,9 +93,17 @@ public class ChatAdapter extends BaseAdapter {
         }
         if (chatMessage.getSenderId() != null) {
             String name = ApplicationSingleton.getInstance().getName(chatMessage.getSenderId());
-            holder.txtInfo.setText(name + ": " + getTimeText(chatMessage));
-        } else {
+            holder.txtName.setText(name);
             holder.txtInfo.setText(getTimeText(chatMessage));
+        } else {
+            holder.txtName.setText("");
+            holder.txtInfo.setText(getTimeText(chatMessage));
+        }
+
+        byte[] imageBytes = ApplicationSingleton.getInstance().getAvatar(chatMessage.getSenderId());
+        if (imageBytes != null) {
+            Bitmap pic = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+            holder.avatar.setImageBitmap(pic);
         }
         return convertView;
     }
@@ -108,6 +118,10 @@ public class ChatAdapter extends BaseAdapter {
 
     private void setAlignment(ViewHolder holder, boolean isOutgoing) {
         if (!isOutgoing) {
+            holder.content.removeAllViews();
+            holder.content.addView(holder.text);
+            holder.content.addView(holder.avatar);
+
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.contentWithBG.getLayoutParams();
             layoutParams.gravity = Gravity.RIGHT;
             holder.contentWithBG.setLayoutParams(layoutParams);
@@ -120,8 +134,21 @@ public class ChatAdapter extends BaseAdapter {
             layoutParams = (LinearLayout.LayoutParams) holder.txtInfo.getLayoutParams();
             layoutParams.gravity = Gravity.RIGHT;
             holder.txtInfo.setLayoutParams(layoutParams);
+
+            layoutParams = (LinearLayout.LayoutParams) holder.txtName.getLayoutParams();
+            layoutParams.gravity = Gravity.RIGHT;
+            holder.txtName.setLayoutParams(layoutParams);
+
+            layoutParams = (LinearLayout.LayoutParams) holder.avatar.getLayoutParams();
+            layoutParams.gravity = Gravity.RIGHT;
+            holder.avatar.setLayoutParams(layoutParams);
+
+            layoutParams = (LinearLayout.LayoutParams) holder.text.getLayoutParams();
+            layoutParams.gravity = Gravity.RIGHT;
+            holder.text.setLayoutParams(layoutParams);
+
             if (holder.txtMessage != null) {
-                holder.contentWithBG.setBackgroundResource(android.R.color.background_light);
+                holder.contentWithBG.setBackgroundResource(R.drawable.chat_others_bubble);
                 layoutParams = (LinearLayout.LayoutParams) holder.txtMessage.getLayoutParams();
                 layoutParams.gravity = Gravity.RIGHT;
                 holder.txtMessage.setLayoutParams(layoutParams);
@@ -129,6 +156,10 @@ public class ChatAdapter extends BaseAdapter {
                 holder.contentWithBG.setBackgroundResource(android.R.color.transparent);
             }
         } else {
+            holder.content.removeAllViews();
+            holder.content.addView(holder.avatar);
+            holder.content.addView(holder.text);
+
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.contentWithBG.getLayoutParams();
             layoutParams.gravity = Gravity.LEFT;
             holder.contentWithBG.setLayoutParams(layoutParams);
@@ -142,8 +173,20 @@ public class ChatAdapter extends BaseAdapter {
             layoutParams.gravity = Gravity.LEFT;
             holder.txtInfo.setLayoutParams(layoutParams);
 
+            layoutParams = (LinearLayout.LayoutParams) holder.txtName.getLayoutParams();
+            layoutParams.gravity = Gravity.LEFT;
+            holder.txtName.setLayoutParams(layoutParams);
+
+            layoutParams = (LinearLayout.LayoutParams) holder.avatar.getLayoutParams();
+            layoutParams.gravity = Gravity.LEFT;
+            holder.avatar.setLayoutParams(layoutParams);
+
+            layoutParams = (LinearLayout.LayoutParams) holder.text.getLayoutParams();
+            layoutParams.gravity = Gravity.LEFT;
+            holder.text.setLayoutParams(layoutParams);
+
             if (holder.txtMessage != null) {
-                holder.contentWithBG.setBackgroundResource(android.R.color.background_light);
+                holder.contentWithBG.setBackgroundResource(R.drawable.chat_mine_bubble);
                 layoutParams = (LinearLayout.LayoutParams) holder.txtMessage.getLayoutParams();
                 layoutParams.gravity = Gravity.LEFT;
                 holder.txtMessage.setLayoutParams(layoutParams);
@@ -159,6 +202,9 @@ public class ChatAdapter extends BaseAdapter {
         holder.content = (LinearLayout) v.findViewById(R.id.content);
         holder.contentWithBG = (LinearLayout) v.findViewById(R.id.contentWithBackground);
         holder.txtInfo = (TextView) v.findViewById(R.id.txtInfo);
+        holder.txtName = (TextView) v.findViewById(R.id.txtName);
+        holder.avatar = (ImageView) v.findViewById(R.id.chat_avatar);
+        holder.text = (LinearLayout) v.findViewById(R.id.chat_text);
         return holder;
     }
 
@@ -168,8 +214,11 @@ public class ChatAdapter extends BaseAdapter {
 
     private static class ViewHolder {
         public TextView txtMessage;
+        public TextView txtName;
         public TextView txtInfo;
         public LinearLayout content;
         public LinearLayout contentWithBG;
+        public ImageView avatar;
+        public LinearLayout text;
     }
 }

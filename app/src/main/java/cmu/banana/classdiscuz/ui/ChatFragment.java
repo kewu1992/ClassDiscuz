@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -87,8 +89,22 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_chat, container, false);
         messagesContainer = (ListView) v.findViewById(R.id.messagesContainer);
-        messageEditText = (EditText) v.findViewById(R.id.messageEdit);
+        messageEditText = (EditText) v.findViewById(R.id.MymessageEdit);
         container = (RelativeLayout) v.findViewById(R.id.container);
+        messageEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == EditorInfo.IME_ACTION_SEND) {
+                    String messageText = messageEditText.getText().toString();
+                    if (TextUtils.isEmpty(messageText)) {
+                        return true;
+                    }
+                    sendChatMessage(messageText);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         // Setup opponents info
         //
@@ -96,6 +112,7 @@ public class ChatFragment extends Fragment {
 
         // Send button
         //
+        /*
         sendButton = (Button) v.findViewById(R.id.chatSendButton);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +125,7 @@ public class ChatFragment extends Fragment {
 
             }
         });
+        */
 
         return v;
     }

@@ -31,6 +31,7 @@ public class ApplicationSingleton extends Application{
     }
 
     private HashMap<Integer, String> userID2Name;
+    private HashMap<Integer, byte[]> userID2Avatar;
 
     private Toast toast;
 
@@ -49,9 +50,15 @@ public class ApplicationSingleton extends Application{
     public void setUserHashMap(HashMap<Integer, String> map) {
         userID2Name = map;
     }
+    public void setAvatarHashMap(HashMap<Integer, byte[]> map) {
+        userID2Avatar = map;
+    }
 
     public String getName(Integer id) {
         return userID2Name.get(id);
+    }
+    public byte[] getAvatar(Integer id) {
+        return userID2Avatar.get(id);
     }
 
     public void setToast(Toast toast) {

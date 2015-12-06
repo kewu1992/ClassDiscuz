@@ -30,6 +30,8 @@ import com.quickblox.chat.model.QBChatMessage;
 import com.quickblox.chat.model.QBDialog;
 import com.quickblox.core.QBEntityCallbackImpl;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,6 +67,8 @@ public class ChatPageFragment extends Fragment {
 
     private ListView memberListView;
     private ListView courseListView;
+    private TextView courseNameTextView;
+
     private ArrayList<QBDialog> dialogs;
 
     private RefreshCourses refreshCoursesTask;
@@ -101,6 +105,8 @@ public class ChatPageFragment extends Fragment {
 
         courseListView = (ListView) v.findViewById(R.id.courseListView);
         courseListView.setOnItemClickListener(courseListListener);
+
+        courseNameTextView = (TextView) v.findViewById(R.id.chat_course_name_text_view);
 
         return v;
     }
@@ -188,6 +194,7 @@ public class ChatPageFragment extends Fragment {
 
                 curCoursePosition = 0;
                 curDialogId = courses.get(0).getDialogId();
+                courseNameTextView.setText(courses.get(0).getName());
 
                 if (refreshChatMembers != null)
                     refreshChatMembers.cancel(true);
@@ -224,9 +231,15 @@ public class ChatPageFragment extends Fragment {
             memberListView.setAdapter(chatMemberAdapter);
 
             HashMap<Integer, String> userID2Name = new HashMap<>();
-            for (User user : members)
+            HashMap<Integer, byte[]> userID2Avatar = new HashMap<>();
+            for (User user : members){
                 userID2Name.put(user.getChatId(), user.getName());
+                userID2Avatar.put(user.getChatId(), user.getAvatar());
+            }
+
             ApplicationSingleton.getInstance().setUserHashMap(userID2Name);
+            ApplicationSingleton.getInstance().setAvatarHashMap(userID2Avatar);
+
 
             setDefaultFragment();
         }
@@ -286,7 +299,7 @@ public class ChatPageFragment extends Fragment {
 
             Course course = getItem(position);
 
-            String shownName = course.getNum() + course.getName();
+            String shownName = course.getNum() + " " + course.getName();
 
             ((TextView)convertView.findViewById(R.id.course_item_name_text_view)).setText(shownName);
 
@@ -301,10 +314,12 @@ public class ChatPageFragment extends Fragment {
         {
             curCoursePosition = position;
             curDialogId = ((Course)courseListView.getAdapter().getItem(curCoursePosition)).getDialogId();
+            courseNameTextView.setText(((Course)courseListView.getAdapter().getItem(curCoursePosition)).getName());
+
             if (refreshChatMembers != null)
                 refreshChatMembers.cancel(true);
             refreshChatMembers = new RefreshChatMembers();
-            refreshChatMembers.execute((Course)courseListView.getAdapter().getItem(curCoursePosition));
+            refreshChatMembers.execute((Course) courseListView.getAdapter().getItem(curCoursePosition));
         }
 
     };

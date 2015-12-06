@@ -343,22 +343,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            Session session = Session.get(getApplicationContext());
-            session.addLoginInfo(mEmail, mPassword, user.getId(), user);
+            //Session session = Session.get(getApplicationContext());
+            //session.addLoginInfo(mEmail, mPassword, user.getId(), user);
             //save email, password, userid in session
-//            SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-//            SharedPreferences.Editor editor = sharedpreferences.edit();
-//            editor.putString(Email, mEmail);
-//            editor.putString(Password, mPassword);
-//            editor.putInt(UserId, user.getId());
-//            editor.commit();
-//            for (String credential : DUMMY_CREDENTIALS) {
-//                String[] pieces = credential.split(":");
-//                if (pieces[0].equals(mEmail)) {
-//                    // Account exists, return true if the password matches.
-//                    return pieces[1].equals(mPassword);
-//                }
-//            }
+            SharedPreferences sharedpreferences = getSharedPreferences(Session.MyPREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString(Session.Email, mEmail);
+            editor.putString(Session.Password, mPassword);
+            editor.putInt(Session.UserId, user.getId());
+            editor.commit();
+            for (String credential : DUMMY_CREDENTIALS) {
+                String[] pieces = credential.split(":");
+                if (pieces[0].equals(mEmail)) {
+                    // Account exists, return true if the password matches.
+                    return pieces[1].equals(mPassword);
+                }
+            }
             return true;
         }
 
