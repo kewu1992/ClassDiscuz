@@ -139,7 +139,7 @@
         android:layout_height="1dp"
         android:layout_weight="1"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="#000"
+        android:background="@color/medium_gray"
         android:layout_marginTop="840dp"
         />
 
