@@ -14,7 +14,7 @@
     <application
         android:name=".app.ApplicationSingleton"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/classdiscuz_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
@@ -23,8 +23,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBmg_RHvFCNEHtNSpLj5ACCoWyVr8tOkXE"/>
 
-        <activity android:name=".ui.FrontpageActivity"
-                 android:label="@string/title_activity_login">
+        <activity android:name=".ui.FrontpageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
