@@ -201,11 +201,14 @@ public class CourseInfoActivity extends AppCompatActivity implements OnMapReadyC
                 LatLng curr = new LatLng(Double.parseDouble(coord[0]), Double.parseDouble(coord[1]));
                 googleMap.addMarker(new MarkerOptions().position(curr).title(course.getName()));
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(curr));
-                googleMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+                googleMap.animateCamera(CameraUpdateFactory.zoomIn());
+                googleMap.animateCamera(CameraUpdateFactory.zoomTo(18), 2000, null);
             } else {
-                LatLng curr = new LatLng(40, -79);
+                //If location is null them use CMU LatLng
+                LatLng curr = new LatLng(40.4433, -79.9436);
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(curr));
-                googleMap.animateCamera(CameraUpdateFactory.zoomTo(13));
+                googleMap.animateCamera(CameraUpdateFactory.zoomIn());
+                googleMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
             }
         }
     }
