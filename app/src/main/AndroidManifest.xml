@@ -23,7 +23,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBmg_RHvFCNEHtNSpLj5ACCoWyVr8tOkXE"/>
 
-        <activity android:name=".ui.FrontpageActivity">
+        <activity android:name=".ui.FrontpageActivity"
+            android:theme="@style/AppTheme.NoActionBar">>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
