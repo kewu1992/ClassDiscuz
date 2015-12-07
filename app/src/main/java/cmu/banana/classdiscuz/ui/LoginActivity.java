@@ -24,6 +24,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -369,15 +370,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
 
+
+
                 final QBUser user = new QBUser();
                 user.setLogin(mEmail);
                 user.setPassword(mPassword);
+
+                Log.i("Email", mEmail);
+                Log.i("Password", mPassword);
 
                 ChatService.initIfNeed(LoginActivity.this);
                 ChatService.getInstance().login(user, new QBEntityCallbackImpl() {
 
                     @Override
                     public void onSuccess() {
+                        Log.i("Success", " ");
                         Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
@@ -386,6 +393,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                     @Override
                     public void onError(List errors) {
+                        Log.i("Failed", " ");
                         AlertDialog.Builder dialog = new AlertDialog.Builder(LoginActivity.this);
                         dialog.setMessage("chat login errors: " + errors).create().show();
                     }

@@ -221,7 +221,7 @@ public class AddCourseActivity extends AppCompatActivity {
         @Override
         protected Object doInBackground(Course... arg){
             try{
-                Session.get(AddCourseActivity.this).getUser().registerCourse(arg[0]);
+                Session.get(AddCourseActivity.this).getUser().registerCourse(AddCourseActivity.this, arg[0]);
             } catch (DatabaseException e){
                 eNum = 1;
                 cancel(true);

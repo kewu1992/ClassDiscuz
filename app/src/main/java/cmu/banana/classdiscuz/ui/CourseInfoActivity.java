@@ -29,7 +29,6 @@ import cmu.banana.classdiscuz.entities.Session;
 import cmu.banana.classdiscuz.exception.DatabaseException;
 import cmu.banana.classdiscuz.exception.InputInvalidException;
 import cmu.banana.classdiscuz.exception.NoSuchCourseException;
-import cmu.banana.classdiscuz.ws.local.DatabaseHelper;
 import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
 public class CourseInfoActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -71,11 +70,7 @@ public class CourseInfoActivity extends AppCompatActivity implements OnMapReadyC
         numberTextView.setText(course.getNum());
         instructorTextView.setText(course.getInstructor());
 
-        String place = placeEditText.getText().toString();
-        String officehour = officehourEditText.getText().toString();
-
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext(), null, null, 1);
-        String of2 = db.getOfficeHour(course.getNum());
+        String of2 = course.getOfficeHour(CourseInfoActivity.this);
         officehourEditText.setText(of2, TextView.BufferType.EDITABLE);
 
         editButton.setOnClickListener(new View.OnClickListener() {
@@ -83,8 +78,7 @@ public class CourseInfoActivity extends AppCompatActivity implements OnMapReadyC
             public void onClick(View view) {
                 /*save place and office hour*/
                 String officehour = officehourEditText.getText().toString();
-                DatabaseHelper db = new DatabaseHelper(getApplicationContext(), null, null, 1);
-                db.updateOfficeHour(course.getNum(), officehour);
+                course.setOfficeHour(CourseInfoActivity.this, officehour);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(CourseInfoActivity.this);
                 // set dialog title & message, and provide Button to dismiss
@@ -149,7 +143,7 @@ public class CourseInfoActivity extends AppCompatActivity implements OnMapReadyC
         @Override
         protected Object doInBackground(Course... arg){
             try{
-                Session.get(CourseInfoActivity.this).getUser().dropCourse(arg[0]);
+                Session.get(CourseInfoActivity.this).getUser().dropCourse(CourseInfoActivity.this, arg[0]);
             } catch (DatabaseException e){
                 eNum = 1;
                 cancel(true);

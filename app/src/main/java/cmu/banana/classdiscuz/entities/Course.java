@@ -1,11 +1,14 @@
 package cmu.banana.classdiscuz.entities;
 
+import android.content.Context;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import cmu.banana.classdiscuz.exception.DatabaseException;
 import cmu.banana.classdiscuz.exception.InputInvalidException;
+import cmu.banana.classdiscuz.ws.local.DatabaseHelper;
 import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
 public class Course implements Serializable{
@@ -88,5 +91,16 @@ public class Course implements Serializable{
             throw new DatabaseException();
         return result;
     }
+
+    public String getOfficeHour(Context context) {
+        DatabaseHelper db = new DatabaseHelper(context, null, null, 1);
+        return db.getOfficeHour(num);
+    }
+
+    public void setOfficeHour(Context context, String officeHour) {
+        DatabaseHelper db = new DatabaseHelper(context, null, null, 1);
+        db.updateOfficeHour(num, officeHour);
+    }
+
 
 }

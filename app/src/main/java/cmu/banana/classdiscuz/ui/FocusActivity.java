@@ -87,7 +87,7 @@ public class FocusActivity extends AppCompatActivity {
         @Override
         protected ArrayList<Course> doInBackground(Object... arg){
             try{
-                return Session.get(getApplicationContext()).getUser().getRegisteredCourses();
+                return Session.get(getApplicationContext()).getUser().getRegisteredCourses(FocusActivity.this, true);
             } catch (DatabaseException e){
                 cancel(true);
             }
@@ -144,13 +144,13 @@ public class FocusActivity extends AppCompatActivity {
         protected Integer doInBackground(Integer... para) {
             if (para[0] == 1) {
                 int focus = Session.get(getApplicationContext()).getUser().getFocus();
-                BackendConnector.updateFocus(Session.get(getApplicationContext()).getUser().getId(), focus + 10);
+                Session.get(getApplicationContext()).getUser().updateFocus(FocusActivity.this, focus + 10);
                 return 1;
 
             }
             else {
                 int focus = Session.get(getApplicationContext()).getUser().getFocus();
-                BackendConnector.updateFocus(Session.get(getApplicationContext()).getUser().getId(), focus - 10);
+                Session.get(getApplicationContext()).getUser().updateFocus(FocusActivity.this, focus - 10);
                 return 0;
             }
         }

@@ -101,7 +101,7 @@ public class DeleteCourseActivity  extends AppCompatActivity {
         @Override
         protected ArrayList<Course> doInBackground(Object... arg){
             try{
-                return Session.get(DeleteCourseActivity.this).getUser().getRegisteredCourses();
+                return Session.get(DeleteCourseActivity.this).getUser().getRegisteredCourses(DeleteCourseActivity.this, true);
             } catch (DatabaseException e){
                 cancel(true);
             }
@@ -126,7 +126,7 @@ public class DeleteCourseActivity  extends AppCompatActivity {
         @Override
         protected Object doInBackground(Course... arg){
             try{
-                Session.get(DeleteCourseActivity.this).getUser().dropCourse(arg[0]);
+                Session.get(DeleteCourseActivity.this).getUser().dropCourse(DeleteCourseActivity.this, arg[0]);
             } catch (DatabaseException e){
                 eNum = 1;
                 cancel(true);

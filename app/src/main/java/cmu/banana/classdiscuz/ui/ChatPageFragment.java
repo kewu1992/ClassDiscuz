@@ -178,7 +178,7 @@ public class ChatPageFragment extends Fragment {
         protected ArrayList<Course> doInBackground(Object... arg){
             try{
                 errNum = 0;
-                return Session.get(getActivity()).getUser().getRegisteredCourses();
+                return Session.get(getActivity()).getUser().getRegisteredCourses(getActivity(), true);
             } catch (DatabaseException e){
                 errNum = 1;
                 cancel(true);
