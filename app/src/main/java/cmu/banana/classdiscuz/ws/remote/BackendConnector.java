@@ -28,7 +28,7 @@ import cmu.banana.classdiscuz.exception.SignUpException;
 
 public class BackendConnector {
 
-    private static final String BACKEND = "http://128.237.180.140:8080/ClassDiscuzBackend";
+    private static final String BACKEND = "http://10.0.0.3:8080/ClassDiscuzBackend";
 
     public static ArrayList<User> getMembersByCourse(int courseId){
         User[] response = null;
@@ -472,5 +472,45 @@ public class BackendConnector {
             e.printStackTrace();
         }
         return location;
+    }
+
+
+    public static Course getCourseByID(int courseId){
+        Course response = null;
+        try {
+            URL url = new URL(BACKEND+"/c_id");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            String params = "courseId="+courseId;
+
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.setChunkedStreamingMode(0);
+
+            OutputStream out = new BufferedOutputStream(con.getOutputStream());
+
+            out.write(params.getBytes());
+            out.flush();
+            out.close();
+
+            InputStream in = new BufferedInputStream(con.getInputStream());
+            BufferedReader r = new BufferedReader(new InputStreamReader(in));
+            String str = null;
+            StringBuilder sb = new StringBuilder();
+            while ((str = r.readLine()) != null) {
+                sb.append(str);
+            }
+            in.close();
+
+            String result = sb.toString();
+            if (result.equals("{\"result\":\"1\"}") || result.equals("{\"result\":\"2\"}")) {
+                return null;
+            }
+
+            response = new Gson().fromJson(result, Course.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return response;
     }
 }
