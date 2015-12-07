@@ -213,6 +213,7 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess() {
                         Intent goHomePage = new Intent(SignUpActivity.this, HomePageActivity.class);
+                        goHomePage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(goHomePage);
                         finish();
                     }
