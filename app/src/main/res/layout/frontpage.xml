@@ -2,21 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign up"
-        android:id="@+id/frontpage_signup"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="140dp" />
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/imageView"
+        android:src="@drawable/frone_page_bg" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Log In"
+        android:layout_width="310dp"
+        android:layout_height="65dp"
+        android:id="@+id/frontpage_signup"
+        android:background="#00ffffff"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp" />
+
+    <Button
+        android:layout_width="310dp"
+        android:layout_height="65dp"
         android:id="@+id/frontpage_login"
-        android:layout_alignTop="@+id/frontpage_signup"
+        android:layout_above="@+id/frontpage_signup"
         android:layout_alignStart="@+id/frontpage_signup"
-        android:layout_marginTop="55dp" />
+        android:layout_marginBottom="30dp"
+        android:background="#00ffffff" />
+
 </RelativeLayout>

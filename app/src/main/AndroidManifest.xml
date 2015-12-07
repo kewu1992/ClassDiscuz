@@ -23,8 +23,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBmg_RHvFCNEHtNSpLj5ACCoWyVr8tOkXE"/>
 
-        <activity android:name=".ui.FrontpageActivity"
-            android:theme="@style/AppTheme.NoActionBar">>
+        <activity android:name=".ui.FrontpageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -46,10 +45,10 @@
         <activity android:name=".ui.FocusActivity" >
         </activity>
 
-        <activity android:name=".ui.HomePageActivity" >
+        <activity android:name=".ui.HomePageActivity">
         </activity>
 
-        <activity android:name=".ui.LoginActivity" >
+        <activity android:name=".ui.LoginActivity">
         </activity>
 
         <activity android:name=".ui.SelfprofileActivity" >
