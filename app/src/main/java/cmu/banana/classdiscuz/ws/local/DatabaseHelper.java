@@ -116,6 +116,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     } // end method insertContact
 
     public int addCourse(Course course, int userID) {
+        // update remote database
+        int ret = BackendConnector.regOrDropCourse(userID, course.getId());
+        if (ret < 0)
+            return -1;
+
+        course = BackendConnector.getCourseByID(course.getId());
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues result = new ContentValues();
 
@@ -131,13 +138,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_COURSE, null, result);
         db.close(); // Closing database connection
 
-        // update remote database
-        return BackendConnector.regOrDropCourse(userID, course.getId());
+        return 0;
     }
 
     public int dropCourse(int courseID, int userID) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_COURSE + " WHERE " + KEY_NUM + "= '" + String.valueOf(courseID) + "'");
+        db.execSQL("DELETE FROM " + TABLE_COURSE + " WHERE " + KEY_C_ID + "= '" + String.valueOf(courseID) + "'");
         db.close();
 
         // update remote database
