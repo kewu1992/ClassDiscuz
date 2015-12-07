@@ -28,7 +28,7 @@ import cmu.banana.classdiscuz.exception.SignUpException;
 
 public class BackendConnector {
 
-    private static final String BACKEND = "http://128.237.180.140:8080/ClassDiscuzBackend";
+    private static final String BACKEND = "http://128.237.135.23:8080/ClassDiscuzBackend";
 
     public static ArrayList<User> getMembersByCourse(int courseId){
         User[] response = null;
@@ -327,8 +327,10 @@ public class BackendConnector {
             URL url = new URL(BACKEND+"/editprofile");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             String params = "studentId="+id+"&name="+name+"&college="+
-                    college+"&major="+major+"&avatar="+new String(Base64.encode(image, Base64.DEFAULT));
-
+                    college+"&major="+major;
+            if (image != null) {
+                params += "&avatar="+new String(Base64.encode(image, Base64.DEFAULT));
+            }
             con.setDoOutput(true);
             con.setDoInput(true);
             con.setChunkedStreamingMode(0);
