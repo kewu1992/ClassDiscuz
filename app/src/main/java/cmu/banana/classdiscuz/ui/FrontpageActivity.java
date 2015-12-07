@@ -29,7 +29,7 @@ public class FrontpageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent goSignup = new Intent(FrontpageActivity.this, SignUpActivity.class);
-                startActivityForResult(goSignup, 2);
+                startActivity(goSignup);
             }
         });
 
@@ -37,7 +37,7 @@ public class FrontpageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent goSignIn = new Intent(FrontpageActivity.this, LoginActivity.class);
-                startActivityForResult(goSignIn, 1);
+                startActivity(goSignIn);
             }
         });
 
