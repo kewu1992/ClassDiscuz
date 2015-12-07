@@ -17,7 +17,9 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import cmu.banana.classdiscuz.entities.Course;
+import cmu.banana.classdiscuz.entities.Session;
 import cmu.banana.classdiscuz.entities.User;
+import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -113,7 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     } // end method insertContact
 
-    public void addCourse(Course course, int userID) {
+    public int addCourse(Course course, int userID) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues result = new ContentValues();
 
@@ -122,19 +124,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         result.put(KEY_NUM, course.getNum());
         result.put(KEY_INSTRUCTOR, course.getInstructor());
         result.put(KEY_C_NAME, course.getName());
-        result.put(KEY_TIME, course.getName());
+        result.put(KEY_TIME, course.getTime());
         result.put(KEY_LOCATION, course.getLocation());
-        result.put(KEY_LOCATION, course.getDialogId());
+        result.put(KEY_DIALOGID, course.getDialogId());
 
         db.insert(TABLE_COURSE, null, result);
         db.close(); // Closing database connection
+
+        // update remote database
+        return BackendConnector.regOrDropCourse(userID, course.getId());
     }
 
-    public void dropCourse(String course_id) {
+    public int dropCourse(int courseID, int userID) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_COURSE + " WHERE " + KEY_NUM + "= '" + course_id + "'");
+        db.execSQL("DELETE FROM " + TABLE_COURSE + " WHERE " + KEY_NUM + "= '" + String.valueOf(courseID) + "'");
         db.close();
 
+        // update remote database
+        return BackendConnector.regOrDropCourse(userID, courseID);
     }
 
     public int updateProfile(int id, User newUser) {
@@ -151,7 +158,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         result.put(KEY_FOCUS, newUser.getFocus());
         result.put(KEY_CHATID, newUser.getChatId());
         db.update(TABLE_USER, result, "ID " + "=" + id, null);
-        return 0;
+
+        // update remote database
+        return BackendConnector.updateProfile(id, newUser.getName(), newUser.getCollege(), newUser.getMajor(), newUser.getAvatar());
     }
 
     public int updateFocus(int studentId, int focus) {
@@ -160,6 +169,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         result.put(KEY_FOCUS, focus);
         db.update(TABLE_USER, result, "ID " + "=" + studentId, null);
+
+        // update to remote database
+        BackendConnector.updateFocus(studentId, focus);
         return 0;
     }
 
@@ -182,8 +194,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return s;
     }
 
-    public User getMemberByID(int userID) {
+    public User getMemberByID(int userID, boolean is_self) {
+        // if it is not itself, get user from remote database
+        if (!is_self){
+            return BackendConnector.getMemberByID(userID);
+        }
+
         SQLiteDatabase db = this.getReadableDatabase();
+
 
         String[] projection = {
                 KEY_ID,
@@ -227,7 +245,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     // Getting All Contacts
-    public ArrayList<Course> getAllResults() {
+    public ArrayList<Course> getAllCourses() {
 
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_COURSE;

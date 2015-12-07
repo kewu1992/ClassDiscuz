@@ -93,7 +93,7 @@ public class ViewOthersProfileActivity extends AppCompatActivity {
         @Override
         protected User doInBackground(Integer... arg){
             try{
-                return User.getUserById(arg[0]);
+                return User.getUserById(ViewOthersProfileActivity.this, arg[0], false);
             } catch (DatabaseException e){
                 cancel(true);
             }
@@ -127,7 +127,7 @@ public class ViewOthersProfileActivity extends AppCompatActivity {
         @Override
         protected ArrayList<Course> doInBackground(User... arg){
             try{
-                return arg[0].getRegisteredCourses();
+                return arg[0].getRegisteredCourses(ViewOthersProfileActivity.this, false);
             } catch (DatabaseException e){
                 cancel(true);
             }

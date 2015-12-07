@@ -27,7 +27,6 @@ import cmu.banana.classdiscuz.entities.Course;
 import cmu.banana.classdiscuz.entities.Session;
 import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.exception.DatabaseException;
-import cmu.banana.classdiscuz.ws.local.DatabaseHelper;
 
 
 /**
@@ -156,7 +155,7 @@ public class SchedulePageFragment extends Fragment {
         @Override
         protected ArrayList<Course> doInBackground(Object... arg){
             try{
-                return Session.get(getActivity()).getUser().getRegisteredCourses();
+                return Session.get(getActivity()).getUser().getRegisteredCourses(getActivity(), true);
             } catch (DatabaseException e){
                 cancel(true);
             }
@@ -166,11 +165,6 @@ public class SchedulePageFragment extends Fragment {
         @Override
         protected void onPostExecute(ArrayList<Course> courses){
             coursesList = courses;
-
-            DatabaseHelper db = new DatabaseHelper(getActivity(), null, null, 1);
-            db.deleteAll();
-            db.insertUser(Session.get(getActivity()).getUser(), Session.get(getActivity()).getUser().getChatId());
-            User user = db.getMemberByID(Session.get(getActivity()).getUser().getId());
             drawAllCourse(coursesList);
         }
 
@@ -183,17 +177,10 @@ public class SchedulePageFragment extends Fragment {
 
     private void drawAllCourse(ArrayList<Course> list) {
         Course course;
-        DatabaseHelper db = new DatabaseHelper(getActivity(), null, null, 1);
         for (int i = 0; i < list.size(); i++) {
             course = list.get(i);
             drawCourse(mView, course.getName(), course.getTime(), course);
-
-            db.addCourse(course, Session.get(getActivity()).getUser().getId());
-
         }
-        db.getAllResults();
-//        db.dropCourse("18641-A");
-        db.getAllResults();
     }
 
     //M T W R F
