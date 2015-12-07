@@ -199,7 +199,7 @@ public class CourseInfoActivity extends AppCompatActivity implements OnMapReadyC
             if (arg != null) {
                 String[] coord = arg.split(",");
                 LatLng curr = new LatLng(Double.parseDouble(coord[0]), Double.parseDouble(coord[1]));
-                googleMap.addMarker(new MarkerOptions().position(curr).title(course.getName()));
+                googleMap.addMarker(new MarkerOptions().position(curr).title(course.getLocation()));
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curr,18));
 
             } else {
