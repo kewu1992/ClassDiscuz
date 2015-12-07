@@ -36,6 +36,7 @@ import cmu.banana.classdiscuz.exception.DatabaseException;
 import cmu.banana.classdiscuz.exception.InputInvalidException;
 import cmu.banana.classdiscuz.util.BitmapScale;
 import cmu.banana.classdiscuz.util.FocusTranslate;
+import cmu.banana.classdiscuz.ws.local.DatabaseHelper;
 
 public class SelfprofileActivity extends AppCompatActivity {
     private final static int SELECT_PHOTO_CODE = 9997;
@@ -70,6 +71,7 @@ public class SelfprofileActivity extends AppCompatActivity {
         saveEditButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 new UpdateProfile().execute((Object) null);
+
             }
         });
         new RefreshUserInfo().execute((Object)null);
@@ -138,7 +140,9 @@ public class SelfprofileActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Object arg){
-            User user = Session.get(SelfprofileActivity.this).getUser();
+            DatabaseHelper db = new DatabaseHelper(getApplicationContext(), null, null, 1);
+            User user = db.getMemberByID(Session.get(getApplicationContext()).getUser().getId());
+//            User user = Session.get(SelfprofileActivity.this).getUser();
 
             nameEditText.setText(user.getName());
             universityEditText.setText(user.getCollege());
@@ -166,6 +170,10 @@ public class SelfprofileActivity extends AppCompatActivity {
             user.setName(nameEditText.getText().toString());
             user.setCollege(universityEditText.getText().toString());
             user.setMajor(majorEditText.getText().toString());
+
+            DatabaseHelper db = new DatabaseHelper(getApplicationContext(), null, null, 1);
+            db.updateProfile(user.getId(), user);
+            //db.updateFocus(user.getId(), 1000);
         }
 
         @Override
@@ -184,6 +192,7 @@ public class SelfprofileActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Object obj){
+
             AlertDialog.Builder builder = new AlertDialog.Builder(SelfprofileActivity.this);
             // set dialog title & message, and provide Button to dismiss
             builder.setTitle(R.string.updateProfile_success_title);
