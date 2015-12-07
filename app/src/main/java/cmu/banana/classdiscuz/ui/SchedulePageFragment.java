@@ -192,7 +192,7 @@ public class SchedulePageFragment extends Fragment {
 
         }
         db.getAllResults();
-        db.dropCourse("18641-A");
+//        db.dropCourse("18641-A");
         db.getAllResults();
     }
 

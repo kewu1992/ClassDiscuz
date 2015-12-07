@@ -21,7 +21,7 @@ import cmu.banana.classdiscuz.entities.User;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
     private static final String DATABASE_NAME = "ClassDiscuz";
     private static final String TABLE_USER = "user";
     private static final String TABLE_COURSE = "course";
@@ -44,6 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_TIME = "TIME";
     private static final String KEY_LOCATION = "LOCATION";
     private static final String KEY_DIALOGID = "DIALOGID";
+    private static final String KEY_OFFICEHOUR = "OFFICEHOUR";
 
     public DatabaseHelper(Context context, String name,
                           SQLiteDatabase.CursorFactory factory, int version) {
@@ -76,6 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 KEY_TIME + " TEXT," +
                 KEY_LOCATION + " TEXT, " +
                 KEY_DIALOGID + " INTEGER, " +
+                KEY_OFFICEHOUR + " TEXT, " +
                 "FOREIGN KEY(" + KEY_U_ID + ") REFERENCES " + TABLE_USER + "("+ KEY_ID +"));";
 
         db.execSQL(createQuery); // execute the query
@@ -157,10 +159,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues result = new ContentValues();
 
         result.put(KEY_FOCUS, focus);
-
         db.update(TABLE_USER, result, "ID " + "=" + studentId, null);
-
         return 0;
+    }
+
+    public int updateOfficeHour(String courseID, String officehour) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues result = new ContentValues();
+
+        result.put(KEY_OFFICEHOUR, officehour);
+        int i = db.update(TABLE_COURSE, result, "NUM " + " = '" + courseID + "'", null);
+        db.close();
+        return 0;
+    }
+
+    public String getOfficeHour(String courseID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + KEY_OFFICEHOUR + " FROM " + TABLE_COURSE +
+                " WHERE " + KEY_NUM + " = '" + courseID + "'", null);
+        cursor.moveToNext();
+        String s = cursor.getString(cursor.getColumnIndexOrThrow(KEY_OFFICEHOUR));
+        return s;
     }
 
     public User getMemberByID(int userID) {

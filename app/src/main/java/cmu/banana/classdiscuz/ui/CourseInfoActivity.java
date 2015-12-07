@@ -29,6 +29,7 @@ import cmu.banana.classdiscuz.entities.Session;
 import cmu.banana.classdiscuz.exception.DatabaseException;
 import cmu.banana.classdiscuz.exception.InputInvalidException;
 import cmu.banana.classdiscuz.exception.NoSuchCourseException;
+import cmu.banana.classdiscuz.ws.local.DatabaseHelper;
 import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
 public class CourseInfoActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -73,11 +74,24 @@ public class CourseInfoActivity extends AppCompatActivity implements OnMapReadyC
         String place = placeEditText.getText().toString();
         String officehour = officehourEditText.getText().toString();
 
+        DatabaseHelper db = new DatabaseHelper(getApplicationContext(), null, null, 1);
+        String of2 = db.getOfficeHour(course.getNum());
+        officehourEditText.setText(of2, TextView.BufferType.EDITABLE);
+
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 /*save place and office hour*/
+                String officehour = officehourEditText.getText().toString();
+                DatabaseHelper db = new DatabaseHelper(getApplicationContext(), null, null, 1);
+                db.updateOfficeHour(course.getNum(), officehour);
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(CourseInfoActivity.this);
+                // set dialog title & message, and provide Button to dismiss
+                builder.setTitle("Success");
+                builder.setMessage("You message has been saved successfully");
+                builder.setPositiveButton(R.string.updateProfile_success_button, null);
+                builder.show(); // display the Dialog
             }
         });
 
@@ -200,12 +214,12 @@ public class CourseInfoActivity extends AppCompatActivity implements OnMapReadyC
                 String[] coord = arg.split(",");
                 LatLng curr = new LatLng(Double.parseDouble(coord[0]), Double.parseDouble(coord[1]));
                 googleMap.addMarker(new MarkerOptions().position(curr).title(course.getLocation()));
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curr,18));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curr, 18));
 
             } else {
                 //If location is null them use CMU LatLng
                 LatLng curr = new LatLng(40.4433, -79.9436);
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curr,15));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curr, 15));
             }
         }
     }
