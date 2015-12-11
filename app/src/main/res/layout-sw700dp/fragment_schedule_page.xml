@@ -262,7 +262,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="6dp"
-                        android:layout_marginTop="60dp"
+                        android:layout_marginTop="120dp"
                         android:gravity="center"
                         android:text="@string/time8am"
                         android:textSize="15dp" />
@@ -273,7 +273,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="6dp"
-                        android:layout_marginTop="120dp"
+                        android:layout_marginTop="240dp"
                         android:gravity="center"
                         android:text="@string/time9am"
                         android:textSize="15dp" />
@@ -284,7 +284,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="6dp"
-                        android:layout_marginTop="180dp"
+                        android:layout_marginTop="360dp"
                         android:gravity="center"
                         android:text="@string/time10am"
                         android:textSize="15dp" />
@@ -295,7 +295,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="6dp"
-                        android:layout_marginTop="240dp"
+                        android:layout_marginTop="480dp"
                         android:gravity="center"
                         android:text="@string/time11am"
                         android:textSize="15dp" />
@@ -306,7 +306,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="6dp"
-                        android:layout_marginTop="300dp"
+                        android:layout_marginTop="600dp"
                         android:gravity="center"
                         android:text="@string/time12pm"
                         android:textSize="15dp" />
@@ -317,7 +317,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="6dp"
-                        android:layout_marginTop="360dp"
+                        android:layout_marginTop="720dp"
                         android:gravity="center"
                         android:text="@string/time1pm"
                         android:textSize="15dp" />
@@ -328,7 +328,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="6dp"
-                        android:layout_marginTop="420dp"
+                        android:layout_marginTop="840dp"
                         android:gravity="center"
                         android:text="@string/time2pm"
                         android:textSize="15dp" />
@@ -339,7 +339,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="6dp"
-                        android:layout_marginTop="480dp"
+                        android:layout_marginTop="960dp"
                         android:gravity="center"
                         android:text="@string/time3pm"
                         android:textSize="15dp" />
@@ -350,7 +350,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="6dp"
-                        android:layout_marginTop="540dp"
+                        android:layout_marginTop="1080dp"
                         android:gravity="center"
                         android:text="@string/time4pm"
                         android:textSize="15dp" />
@@ -361,7 +361,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="6dp"
-                        android:layout_marginTop="600dp"
+                        android:layout_marginTop="1200dp"
                         android:gravity="center"
                         android:text="@string/time5pm"
                         android:textSize="15dp" />
@@ -372,7 +372,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="6dp"
-                        android:layout_marginTop="660dp"
+                        android:layout_marginTop="1320dp"
                         android:gravity="center"
                         android:text="@string/time6pm"
                         android:textSize="15dp" />
@@ -383,7 +383,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="6dp"
-                        android:layout_marginTop="720dp"
+                        android:layout_marginTop="1440dp"
                         android:gravity="center"
                         android:text="@string/time7pm"
                         android:textSize="15dp" />
@@ -394,7 +394,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="6dp"
-                        android:layout_marginTop="780dp"
+                        android:layout_marginTop="1560dp"
                         android:gravity="center"
                         android:text="@string/time8pm"
                         android:textSize="15dp" />
@@ -405,7 +405,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="6dp"
-                        android:layout_marginTop="840dp"
+                        android:layout_marginTop="1680dp"
                         android:gravity="center"
                         android:text="@string/time9pm"
                         android:textSize="15dp" />
