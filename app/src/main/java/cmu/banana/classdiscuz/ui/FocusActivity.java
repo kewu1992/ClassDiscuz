@@ -37,10 +37,10 @@ import cmu.banana.classdiscuz.ws.remote.BackendConnector;
  */
 public class FocusActivity extends AppCompatActivity {
     private TimeCount time;
-    TextView textView_time;
-    long time_minute;
-    int week;/*sunday 1 monday 2 ... saturday 7*/
-    ArrayList<Course> coursesList = new ArrayList<Course>();
+    private TextView textView_time;
+    private long time_minute;
+    private int week;/*sunday 1 monday 2 ... saturday 7*/
+    private ArrayList<Course> coursesList = new ArrayList<Course>();
 
 
     @Override
@@ -62,7 +62,7 @@ public class FocusActivity extends AppCompatActivity {
     }
 
 
-    class TimeCount extends CountDownTimer {
+    private class TimeCount extends CountDownTimer {
         public TimeCount(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
         }
@@ -140,7 +140,7 @@ public class FocusActivity extends AppCompatActivity {
 
     }
 
-    public class UpdateFocusPoint extends AsyncTask<Integer, Void, Integer> {
+    private class UpdateFocusPoint extends AsyncTask<Integer, Void, Integer> {
         protected Integer doInBackground(Integer... para) {
             if (para[0] == 1) {
                 int focus = Session.get(getApplicationContext()).getUser().getFocus();
@@ -200,7 +200,7 @@ public class FocusActivity extends AppCompatActivity {
 
     }
     /**button listener*/
-    DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener()
+    private DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener()
     {
         public void onClick(DialogInterface dialog, int which)
         {

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:focusableInTouchMode="true">
 
-    <ImageButton
+    <ImageView
         android:id="@+id/selfprofile_avatar"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="@dimen/self_avatar_size"
+        android:layout_height="@dimen/self_avatar_size"
         android:src="@drawable/default_avatar"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -15,7 +16,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="EditSave"
+        android:text="Save"
         android:id="@+id/selfprofile_button_edit"
         android:layout_above="@+id/selfprofile_button_logout"
         android:layout_alignStart="@+id/selfprofile_button_logout" />
@@ -44,33 +45,18 @@
             android:layout_below="@+id/selfprofile_layout_focus"
             android:layout_centerHorizontal="true">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Registered Courses:"
-                android:id="@+id/selfprofile_text_course"
-                android:layout_marginTop="2dp" />
-
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/selfprofile_text_course_value"
-            android:text="xxxxx course1\nxxxxx course2\nxxxxx course3\nxxxxx course4"
-            android:textSize="15dp"
-            android:layout_below="@+id/selfprofile_layout_course"
-            android:layout_centerHorizontal="true" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="106dp"
+        android:layout_marginEnd="10dp"
         android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/selfprofile_avatar">
+        android:layout_toStartOf="@+id/selfprofile_avatar"
+        android:id="@+id/linearLayout2">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -84,15 +70,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Name:"
+                android:text="Name:              "
                 android:id="@+id/selfprofile_text_name" />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/selfprofile_edit_name_value"/>
+                android:id="@+id/selfprofile_edit_name_value"
+                android:maxLength="20"/>
+
         </LinearLayout>
+
+
 
         <LinearLayout
             android:orientation="horizontal"
@@ -108,15 +98,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="University:"
+                android:text="University:       "
                 android:id="@+id/selfprofile_text_university" />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/selfprofile_edit_university_value" />
+                android:id="@+id/selfprofile_edit_university_value"
+                android:maxLength="20"/>
 
         </LinearLayout>
+
+
 
         <LinearLayout
             android:orientation="horizontal"
@@ -132,15 +125,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Major:"
+                android:text="Major:              "
                 android:id="@+id/selfprofile_text_major" />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/selfprofile_edit_major_value" />
+                android:id="@+id/selfprofile_edit_major_value"
+                android:maxLength="20"/>
 
         </LinearLayout>
+
+
 
         <LinearLayout
             android:orientation="horizontal"
@@ -156,17 +152,43 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Focus Level:"
+                android:text="Focus Points:  "
                 android:id="@+id/selfprofile_text_focus" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="n"
-                android:id="@+id/selfprofile_text_focus_value"/>
+                android:textColor="@color/medium_dark_gray"
+                android:id="@+id/selfprofile_text_focus_value"
+                android:layout_below="@+id/linearLayout2"
+                android:layout_marginTop="0dp"
+                android:layout_alignStart="@+id/linearLayout2"
+                android:layout_marginStart="2dp"
+                android:textSize="18dp" />
         </LinearLayout>
     </LinearLayout>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Registered Courses:"
+        android:id="@+id/selfprofile_text_course"
+        android:layout_marginStart="52dp"
+        android:layout_alignTop="@+id/linearLayout2"
+        android:layout_toEndOf="@+id/linearLayout" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/view_selfprofile_register_course_listView"
+        android:choiceMode="none"
+        android:layout_below="@+id/selfprofile_text_course"
+        android:layout_alignStart="@+id/selfprofile_text_course" />
 
 
 </RelativeLayout>

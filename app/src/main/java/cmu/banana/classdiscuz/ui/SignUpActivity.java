@@ -158,7 +158,7 @@ public class SignUpActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class UserSignupTask extends AsyncTask<Void, Void, Boolean> {
+    private class UserSignupTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
         private final String mPassword;
@@ -186,14 +186,14 @@ public class SignUpActivity extends AppCompatActivity {
             }
 
             //save email, password, userid in session
-            Session session = Session.get(getApplicationContext());
-            session.addLoginInfo(mEmail, mPassword, user.getId(), user);
-//            SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-//            SharedPreferences.Editor editor = sharedpreferences.edit();
-//            editor.putString(Email, mEmail);
-//            editor.putString(Password, mPassword);
-//            editor.putInt(UserId, user.getId());
-//            editor.commit();
+            //Session session = Session.get(getApplicationContext());
+            //session.addLoginInfo(mEmail, mPassword, user.getId(), user);
+            SharedPreferences sharedpreferences = getSharedPreferences(Session.MyPREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString(Session.Email, mEmail);
+            editor.putString(Session.Password, mPassword);
+            editor.putInt(Session.UserId, user.getId());
+            editor.commit();
 
             return true;
         }

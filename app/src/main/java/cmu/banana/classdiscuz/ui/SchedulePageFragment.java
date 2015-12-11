@@ -49,7 +49,7 @@ public class SchedulePageFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    ArrayList<Course> coursesList = new ArrayList<Course>();
+    private ArrayList<Course> coursesList = new ArrayList<Course>();
     private View mView;
     private RelativeLayout[] layout = new RelativeLayout[5];
 

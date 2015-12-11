@@ -39,10 +39,8 @@ import cmu.banana.classdiscuz.util.FocusTranslate;
 
 public class SelfprofileActivity extends AppCompatActivity {
     private final static int SELECT_PHOTO_CODE = 9997;
-    private final static int avatar_base_size = 500*1024;
 
     private ImageView avatarImage;
-    private TextView registerCoursesTextView;
     private TextView focusTextView;
     private EditText nameEditText;
     private EditText universityEditText;
@@ -59,7 +57,6 @@ public class SelfprofileActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         avatarImage = (ImageView)findViewById(R.id.selfprofile_avatar);
-        registerCoursesTextView = (TextView)findViewById(R.id.selfprofile_text_course_value);
         focusTextView = (TextView)findViewById(R.id.selfprofile_text_focus_value);
         nameEditText = (EditText)findViewById(R.id.selfprofile_edit_name_value);
         universityEditText = (EditText)findViewById(R.id.selfprofile_edit_university_value);
