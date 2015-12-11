@@ -15,7 +15,7 @@
         android:background="#00ffffff"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginBottom="40dp" />
 
     <Button
         android:layout_width="310dp"
@@ -23,7 +23,7 @@
         android:id="@+id/frontpage_login"
         android:layout_above="@+id/frontpage_signup"
         android:layout_alignStart="@+id/frontpage_signup"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="40dp"
         android:background="#00ffffff" />
 
 </RelativeLayout>
