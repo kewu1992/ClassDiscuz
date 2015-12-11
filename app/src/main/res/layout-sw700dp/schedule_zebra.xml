@@ -20,25 +20,7 @@
         android:layout_weight="1"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:background="@color/medium_gray"
-        android:layout_marginTop="60dp"
-        />
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_weight="1"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@color/medium_gray"
         android:layout_marginTop="120dp"
-        />
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_weight="1"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@color/medium_gray"
-        android:layout_marginTop="180dp"
         />
 
     <View
@@ -56,27 +38,8 @@
         android:layout_weight="1"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:background="@color/medium_gray"
-        android:layout_marginTop="300dp"
-        />
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_weight="1"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@color/medium_gray"
         android:layout_marginTop="360dp"
         />
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_weight="1"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@color/medium_gray"
-        android:layout_marginTop="420dp"
-        />
-
-
 
     <View
         android:layout_width="fill_parent"
@@ -85,15 +48,6 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:background="@color/medium_gray"
         android:layout_marginTop="480dp"
-        />
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_weight="1"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@color/medium_gray"
-        android:layout_marginTop="540dp"
         />
 
     <View
@@ -111,29 +65,8 @@
         android:layout_weight="1"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:background="@color/medium_gray"
-        android:layout_marginTop="660dp"
-        />
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_weight="1"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@color/medium_gray"
         android:layout_marginTop="720dp"
         />
-
-
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_weight="1"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@color/medium_gray"
-        android:layout_marginTop="780dp"
-        />
-
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
@@ -143,13 +76,80 @@
         android:layout_marginTop="840dp"
         />
 
+
+
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_weight="1"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:background="@color/medium_gray"
-        android:layout_marginTop="900dp"
+        android:layout_marginTop="960dp"
+        />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@color/medium_gray"
+        android:layout_marginTop="1080dp"
+        />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@color/medium_gray"
+        android:layout_marginTop="1200dp"
+        />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@color/medium_gray"
+        android:layout_marginTop="1320dp"
+        />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@color/medium_gray"
+        android:layout_marginTop="1440dp"
+        />
+
+
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@color/medium_gray"
+        android:layout_marginTop="1560dp"
+        />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@color/medium_gray"
+        android:layout_marginTop="1680dp"
+        />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@color/medium_gray"
+        android:layout_marginTop="1800dp"
         />
 
 
