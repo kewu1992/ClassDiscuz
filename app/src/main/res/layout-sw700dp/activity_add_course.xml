@@ -17,7 +17,8 @@
             android:layout_marginStart="50dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:checked="false" />
+            android:checked="false"
+            android:textSize="25dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,7 +27,8 @@
             android:id="@+id/course_id_textView"
             android:layout_marginLeft="100dp"
             android:layout_alignBottom="@+id/course_id_editText"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:textSize="25dp" />
 
         <AutoCompleteTextView
             android:layout_width="wrap_content"
@@ -36,18 +38,20 @@
             android:id="@+id/course_id_editText"
             android:layout_marginLeft="10dp"
             android:layout_below="@+id/search_by_course_id_radioButton"
-            android:layout_toEndOf="@+id/course_name_textView" />
+            android:layout_toEndOf="@+id/course_name_textView"
+            android:textSize="25dp" />
 
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Search By Course Name"
             android:id="@+id/search_by_course_name_radioButton"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="300dp"
             android:layout_marginStart="50dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:checked="false" />
+            android:checked="false"
+            android:textSize="25dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -55,7 +59,8 @@
             android:text="Course Name:"
             android:id="@+id/course_name_textView"
             android:layout_marginLeft="100dp"
-            android:layout_marginTop="250dp" />
+            android:layout_marginTop="350dp"
+            android:textSize="25dp" />
 
         <AutoCompleteTextView
             android:layout_width="wrap_content"
@@ -65,7 +70,8 @@
             android:id="@+id/course_name_editText"
             android:layout_below="@+id/search_by_course_name_radioButton"
             android:layout_toEndOf="@+id/course_name_textView"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:textSize="25dp" />
 
     </RelativeLayout>
 
@@ -83,14 +89,16 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:layout_marginStart="43dp"
-            android:layout_marginTop="45dp" />
+            android:layout_marginTop="45dp"
+            android:textSize="25dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/add_course_course_id_text_view"
             android:layout_below="@+id/add_course_course_id_label_text_view"
-            android:layout_toEndOf="@+id/add_course_course_id_label_text_view" />
+            android:layout_toEndOf="@+id/add_course_course_id_label_text_view"
+            android:textSize="25dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -99,14 +107,16 @@
             android:id="@+id/add_course_course_name_label_text_view"
             android:layout_below="@+id/add_course_course_id_text_view"
             android:layout_alignStart="@+id/add_course_course_id_label_text_view"
-            android:layout_marginTop="50dp" />
+            android:layout_marginTop="100dp"
+            android:textSize="25dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/add_course_course_name_text_view"
             android:layout_below="@+id/add_course_course_name_label_text_view"
-            android:layout_toEndOf="@+id/add_course_course_name_label_text_view" />
+            android:layout_toEndOf="@+id/add_course_course_name_label_text_view"
+            android:textSize="25dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -115,23 +125,26 @@
             android:id="@+id/add_course_instructor_label_text_view"
             android:layout_below="@+id/add_course_course_name_text_view"
             android:layout_alignStart="@+id/add_course_course_name_label_text_view"
-            android:layout_marginTop="50dp" />
+            android:layout_marginTop="100dp"
+            android:textSize="25dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/add_course_instructor_text_view"
             android:layout_below="@+id/add_course_instructor_label_text_view"
-            android:layout_toEndOf="@+id/add_course_instructor_label_text_view" />
+            android:layout_toEndOf="@+id/add_course_instructor_label_text_view"
+            android:textSize="25dp" />
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:id="@+id/imageButton"
+            android:src="@android:drawable/ic_input_add"
+            android:backgroundTint="#00ffffff"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:src="@android:drawable/ic_input_add"
-            android:backgroundTint="#00ffffff" />
+            android:layout_marginBottom="74dp" />
 
     </RelativeLayout>
 </LinearLayout>

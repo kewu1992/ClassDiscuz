@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -47,6 +49,11 @@ public class HomePageActivity extends ChatBaseActivity implements ChatPageFragme
         tx_schedule.setTextColor(Color.parseColor("#667cde"));
         ic_chat.setImageResource(R.drawable.ic_chat_grey);
         tx_chat.setTextColor(Color.parseColor("#878787"));
+
+        TypedValue tv = new TypedValue();
+        getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
+        int actionBarHeight = getResources().getDimensionPixelSize(tv.resourceId);
+        Log.i("wk", String.valueOf(actionBarHeight));
 
         setDefaultFragment();
     }
