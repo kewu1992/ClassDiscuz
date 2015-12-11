@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -20,7 +21,16 @@ import com.quickblox.chat.model.QBChatMessage;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 import cmu.banana.classdiscuz.R;
+import cmu.banana.classdiscuz.entities.Course;
+import cmu.banana.classdiscuz.entities.Session;
+import cmu.banana.classdiscuz.exception.DatabaseException;
+import cmu.banana.classdiscuz.exception.InputInvalidException;
+import cmu.banana.classdiscuz.exception.NoSuchCourseException;
+import cmu.banana.classdiscuz.ws.local.DatabaseHelper;
+import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
 /**
  * Created by WK on 11/6/15.
@@ -49,11 +59,6 @@ public class HomePageActivity extends ChatBaseActivity implements ChatPageFragme
         tx_schedule.setTextColor(Color.parseColor("#667cde"));
         ic_chat.setImageResource(R.drawable.ic_chat_grey);
         tx_chat.setTextColor(Color.parseColor("#878787"));
-
-        TypedValue tv = new TypedValue();
-        getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
-        int actionBarHeight = getResources().getDimensionPixelSize(tv.resourceId);
-        Log.i("wk", String.valueOf(actionBarHeight));
 
         setDefaultFragment();
     }
@@ -165,6 +170,7 @@ public class HomePageActivity extends ChatBaseActivity implements ChatPageFragme
             }
         });
     }
+
 
 }
 

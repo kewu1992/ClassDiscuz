@@ -6,7 +6,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/imageView"
-        android:src="@drawable/frone_page_bg" />
+        android:src="@drawable/front_page_bg_sw700dp" />
 
     <Button
         android:layout_width="310dp"
