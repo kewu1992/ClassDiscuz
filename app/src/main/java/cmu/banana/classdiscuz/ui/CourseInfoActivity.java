@@ -2,12 +2,11 @@ package cmu.banana.classdiscuz.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,12 +30,14 @@ import cmu.banana.classdiscuz.exception.InputInvalidException;
 import cmu.banana.classdiscuz.exception.NoSuchCourseException;
 import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
+/**
+ * Activity to show the course information
+ */
 public class CourseInfoActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private TextView courseTextView;
     private TextView numberTextView;
     private TextView timeTextView;
-    private EditText placeEditText;
     private TextView instructorTextView;
     private EditText officehourEditText;
     private Button   dropButton;
@@ -55,7 +56,6 @@ public class CourseInfoActivity extends AppCompatActivity implements OnMapReadyC
         courseTextView = (TextView) findViewById(R.id.courseinfo_text_coursename);
         numberTextView = (TextView)findViewById(R.id.courseinfo_text_coursenum);
         timeTextView = (TextView)findViewById(R.id.courseinfo_text_time);
-        placeEditText = (EditText)findViewById(R.id.courseinfo_edit_place);
         instructorTextView =(TextView)findViewById(R.id.courseinfo_text_instructor);
         officehourEditText = (EditText)findViewById(R.id.courseinfo_edit_officehour);
         dropButton = (Button)findViewById(R.id.courseinfo_button_drop);
@@ -76,7 +76,7 @@ public class CourseInfoActivity extends AppCompatActivity implements OnMapReadyC
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*save place and office hour*/
+                //save place and office hour
                 String officehour = officehourEditText.getText().toString();
                 course.setOfficeHour(CourseInfoActivity.this, officehour);
 
@@ -172,11 +172,6 @@ public class CourseInfoActivity extends AppCompatActivity implements OnMapReadyC
 
             });
             builder.show(); // display the Dialog
-
-        }
-
-
-        public void onFragmentInteraction(Uri uri){
 
         }
 

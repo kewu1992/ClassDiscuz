@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,20 +16,20 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.quickblox.core.QBEntityCallbackImpl;
-import com.quickblox.core.QBSettings;
-import com.quickblox.users.QBUsers;
 import com.quickblox.users.model.QBUser;
 
 import java.util.List;
 
 import cmu.banana.classdiscuz.R;
-import cmu.banana.classdiscuz.app.ApplicationSingleton;
 import cmu.banana.classdiscuz.entities.Session;
 import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.exception.SignUpException;
 import cmu.banana.classdiscuz.ws.local.ChatService;
 import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
+/**
+ * Activity to sign up a new user
+ */
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText emailEditText;
@@ -54,23 +54,12 @@ public class SignUpActivity extends AppCompatActivity {
         firstNameEditText = (EditText)findViewById(R.id.signup_firstname);
         lastNameEditText = (EditText)findViewById(R.id.signup_lastname);
         signUpBtn = (Button)findViewById(R.id.signup_button);
-
-        String email = emailEditText.getText().toString();
-        String password = emailEditText.getText().toString();
-        String repeatPwd = emailEditText.getText().toString();
-        String firstName = emailEditText.getText().toString();
-        String lastName = emailEditText.getText().toString();
-
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 attemptSignUp();
-//                Intent goHomepage = new Intent(SignUpActivity.this, HomePageActivity.class);
-//                startActivity(goHomepage);
             }
         });
-
-
     }
 
     /**
@@ -124,26 +113,20 @@ public class SignUpActivity extends AppCompatActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-//            showProgress(true);
             mAuthTask = new UserSignupTask(email, password, name);
             mAuthTask.execute((Void) null);
         }
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 8;
     }
 
     private boolean isRepeatPasswordValid(String repeatPassword, String password) {
-        //TODO: Replace this with your own logic
         return repeatPassword.equals(password);
     }
 
@@ -178,16 +161,12 @@ public class SignUpActivity extends AppCompatActivity {
                 user = BackendConnector.signUp(mEmail, mPassword, nName);
             } catch (SignUpException e) {
                 int errorno = e.getErrorno();
-                String error = e.getErrormsg();
                 if (errorno == 1 || errorno == 2) {
                     isDatabaseError = true;
                 }
                 return false;
             }
 
-            //save email, password, userid in session
-            //Session session = Session.get(getApplicationContext());
-            //session.addLoginInfo(mEmail, mPassword, user.getId(), user);
             SharedPreferences sharedpreferences = getSharedPreferences(Session.MyPREFERENCES, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putString(Session.Email, mEmail);

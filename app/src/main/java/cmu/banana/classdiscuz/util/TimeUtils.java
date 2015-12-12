@@ -3,7 +3,7 @@ package cmu.banana.classdiscuz.util;
 import java.util.Date;
 
 /**
- * Created by igorkhomenko on 1/13/15.
+ * Reference: ApplicationSingleton.java from http://quickblox.com/developers/Android#Download_Android_SDK
  */
 public class TimeUtils {
     public final static long ONE_SECOND = 1000;

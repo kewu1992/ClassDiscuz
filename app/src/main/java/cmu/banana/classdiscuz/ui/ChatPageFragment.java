@@ -1,6 +1,7 @@
 package cmu.banana.classdiscuz.ui;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -10,18 +11,11 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.text.TextUtils;
-import android.util.Base64;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,30 +24,20 @@ import com.quickblox.chat.model.QBChatMessage;
 import com.quickblox.chat.model.QBDialog;
 import com.quickblox.core.QBEntityCallbackImpl;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import cmu.banana.classdiscuz.R;
 import cmu.banana.classdiscuz.app.ApplicationSingleton;
+import cmu.banana.classdiscuz.entities.Course;
 import cmu.banana.classdiscuz.entities.Session;
 import cmu.banana.classdiscuz.entities.User;
-import cmu.banana.classdiscuz.entities.ChatMessage;
-import cmu.banana.classdiscuz.entities.Course;
 import cmu.banana.classdiscuz.exception.DatabaseException;
-import cmu.banana.classdiscuz.util.BitmapScale;
 import cmu.banana.classdiscuz.ws.local.ChatService;
 
-
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ChatPageFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ChatPageFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Chat room fragment in the HomepageActivity. One of the two main fragment
  */
 public class ChatPageFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -126,14 +110,10 @@ public class ChatPageFragment extends Fragment {
     }
 
     public void getDialogs(){
-        //progressBar.setVisibility(View.VISIBLE);
-
         // Get dialogs
-        //
         ChatService.getInstance().getDialogs(new QBEntityCallbackImpl() {
             @Override
             public void onSuccess(Object object, Bundle bundle) {
-                //progressBar.setVisibility(View.GONE);
                 dialogs = (ArrayList<QBDialog>) object;
 
                 if (refreshCoursesTask != null)
@@ -144,7 +124,6 @@ public class ChatPageFragment extends Fragment {
 
             @Override
             public void onError(List errors) {
-                //progressBar.setVisibility(View.GONE);
                 AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
                 dialog.setMessage("get dialogs errors: " + errors).create().show();
             }
@@ -275,7 +254,6 @@ public class ChatPageFragment extends Fragment {
                 ImageView imageAvatar = (ImageView) convertView.findViewById(R.id.member_list_avatar);
                 byte[] imageBytes = chatMember.getAvatar();
                 Bitmap pic = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-                //Bitmap scaledPic = BitmapScale.bitmapScale(getActivity(), pic, imageAvatar.getMaxHeight());
                 imageAvatar.setImageBitmap(pic);
             } else {
                 Drawable d = getActivity().getResources().getDrawable(R.drawable.default_avatar);

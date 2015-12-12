@@ -1,11 +1,8 @@
 package cmu.banana.classdiscuz.ws.remote;
 
-import android.provider.MediaStore;
-import android.util.Log;
+import android.util.Base64;
 
 import com.google.gson.Gson;
-
-import android.util.Base64;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -14,18 +11,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.entities.Course;
+import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.exception.SignUpException;
 
+/**
+ * Connector to communicate with the backend server, using GET and POST request.
+ */
 public class BackendConnector {
 
     private static final String BACKEND = "http:/128.237.160.77:8080/ClassDiscuzBackend";
@@ -367,43 +365,6 @@ public class BackendConnector {
             URL url = new URL(BACKEND+"/updatefocus");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             String params = "studentId="+studentId+"&focus="+focus;
-
-            con.setDoOutput(true);
-            con.setDoInput(true);
-            con.setChunkedStreamingMode(0);
-
-            OutputStream out = new BufferedOutputStream(con.getOutputStream());
-
-            out.write(params.getBytes());
-            out.flush();
-            out.close();
-
-            InputStream in = new BufferedInputStream(con.getInputStream());
-            BufferedReader r = new BufferedReader(new InputStreamReader(in));
-            String str = null;
-            StringBuilder sb = new StringBuilder();
-            while ((str = r.readLine()) != null) {
-                sb.append(str);
-            }
-            in.close();
-            String result = sb.toString();
-
-            if (result.equals("{\"result\":\"1\"}") || result.equals("{\"result\":\"2\"}")) {
-                return -1;
-            }
-            return 0;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return -1;
-    }
-
-    public static int updateChatId(int studentId, int chatId) {
-
-        try {
-            URL url = new URL(BACKEND+"/updatechatid");
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            String params = "studentId="+studentId+"&chatId="+chatId;
 
             con.setDoOutput(true);
             con.setDoInput(true);

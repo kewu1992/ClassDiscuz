@@ -17,11 +17,12 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import cmu.banana.classdiscuz.entities.Course;
-import cmu.banana.classdiscuz.entities.Session;
 import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
-
+/**
+ * Local database connector
+ */
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 6;
     private static final String DATABASE_NAME = "ClassDiscuz";
@@ -113,7 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.insert(TABLE_USER, null, result);
         db.close(); // Closing database connection
-    } // end method insertContact
+    }
 
     public int addCourse(Course course, int userID) {
         // update remote database
@@ -231,8 +232,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null                                        // The sort order
         );
         cursor.moveToFirst();
-//        String q1 = cursor.getString(cursor.getColumnIndexOrThrow(KEY_EMAIL));
-//        Log.i("chaoya", q1);
 
         User user = new User(cursor.getInt(cursor.getColumnIndexOrThrow(KEY_ID)),
                 cursor.getString(cursor.getColumnIndexOrThrow(KEY_EMAIL)),
@@ -275,12 +274,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         // return contact list
         return result;
-    }
-
-    public void deleteAll() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_COURSE);
-        db.execSQL("DELETE FROM " + TABLE_USER);
-        db.close();
     }
 }

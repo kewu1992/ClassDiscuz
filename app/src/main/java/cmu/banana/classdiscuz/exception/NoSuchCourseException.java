@@ -6,7 +6,7 @@ import android.support.v7.app.AlertDialog;
 import cmu.banana.classdiscuz.R;
 
 /**
- * Created by chaoya on 11/23/15.
+ * Exception for wrong course select
  */
 public class NoSuchCourseException extends  Exception implements PromptDialog {
     public void promptDialog(Context context) {

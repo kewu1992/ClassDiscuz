@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by igorkhomenko on 4/28/15.
+ * Reference: ApplicationSingleton.java from http://quickblox.com/developers/Android#Download_Android_SDK
  */
 public class ChatService {
 

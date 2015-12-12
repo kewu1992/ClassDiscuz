@@ -28,7 +28,7 @@ import cmu.banana.classdiscuz.exception.InputInvalidException;
 import cmu.banana.classdiscuz.exception.NoSuchCourseException;
 
 /**
- * Created by WK on 11/6/15.
+ * Activity to search and register a course.
  */
 public class AddCourseActivity extends AppCompatActivity {
     private RadioButton searchIDRadioButton;

@@ -6,10 +6,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,21 +16,10 @@ import android.widget.TextView;
 
 import com.quickblox.chat.model.QBChatMessage;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-
 import cmu.banana.classdiscuz.R;
-import cmu.banana.classdiscuz.entities.Course;
-import cmu.banana.classdiscuz.entities.Session;
-import cmu.banana.classdiscuz.exception.DatabaseException;
-import cmu.banana.classdiscuz.exception.InputInvalidException;
-import cmu.banana.classdiscuz.exception.NoSuchCourseException;
-import cmu.banana.classdiscuz.ws.local.DatabaseHelper;
-import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
 /**
- * Created by WK on 11/6/15.
+ * Frist page after successful log in, the default fragment to show is schedule fragment.
  */
 public class HomePageActivity extends ChatBaseActivity implements ChatPageFragment.OnFragmentInteractionListener, SchedulePageFragment.OnFragmentInteractionListener{
 

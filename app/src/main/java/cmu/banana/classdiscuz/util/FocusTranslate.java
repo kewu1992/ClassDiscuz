@@ -1,7 +1,7 @@
 package cmu.banana.classdiscuz.util;
 
 /**
- * Created by WK on 11/13/15.
+ * Convert the focus time to focus level
  */
 public class FocusTranslate {
     public static int time2Level(int time){

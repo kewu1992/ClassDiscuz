@@ -23,6 +23,9 @@ import com.quickblox.users.model.QBUser;
 
 import java.util.List;
 
+/**
+ * Reference: ApplicationSingleton.java from http://quickblox.com/developers/Android#Download_Android_SDK
+ */
 public class ChatAdapter extends BaseAdapter {
 
     private final List<QBChatMessage> chatMessages;
@@ -110,10 +113,6 @@ public class ChatAdapter extends BaseAdapter {
 
     public void add(QBChatMessage message) {
         chatMessages.add(message);
-    }
-
-    public void add(List<QBChatMessage> messages) {
-        chatMessages.addAll(messages);
     }
 
     private void setAlignment(ViewHolder holder, boolean isOutgoing) {

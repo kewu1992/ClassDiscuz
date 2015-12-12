@@ -42,7 +42,7 @@ import cmu.banana.classdiscuz.ws.local.ChatService;
 import cmu.banana.classdiscuz.ws.local.GroupChatImpl;
 
 /**
- * Created by WK on 12/4/15.
+ * Chat message and edit area fragment on ChatPageFragment
  */
 public class ChatFragment extends Fragment {
     private static final String TAG = "Charfrafment";
@@ -52,15 +52,11 @@ public class ChatFragment extends Fragment {
 
     private EditText messageEditText;
     private ListView messagesContainer;
-    private Button sendButton;
     private ChatAdapter adapter;
 
 
     private Chat chat;
     private QBDialog dialog;
-    //private KeyboardHandleRelativeLayout keyboardHandleLayout;
-    //private boolean isStickersFrameVisible;
-    //private ImageView stickerButton;
     private RelativeLayout container;
 
     public static ChatFragment newInstance(QBDialog param1) {
@@ -109,24 +105,6 @@ public class ChatFragment extends Fragment {
         // Setup opponents info
         //
         dialog = (QBDialog) getArguments().getSerializable(EXTRA_DIALOG);
-
-        // Send button
-        //
-        /*
-        sendButton = (Button) v.findViewById(R.id.chatSendButton);
-        sendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String messageText = messageEditText.getText().toString();
-                if (TextUtils.isEmpty(messageText)) {
-                    return;
-                }
-                sendChatMessage(messageText);
-
-            }
-        });
-        */
-
         return v;
     }
 
@@ -138,10 +116,6 @@ public class ChatFragment extends Fragment {
             initChat();
 
         ChatService.getInstance().addConnectionListener(chatConnectionListener);
-    }
-
-    private void showKeyboard() {
-        ((InputMethodManager) messageEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(messageEditText, InputMethodManager.SHOW_IMPLICIT);
     }
 
     private void sendChatMessage(String messageText) {
@@ -159,10 +133,6 @@ public class ChatFragment extends Fragment {
         }
 
         messageEditText.setText("");
-    }
-
-    public void setContentBottomPadding(int padding) {
-        container.setPadding(0, 0, 0, padding);
     }
 
     public void initChat() {

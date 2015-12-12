@@ -4,10 +4,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,13 +18,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import cmu.banana.classdiscuz.R;
-import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.entities.Course;
+import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.exception.DatabaseException;
 import cmu.banana.classdiscuz.util.FocusTranslate;
 
 /**
- * Created by WK on 11/6/15.
+ * Activity to show other's profile
  */
 public class ViewOthersProfileActivity extends AppCompatActivity {
 
@@ -67,7 +66,7 @@ public class ViewOthersProfileActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return true;
-    } // end method onCreateOptionsMenu
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){

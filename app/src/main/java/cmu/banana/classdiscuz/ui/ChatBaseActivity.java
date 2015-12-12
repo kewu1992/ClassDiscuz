@@ -16,7 +16,7 @@ import com.quickblox.users.model.QBUser;
 import java.util.List;
 
 /**
- * Created by igorkhomenko on 4/29/15.
+ * Reference: ApplicationSingleton.java from http://quickblox.com/developers/Android#Download_Android_SDK
  */
 public class ChatBaseActivity extends AppCompatActivity implements ApplicationSessionStateCallback {
     private static final String TAG = ChatBaseActivity.class.getSimpleName();
@@ -38,8 +38,8 @@ public class ChatBaseActivity extends AppCompatActivity implements ApplicationSe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 'initialised' will be true if it's the 1st start of the app or if the app's process was killed by OS(or user)
-        //
+        // 'initialised' will be true if it's the 1st start of the app or if the app's
+        // process was killed by OS(or user)
         boolean initialised = ChatService.initIfNeed(this);
         if(initialised && savedInstanceState != null){
             needToRecreateSession = true;

@@ -1,7 +1,7 @@
 package cmu.banana.classdiscuz.ws.local;
 
 /**
- * Created by igorkhomenko on 4/29/15.
+ * Reference: ApplicationSingleton.java from http://quickblox.com/developers/Android#Download_Android_SDK
  */
 public interface ApplicationSessionStateCallback {
     void onStartSessionRecreation();

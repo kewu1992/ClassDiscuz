@@ -1,7 +1,7 @@
 package cmu.banana.classdiscuz.exception;
 
 /**
- * Created by chaoya on 11/21/15.
+ * Exception when happened in sign up activity
  */
 public class SignUpException extends Exception{
     private int errorno;

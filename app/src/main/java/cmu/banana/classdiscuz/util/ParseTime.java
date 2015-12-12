@@ -1,9 +1,7 @@
 package cmu.banana.classdiscuz.util;
 
-import cmu.banana.classdiscuz.entities.Course;
-
 /**
- * Created by chaoya on 12/4/15.
+ * Parse the time string from database to a new format
  */
 public class ParseTime {
     public long getStartTime(String time) {

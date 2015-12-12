@@ -6,7 +6,7 @@ import android.support.v7.app.AlertDialog;
 import cmu.banana.classdiscuz.R;
 
 /**
- * Created by WK on 11/21/15.
+ * Exception for incorrect database connection
  */
 public class DatabaseException extends Exception implements PromptDialog {
     public void promptDialog(Context context){

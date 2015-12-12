@@ -11,6 +11,9 @@ import cmu.banana.classdiscuz.exception.NoSuchCourseException;
 import cmu.banana.classdiscuz.ws.local.DatabaseHelper;
 import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
+/*
+ *  Model class for user
+ */
 public class User {
     private int id;
     private String email;
@@ -87,10 +90,6 @@ public class User {
     }
     public void setFocus(int focus) {
         this.focus = focus;
-    }
-
-    public void checkValid() throws InputInvalidException {
-
     }
 
     public ArrayList<Course> getRegisteredCourses(Context context, boolean is_self) throws DatabaseException{

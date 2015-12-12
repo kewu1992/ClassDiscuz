@@ -34,13 +34,7 @@
         <activity android:name=".ui.AddCourseActivity" >
         </activity>
 
-        <activity android:name=".ui.AddCourseListActivity" >
-        </activity>
-
         <activity android:name=".ui.CourseInfoActivity" >
-        </activity>
-
-        <activity android:name=".ui.DeleteCourseActivity" >
         </activity>
 
         <activity android:name=".ui.FocusActivity" >

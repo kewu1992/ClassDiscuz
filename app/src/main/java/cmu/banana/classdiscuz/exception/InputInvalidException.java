@@ -6,7 +6,7 @@ import android.support.v7.app.AlertDialog;
 import cmu.banana.classdiscuz.R;
 
 /**
- * Created by WK on 11/13/15.
+ * Exception for invalid input
  */
 public class InputInvalidException extends Exception implements PromptDialog{
     public void promptDialog(Context context){

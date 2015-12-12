@@ -23,6 +23,9 @@ import java.util.List;
 import cmu.banana.classdiscuz.app.ApplicationSingleton;
 import cmu.banana.classdiscuz.ui.HomePageActivity;
 
+/**
+ * Reference: ApplicationSingleton.java from http://quickblox.com/developers/Android#Download_Android_SDK
+ */
 public class GroupChatImpl extends QBMessageListenerImpl<QBGroupChat> implements Chat {
     private static final String TAG = GroupChatImpl.class.getSimpleName();
 

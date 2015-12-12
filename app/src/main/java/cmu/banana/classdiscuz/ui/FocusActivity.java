@@ -33,7 +33,7 @@ import cmu.banana.classdiscuz.util.ParseTime;
 import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
 /**
- * Created by WK on 11/6/15.
+ * Activity to enter the focus mode
  */
 public class FocusActivity extends AppCompatActivity {
     private TimeCount time;
@@ -48,16 +48,11 @@ public class FocusActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_focus);
 
-
-
         textView_time = (TextView)findViewById(R.id.textView_time);
 
         Calendar rightNow = Calendar.getInstance();
         time_minute = rightNow.get(Calendar.HOUR_OF_DAY)*60 + rightNow.get(Calendar.MINUTE);
         week = rightNow.get(Calendar.DAY_OF_WEEK);
-        /*set the timer and start count*/
-//        time = new TimeCount(60000, 1000);
-//        time.start();
         new RefreshCourses().execute((Object) null);
     }
 
@@ -69,17 +64,13 @@ public class FocusActivity extends AppCompatActivity {
         @Override
         public void onFinish() {//counter ok.
             new UpdateFocusPoint().execute(1);
-
- //           time_view.setClickable(true);
         }
         @Override
-        public void onTick(long millisUntilFinished){//计时过程显示
-   //         time_view.setClickable(false);
+        public void onTick(long millisUntilFinished){
             String time = Objects.toString(millisUntilFinished / 1000 / 60 / 60) +
                     ":" + Objects.toString(millisUntilFinished % (1000 * 60 * 60) / 1000 / 60) +
                     ":" + Objects.toString(millisUntilFinished % (1000 * 60) / 1000);
             textView_time.setText(time);
-
         }
     }
 
@@ -108,7 +99,6 @@ public class FocusActivity extends AppCompatActivity {
                     if (time_minute < parsetime.getEndTime(course_time)
                             && time_minute > parsetime.getStartTime(course_time)) {
                         time = new TimeCount((parsetime.getEndTime(course_time) - time_minute)*60*1000, 1000);
-                        //time = new TimeCount(10000, 1000);
                         time.start();
                         isClassTime = true;
                         break;
@@ -171,8 +161,7 @@ public class FocusActivity extends AppCompatActivity {
                 });
 
                 builder.show(); // display the Dialog
-            }
-            else {
+            } else {
                 time.cancel();
                 FocusActivity.this.finish();
                 return;
@@ -199,7 +188,8 @@ public class FocusActivity extends AppCompatActivity {
         return false;
 
     }
-    /**button listener*/
+
+    /*button listener*/
     private DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener()
     {
         public void onClick(DialogInterface dialog, int which)

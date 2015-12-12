@@ -4,13 +4,14 @@ import android.content.Context;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import cmu.banana.classdiscuz.exception.DatabaseException;
-import cmu.banana.classdiscuz.exception.InputInvalidException;
 import cmu.banana.classdiscuz.ws.local.DatabaseHelper;
 import cmu.banana.classdiscuz.ws.remote.BackendConnector;
 
+/*
+ *  Model class for course
+ */
 public class Course implements Serializable{
     private int id;
     private String num;
@@ -70,12 +71,6 @@ public class Course implements Serializable{
     }
     public String getLocation() {
         return location;
-    }
-    public void setLocation(String location) {
-        this.location = location;
-    }
-    public void checkValid() throws InputInvalidException {
-
     }
 
     public ArrayList<User> getStudents() throws DatabaseException{
