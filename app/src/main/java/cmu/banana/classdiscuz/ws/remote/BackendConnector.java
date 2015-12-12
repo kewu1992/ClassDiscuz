@@ -26,7 +26,7 @@ import cmu.banana.classdiscuz.exception.SignUpException;
  */
 public class BackendConnector {
 
-    private static final String BACKEND = "http:/128.237.160.77:8080/ClassDiscuzBackend";
+    private static final String BACKEND = "http://128.237.160.77:8080/ClassDiscuzBackend";
 
     public static ArrayList<User> getMembersByCourse(int courseId){
         User[] response = null;

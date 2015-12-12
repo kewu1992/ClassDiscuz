@@ -1,17 +1,20 @@
 package cmu.banana.classdiscuz.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -25,7 +28,11 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 import cmu.banana.classdiscuz.R;
@@ -39,6 +46,7 @@ import cmu.banana.classdiscuz.util.FocusTranslate;
 
 public class SelfprofileActivity extends AppCompatActivity {
     private final static int SELECT_PHOTO_CODE = 9997;
+    private final static int TAKE_PHOTO_CODE = 9998;
 
     private ImageView avatarImage;
     private TextView focusTextView;
@@ -48,6 +56,8 @@ public class SelfprofileActivity extends AppCompatActivity {
     private Button saveEditButton;
     private ListView courseListView;
     private Button logOutButton;
+
+    private Uri fileUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,19 +109,41 @@ public class SelfprofileActivity extends AppCompatActivity {
         @Override
         public void onClick(View v){
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(R.)
-                    .setItems(R.array.colors_array, new DialogInterface.OnClickListener() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(SelfprofileActivity.this);
+            builder.setTitle(R.string.AvatarUploadDialogTitle)
+                    .setItems(R.array.uploadAvatarOptions, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            // The 'which' argument contains the index position
-                            // of the selected item
+                            if (which == 0) {
+                                // create folder
+                                File imagesFolder = new File(Environment.getExternalStorageDirectory().getPath() + "/images/");
+                                if (!imagesFolder.exists()){
+                                    imagesFolder.mkdir();
+                                }
+
+                                // create file
+                                DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+                                //get current date time with Date()
+                                Date date = new Date();
+                                File image = new File(imagesFolder,  dateFormat.format(date)  + ".jpg");
+                                fileUri = Uri.fromFile(image);
+
+                                Log.i("Debug", fileUri.getPath());
+
+                                // create Intent to take a picture and return control to the calling application
+                                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+                                // start the image capture Intent
+                                startActivityForResult(intent, TAKE_PHOTO_CODE);
+                            } else if (which == 1) {
+                                Intent intent = new Intent(Intent.ACTION_PICK);
+                                intent.setType("image/*");
+                                startActivityForResult(intent, SELECT_PHOTO_CODE);
+                            } else {
+                                dialog.dismiss();
+                            }
                         }
                     });
-            return builder.create();
-
-            Intent intent = new Intent(Intent.ACTION_PICK);
-            intent.setType("image/*");
-            startActivityForResult(intent, SELECT_PHOTO_CODE);
+            builder.create().show();
         }
     };
 
@@ -146,6 +178,32 @@ public class SelfprofileActivity extends AppCompatActivity {
             cursor.close();
 
         }
+
+        if (requestCode == TAKE_PHOTO_CODE && resultCode == RESULT_OK) {
+            /*
+            Uri pickedImage = fileUri;
+            // Let's read picked image path using content resolver
+            String[] filePath = { MediaStore.Images.Media.DATA };
+            Cursor cursor = getContentResolver().query(pickedImage, filePath, null, null, null);
+            cursor.moveToFirst();
+            String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+            */
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+            Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(), options);
+
+            avatarImage.setImageBitmap(bitmap);
+
+            Bitmap scaledBitmap = BitmapScale.bitmapScale(SelfprofileActivity.this, bitmap, avatarImage.getHeight());
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+            Session.get(SelfprofileActivity.this).getUser().setAvatar(stream.toByteArray());
+
+            // cursor.close();
+        }
+
     }
 
     private class RefreshUserInfo extends AsyncTask<Object, Object, Object> {
