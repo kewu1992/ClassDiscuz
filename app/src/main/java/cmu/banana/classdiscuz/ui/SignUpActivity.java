@@ -123,7 +123,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private boolean isPasswordValid(String password) {
-        return password.length() > 8;
+        return password.length() >= 8;
     }
 
     private boolean isRepeatPasswordValid(String repeatPassword, String password) {

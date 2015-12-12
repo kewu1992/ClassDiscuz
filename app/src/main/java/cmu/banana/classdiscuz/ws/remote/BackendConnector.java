@@ -21,7 +21,7 @@ import cmu.banana.classdiscuz.entities.Course;
 import cmu.banana.classdiscuz.entities.User;
 import cmu.banana.classdiscuz.exception.SignUpException;
 
-/**
+/*
  * Connector to communicate with the backend server, using GET and POST request.
  */
 public class BackendConnector {
