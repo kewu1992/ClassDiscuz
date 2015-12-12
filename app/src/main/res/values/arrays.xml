@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array
+        name="uploadAvatarOptions">
+        <item>@string/AvatarUploadDialogOption1</item>
+        <item>@string/AvatarUploadDialogOption2</item>
+        <item>@string/AvatarUploadDialogOption3</item>
+    </array>
+</resources>
