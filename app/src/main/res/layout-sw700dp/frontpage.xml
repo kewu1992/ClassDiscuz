@@ -9,21 +9,21 @@
         android:src="@drawable/front_page_bg_sw700dp" />
 
     <Button
-        android:layout_width="310dp"
-        android:layout_height="65dp"
+        android:layout_width="420dp"
+        android:layout_height="85dp"
         android:id="@+id/frontpage_signup"
         android:background="#00ffffff"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginBottom="100dp" />
 
     <Button
-        android:layout_width="310dp"
-        android:layout_height="65dp"
+        android:layout_width="420dp"
+        android:layout_height="85dp"
         android:id="@+id/frontpage_login"
         android:layout_above="@+id/frontpage_signup"
         android:layout_alignStart="@+id/frontpage_signup"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="50dp"
         android:background="#00ffffff" />
 
 </RelativeLayout>

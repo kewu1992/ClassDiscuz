@@ -104,6 +104,9 @@
     <string name="time11pm">11 pm</string>
     <string name="action_sign_in_short">Sign in</string>
 
-
+    <string name="AvatarUploadDialogTitle">Upload avatar</string>
+    <string name="AvatarUploadDialogOption1">Take a photo from camera</string>
+    <string name="AvatarUploadDialogOption2">Upload from gallery</string>
+    <string name="AvatarUploadDialogOption3">Cancel</string>
 
 </resources>

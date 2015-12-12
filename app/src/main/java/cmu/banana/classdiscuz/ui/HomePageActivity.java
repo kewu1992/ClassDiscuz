@@ -171,6 +171,5 @@ public class HomePageActivity extends ChatBaseActivity implements ChatPageFragme
         });
     }
 
-
 }
 

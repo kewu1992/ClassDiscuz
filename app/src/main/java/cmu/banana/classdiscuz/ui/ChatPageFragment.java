@@ -74,6 +74,8 @@ public class ChatPageFragment extends Fragment {
     private RefreshCourses refreshCoursesTask;
     private RefreshChatMembers refreshChatMembers;
 
+    private TextView memberNumTextView;
+
     public static ChatPageFragment newInstance(int param1) {
         ChatPageFragment fragment = new ChatPageFragment();
         Bundle args = new Bundle();
@@ -107,6 +109,8 @@ public class ChatPageFragment extends Fragment {
         courseListView.setOnItemClickListener(courseListListener);
 
         courseNameTextView = (TextView) v.findViewById(R.id.chat_course_name_text_view);
+
+        memberNumTextView = (TextView) v.findViewById(R.id.memberNumTextView);
 
         return v;
     }
@@ -240,6 +244,7 @@ public class ChatPageFragment extends Fragment {
             ApplicationSingleton.getInstance().setUserHashMap(userID2Name);
             ApplicationSingleton.getInstance().setAvatarHashMap(userID2Avatar);
 
+            memberNumTextView.setText("Members " + String.valueOf(members.size()));
 
             setDefaultFragment();
         }

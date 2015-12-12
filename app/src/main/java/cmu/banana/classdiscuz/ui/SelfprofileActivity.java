@@ -98,6 +98,17 @@ public class SelfprofileActivity extends AppCompatActivity {
     private View.OnClickListener buttonListen = new View.OnClickListener(){
         @Override
         public void onClick(View v){
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(R.)
+                    .setItems(R.array.colors_array, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // The 'which' argument contains the index position
+                            // of the selected item
+                        }
+                    });
+            return builder.create();
+
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
             startActivityForResult(intent, SELECT_PHOTO_CODE);
